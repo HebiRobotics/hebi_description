@@ -42,7 +42,7 @@ This allows custom components to reference HEBI library components, as seen belo
 
 Additionally, when naming actuators (`xacro:x5` or `xacro:x8` types), then convention is `<family>/<name>`.  This allows the HEBI Gazebo simulation plugins to properly load and simulate the actuators.
 
-Here is a segment of a XACRO file which connects a 3-DOF hebi arm to a "base" link in the world, and adds an "end effector" link at the end.  Note -- HEBI xacro component currently must always define a child element for their joint to connect to!
+Here is a segment of a XACRO file which connects a 3-DOF hebi arm to a "base" link in the world, and adds an "end effector" link at the end.  Note -- HEBI xacro components currently must always define a child element for their joint to connect to!
 
 ```
   ...

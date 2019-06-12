@@ -4,11 +4,13 @@ This repository is a collection of `xacro` macros for creating URDF files for HE
 
 Along with the macros, several macros for full systems are defined.
 
+When using these macros, note that you may have to run `xacro --xacro-ns <filename>` in order to suppress legacy interpretation of xacro tags without namespaces (see http://wiki.ros.org/xacro).
+
 ## xacro macros
 
 We provide several `xacro` macros for HEBI components that can be used to create robots for simulation or visualization:
 
-### <xacro:actuator/>
+### `<xacro:actuator/>`
 
 This represents a HEBI actuator.  Required attributes are:
 
@@ -16,14 +18,14 @@ This represents a HEBI actuator.  Required attributes are:
 * `child` The element that is attached to the output of this actuator. This should be the "name" of the HEBI component; for standard URDF components, this will attempt to connect to `<name>/INPUT_INTERFACE`.
 * `type` The actuator type - `X5_1`, `X5_4`, `X5_9`, `X8_3`, `X8_9`, or `X8_16`.
 
-### <xacro:link/>
+### `<xacro:link/>`
 
 * `name` A unique name that can be used to reference this link from other HEBI and URDF components.
 * `child` The element that is attached to the output of this link. This should be the "name" of the HEBI component; for standard URDF components, this will attempt to connect to `<name>/INPUT_INTERFACE`.
 * `extension` The extension of the link, in meters, per documented convention on docs.hebi.us. For example, a `300` mm tube would have an extension of `0.325`.
 * `twist` The twist of the link input and output frames, in radians, per documented convention on docs.hebi.us.  A `0` radian twist would mean that the input and output z-axis are the same direction.
 
-### <xacro:bracket/>
+### `<xacro:bracket/>`
 
 * `name` A unique name that can be used to reference this bracket from other HEBI and URDF components.
 * `child` The element that is attached to the output of this bracket. This should be the "name" of the HEBI component; for standard URDF components, this will attempt to connect to `<name>/INPUT_INTERFACE`.

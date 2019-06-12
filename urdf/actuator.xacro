@@ -8,10 +8,10 @@
         <origin xyz="0 0 0" rpy="0 0 0" />
         <geometry>
           <xacro:if value="${model_name.startswith('X5')}">
-            <mesh filename="package://hebiros_description/meshes/x5.stl" scale="0.001 0.001 0.001"/>
+            <mesh filename="package://hebi_description/meshes/x5.stl" scale="0.001 0.001 0.001"/>
           </xacro:if>
           <xacro:if value="${model_name.startswith('X8')}">
-            <mesh filename="package://hebiros_description/meshes/x8.stl" scale="0.001 0.001 0.001"/>
+            <mesh filename="package://hebi_description/meshes/x8.stl" scale="0.001 0.001 0.001"/>
           </xacro:if>
         </geometry>
         <xacro:red_material/>
@@ -20,10 +20,10 @@
         <origin xyz="0 0 0" rpy="0 0 0" />
         <geometry>
           <xacro:if value="${model_name.startswith('X5')}">
-            <mesh filename="package://hebiros_description/meshes/x5.stl" scale="0.001 0.001 0.001"/>
+            <mesh filename="package://hebi_description/meshes/x5.stl" scale="0.001 0.001 0.001"/>
           </xacro:if>
           <xacro:if value="${model_name.startswith('X8')}">
-            <mesh filename="package://hebiros_description/meshes/x8.stl" scale="0.001 0.001 0.001"/>
+            <mesh filename="package://hebi_description/meshes/x8.stl" scale="0.001 0.001 0.001"/>
           </xacro:if>
         </geometry>
       </collision>

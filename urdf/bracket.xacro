@@ -74,16 +74,10 @@
           <origin xyz="0 -.03 .04" rpy="${PI/2} 0 0"/>
         </xacro:if>
         <xacro:if value="${bracket_type.endswith('RightInside')}">
-          <origin xyz="0 -.03 .04" rpy="${PI/2} 0 0"/>
-        </xacro:if>
-        <xacro:if value="${bracket_type.endswith('RightInside')}">
           <origin xyz="0 .03 .04" rpy="${PI/2} 0 0"/>
         </xacro:if>
         <xacro:if value="${bracket_type.endswith('LeftOutside')}">
           <origin xyz="0 -.03 .04" rpy="${PI/2} 0 0"/>
-        </xacro:if>
-        <xacro:if value="${bracket_type.endswith('RightInside')}">
-          <origin xyz="0 .03 .04" rpy="${PI/2} 0 ${PI}"/>
         </xacro:if>
         <xacro:if value="${bracket_type.endswith('LeftInside')}">
           <origin xyz="0 -.03 .04" rpy="${PI/2} 0 ${PI}"/>

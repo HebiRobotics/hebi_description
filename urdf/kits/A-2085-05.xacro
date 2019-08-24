@@ -17,9 +17,9 @@
   <xacro:actuator name="HEBI/base" child="shoulder_bracket" type="X8_9"/>
   <xacro:bracket name="shoulder_bracket" child="HEBI/shoulder" type="X5HeavyRightOutside"/>
   <xacro:actuator name="HEBI/shoulder" child="shoulder_elbow" type="X8_16"/>
-  <xacro:link name="shoulder_elbow" child="HEBI/elbow" extension="0.325" twist="${PI}"/>
+  <xacro:link name="shoulder_elbow" child="HEBI/elbow" extension="0.325" twist="${pi}"/>
   <xacro:actuator name="HEBI/elbow" child="elbow_wrist1" type="X8_9"/>
-  <xacro:link name="elbow_wrist1" child="HEBI/wrist1" extension="0.325" twist="${PI}"/>
+  <xacro:link name="elbow_wrist1" child="HEBI/wrist1" extension="0.325" twist="${pi}"/>
   <xacro:actuator name="HEBI/wrist1" child="wrist1_wrist2" type="X5_1"/>
   <xacro:bracket name="wrist1_wrist2" child="HEBI/wrist2" type="X5LightRight"/>
   <xacro:actuator name="HEBI/wrist2" child="end_effector" type="X5_1"/>

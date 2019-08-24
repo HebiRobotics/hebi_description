@@ -4,8 +4,6 @@
   <!-- This is a single xacro file you can include to get
   all of the HEBI components -->
 
-  <xacro:property name="PI" value="3.1415926535897931" />
-
   <xacro:macro name="red_material">
     <material name="red">
       <color rgba=".82 0.06 0.06 1"/>

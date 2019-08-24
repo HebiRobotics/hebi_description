@@ -18,6 +18,10 @@ This represents a HEBI actuator.  Required attributes are:
 * `child` The element that is attached to the output of this actuator. This should be the "name" of the HEBI component; for standard URDF components, this will attempt to connect to `<name>/INPUT_INTERFACE`.
 * `type` The actuator type - `X5_1`, `X5_4`, `X5_9`, `X8_3`, `X8_9`, or `X8_16`.
 
+Optional attributes are:
+
+* `limits` The position limits of the actuator.  If not defined, assumes a continuously rotatable revolute joint.  If defined, both must be finite and the lower limit must be below the upper limit.  The format is `${[<low>,<high>]}`, and is in radians.  For example, one full revolution centered at 0 would be `${[-${pi}, ${pi}]}`.
+
 ### `<xacro:link/>`
 
 * `name` A unique name that can be used to reference this link from other HEBI and URDF components.

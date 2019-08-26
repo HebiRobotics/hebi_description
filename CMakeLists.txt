@@ -3,7 +3,6 @@ project(hebi_description)
 
 find_package(catkin REQUIRED COMPONENTS
   urdf
-  transmission_interface
 )
 
 catkin_package(

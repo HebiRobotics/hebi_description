@@ -24,7 +24,7 @@
   <xacro:bracket name="wrist1_wrist2" child="HEBI/wrist2" type="X5LightRight"/>
   <xacro:actuator name="HEBI/wrist2" child="end_effector" type="X5_1"/>
 
-  <!-- placeholder end link at end of arm -->
-  <xacro:null_end_effector name="end_effector"/>
+  <!-- parallel gripper end effector -->
+  <xacro:gripper name="end_effector" type="parallel"/>
 
 </robot>

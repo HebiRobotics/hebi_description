@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 
-<!-- HEBI A-2085-05 5-DoF Robot Arm Kit -->
-<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="A-2085-05">
+<!-- HEBI A-2085-06 6-DoF Robot Arm Kit -->
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="A-2085-06">
 
   <xacro:include filename="$(find hebi_description)/urdf/hebi.xacro"/>
 
@@ -20,11 +20,13 @@
   <xacro:link name="shoulder_elbow" child="HEBI/elbow" extension="0.325" twist="${pi}"/>
   <xacro:actuator name="HEBI/elbow" child="elbow_wrist1" type="X8_9" limits="${[-3,3]}"/>
   <xacro:link name="elbow_wrist1" child="HEBI/wrist1" extension="0.325" twist="${pi}"/>
-  <xacro:actuator name="HEBI/wrist1" child="wrist1_wrist2" type="X5_1" limits="${[-2 * pi,2 * pi]}"/>
+  <xacro:actuator name="HEBI/wrist1" child="wrist1_wrist2" type="X5_1" limits="${[-2 * pi, 2 * pi]}"/>
   <xacro:bracket name="wrist1_wrist2" child="HEBI/wrist2" type="X5LightRight"/>
-  <xacro:actuator name="HEBI/wrist2" child="end_effector" type="X5_1"/>
+  <xacro:actuator name="HEBI/wrist2" child="wrist2_wrist3" type="X5_1" limits="${[-1.5 * pi, 1.5 * pi]}"/>
+  <xacro:bracket name="wrist2_wrist3" child="HEBI/wrist3" type="X5LightRight"/>
+  <xacro:actuator name="HEBI/wrist3" child="end_effector" type="X5_1"/>
 
-  <!-- placeholder end link at end of arm -->
-  <xacro:null_end_effector name="end_effector"/>
+  <!-- parallel gripper end effector -->
+  <xacro:gripper name="end_effector" type="parallel"/>
 
 </robot>

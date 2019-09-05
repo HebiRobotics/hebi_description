@@ -16,7 +16,7 @@
   </xacro:macro>
   <xacro:macro name="black_material">
     <material name="black">
-      <color rgba="0 0 0 1"/>
+      <color rgba="0.1 0.1 0.1 1"/>
     </material>
   </xacro:macro>
   <xacro:macro name="beige_material">
@@ -28,5 +28,6 @@
   <xacro:include filename="./actuator.xacro"/>
   <xacro:include filename="./link.xacro"/>
   <xacro:include filename="./bracket.xacro"/>
+  <xacro:include filename="./end_effector.xacro"/>
 
 </robot>

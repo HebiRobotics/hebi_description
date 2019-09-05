@@ -22,7 +22,7 @@
   <xacro:link name="elbow_wrist1" child="HEBI/wrist1" extension="0.325" twist="0"/>
   <xacro:actuator name="HEBI/wrist1" child="end_effector" type="X5_1"/>
 
-  <!-- placeholder end link at end of arm -->
-  <xacro:null_end_effector name="end_effector"/>
+  <!-- parallel gripper end effector -->
+  <xacro:gripper name="end_effector" type="parallel"/>
 
 </robot>

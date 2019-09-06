@@ -35,6 +35,19 @@ Optional attributes are:
 * `child` The element that is attached to the output of this bracket. This should be the "name" of the HEBI component; for standard URDF components, this will attempt to connect to `<name>/INPUT_INTERFACE`.
 * `type` The bracket type - `X5LightLeft`, `X5LightRight`, `X5HeavyLeftInside`, `X5HeavyLeftOutside`, `X5HeavyRightInside`, or `X5HeavyRightOutside`
 
+### `<xacro:gripper/>`
+
+This represents a HEBI actuator (currently only the parallel jaws style)
+
+* `name` A unique name that can be used to reference this bracket from other HEBI and URDF components; the base link that will be created is called `<name>/INPUT_INTERFACE`
+* `type` The gripper type; currently `parallel` is the only supported value.
+
+### `<xacro:null_end_effector/>`
+
+Represents the end of a robot, with no particular other information (this allows the final joint in another `actuator`, `link`, or `bracket` to be completed)
+
+* `name` A unique name that can be used to reference this bracket from other HEBI and URDF components; the link that will be created is called `<name>/INPUT_INTERFACE`.
+
 ## Conventions
 
 The naming convention we use for elements is that the xacro actuator/link/bracket/etc macros automatically define two specifically named subelements:

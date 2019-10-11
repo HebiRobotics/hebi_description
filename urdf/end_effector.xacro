@@ -2,7 +2,28 @@
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
   <!-- TODO: add collision and inertial elements -->
   <xacro:macro name="null_end_effector" params="name">
-    <link name="${name}/INPUT_INTERFACE"/>
+    <link name="${name}/INPUT_INTERFACE">
+      <collision>
+        <origin xyz="0 0 0.0005" rpy="0 0 0"/>
+	<geometry>
+          <box size="0.001 0.001 0.001" rpy="0 0 0"/>
+	</geometry>
+      </collision>
+      <visual>
+        <origin xyz="0 0 0.0005" rpy="0 0 0"/>
+	<geometry>
+          <box size="0.001 0.001 0.001" rpy="0 0 0"/>
+	</geometry>
+      </visual>
+      <inertial>
+        <origin xyz="0 0 0.0005" rpy="0 0 0"/>
+	<mass value="0.001"/>
+        <inertia
+          ixx="0.1" ixy="0.0" ixz="0.0"
+          iyy="0.1" iyz="0.0"
+          izz="0.1"/>
+      </inertial>
+    </link>
   </xacro:macro>
 
   <xacro:macro name="parallel_gripper_outer_subassembly" params="name prefix">
@@ -57,6 +78,10 @@
       <parent link="${name}/${prefix}_finger"/>
       <child link="${name}/${prefix}_outer_linkage"/>
     </joint>
+    <gazebo reference="${name}/${prefix}_finger_${prefix}_outer_linkage">
+      <disableFixedJointLumping>true</disableFixedJointLumping>
+      <preserveFixedJoint>true</preserveFixedJoint>
+    </gazebo>
     <joint name="${name}/${prefix}_outer_linkage_${prefix}_gripper" type="continuous">
       <origin xyz="0 0.025 0.018" rpy="0 0 0" />
       <parent link="${name}/${prefix}_outer_linkage"/>
@@ -120,6 +145,10 @@
       <parent link="${name}/INPUT_INTERFACE"/>
       <child link="${name}/center_hub"/>
     </joint>
+    <gazebo reference="${name}/input_center_hub">
+      <disableFixedJointLumping>true</disableFixedJointLumping>
+      <preserveFixedJoint>true</preserveFixedJoint>
+    </gazebo>
 
     <!-- Tree branches for fingers, outer linkages, and grippers -->
     <xacro:parallel_gripper_outer_subassembly name="${name}" prefix="l"/>

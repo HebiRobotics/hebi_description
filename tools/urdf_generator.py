@@ -1,17 +1,21 @@
+#! /usr/bin/env python3
 
-import sys
 import argparse
+import sys
+from os.path import basename, splitext, join
+import subprocess
 
 from lxml import etree as ET
 
+# this can be removed if hrdf filenames are changed to match moveit conventions
 model_codes = {
     '3-DoF_arm': '3-DoF_arm',
     '4-DoF_arm_scara': 'A-2084-01',
     '4-DoF_arm': 'A-2085-04',
     '5-DoF_arm': 'A-2085-05',
-    '5-DoF_arm_w_gripper': 'A-2085-05-gripper',
+    '5-DoF_arm_w_gripper': 'A-2085-05-parallel-gripper',
     '6-DoF_arm': 'A-2085-06',
-    '6-DoF_arm_w_gripper': 'A-2085-06-gripper',
+    '6-DoF_arm_w_gripper': 'A-2085-06-parallel-gripper',
 }
 
 NS_XACRO = 'http://www.ros.org/wiki/xacro'
@@ -28,15 +32,17 @@ def get_names(num_names):
 
 if __name__ == '__main__':
 
-    parser = argparse.ArgumentParser(description='Convert HRDF files into xacro equivalent.')
+    parser = argparse.ArgumentParser(description='Convert HRDF files into xacro/sdf equivalent.')
     parser.add_argument('filename')
     parser.add_argument('--family', default='HEBI')
     parser.add_argument('--actuators', nargs="+", type=str, default=None)
+    parser.add_argument('--urdfdir', default='.')
+    parser.add_argument('--sdfdir', default='.')
 
     args = parser.parse_args()
     hrdf_file_name = args.filename
 
-    model_name = hrdf_file_name.split('.')[0]
+    model_name = splitext(basename(hrdf_file_name))[0]
     if model_name in model_codes:
         model_name = model_codes[model_name]
 
@@ -46,7 +52,10 @@ if __name__ == '__main__':
 
     num_actuators = len(list(robot.iter('actuator')))
 
-    family_name = args.family
+    if args.family is None:
+        family_name = input("Enter model's family name: ")
+    else:
+        family_name = args.family
     
     if args.actuators is None:
         actuator_names = get_names(num_actuators)
@@ -121,8 +130,19 @@ if __name__ == '__main__':
         encoding='UTF-8'
     )
 
-    outfile = f'{model_name}.xacro'
+    outfile = join(args.urdfdir, f'{model_name}.xacro')
     with open(outfile, 'wb') as f:
         f.write(xmlstr)
 
-    print(model_name)
+    # generate sdf and cleanup intermediate file
+    with open(f'{model_name}.xacro.urdf', 'w') as urdf_file:
+        xacro_cmd = ['xacro', '--xacro-ns', f'{outfile}']
+        subprocess.call(xacro_cmd, stdout=urdf_file)
+
+    with open(f'{join(args.sdfdir, model_name)}.sdf', 'w') as sdf_file:
+        sdf_cmd = ['gz', 'sdf', '-p', f'{model_name}.xacro.urdf']
+        subprocess.call(sdf_cmd, stdout=sdf_file)
+
+    cleanup_cmd = ['rm', f'{model_name}.xacro.urdf']
+    subprocess.check_output(cleanup_cmd)
+

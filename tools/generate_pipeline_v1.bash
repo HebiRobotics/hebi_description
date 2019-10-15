@@ -8,7 +8,7 @@ INPUT_FILE=$1
 ACTUATORS="${@:2}"
 
 # Call script to generate xacro/sdf from hrdf
-python3 urdf_generator.py $INPUT_FILE --urdfdir ../urdf/kits --sdfdir ../sdf --family HEBI --actuators $ACTUATORS
+python3 urdf_generator.py $INPUT_FILE --urdfdir ../urdf/kits --sdfdir ../models --family HEBI --actuators $ACTUATORS
 # outfile contains the name of the outputted xacro
 # needed because hrdf files are not named with the same convention as kits
 # so the xacro needs to be named differently to match the moveit configs

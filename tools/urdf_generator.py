@@ -2,6 +2,7 @@
 
 import argparse
 import sys
+import os
 from os.path import basename, splitext, join
 import subprocess
 
@@ -19,6 +20,21 @@ model_codes = {
 }
 
 NS_XACRO = 'http://www.ros.org/wiki/xacro'
+
+CONFIG_TEMPLATE = \
+"""
+<?xml version="1.0"?>
+<model>
+  <name>HEBI {0}</name>
+  <version>1.0</version>
+  <sdf version="1.5">{0}.sdf</sdf>
+
+  <author>
+    <name>Chris Bollinger</name>
+    <email>chris@hebirobotics.com</email>
+  </author>
+</model>
+"""
 
 
 def get_names(num_names):
@@ -139,10 +155,22 @@ if __name__ == '__main__':
         xacro_cmd = ['xacro', '--xacro-ns', f'{outfile}']
         subprocess.call(xacro_cmd, stdout=urdf_file)
 
-    with open(f'{join(args.sdfdir, model_name)}.sdf', 'w') as sdf_file:
+    # do some extra work here to match the file tree needed for gazebo
+    model_folder = join(args.sdfdir, model_name)
+    try:
+        os.mkdir(model_folder , 0o755)
+    except FileExistsError:
+        # already exists? Don't care
+        pass
+
+    # create the model.config file
+    with open(join(model_folder, "model.config"), 'w') as config_file:
+        config_file.write(CONFIG_TEMPLATE.format(model_name))
+
+    with open(join(model_folder, f'{model_name}.sdf'), 'w') as sdf_file:
         sdf_cmd = ['gz', 'sdf', '-p', f'{model_name}.xacro.urdf']
         subprocess.call(sdf_cmd, stdout=sdf_file)
 
     cleanup_cmd = ['rm', f'{model_name}.xacro.urdf']
-    subprocess.check_output(cleanup_cmd)
+    subprocess.call(cleanup_cmd)
 

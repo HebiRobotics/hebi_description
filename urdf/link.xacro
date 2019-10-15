@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
   <!-- NOTE: joint must match the name of the module -->
-  <xacro:macro name="link" params="name child extension twist">
+  <xacro:macro name="link" params="name child type:=X5 extension twist">
     <xacro:property name="mass" value="${0.4 * (extension + 0.03) + 0.26}"/>
     <xacro:property name="edge_to_center" value="${.02}"/>
     <link name="${name}/INPUT_INTERFACE">
@@ -58,6 +58,10 @@
       <child link="${child}/INPUT_INTERFACE"/>
       <origin xyz="${extension} ${-sin(twist) * edge_to_center} ${edge_to_center * (1 + cos(twist))}" rpy="${twist} 0 0"/>
     </joint>
+    <gazebo reference="${name}/OUTPUT_JOINT">
+      <disableFixedJointLumping>true</disableFixedJointLumping>
+      <preserveFixedJoint>true</preserveFixedJoint>
+    </gazebo>
   </xacro:macro>
 </robot>
 

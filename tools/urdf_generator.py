@@ -64,7 +64,6 @@ if __name__ == '__main__':
     ET.register_namespace('xacro', NS_XACRO)
     parser = ET.XMLParser(remove_blank_text=True)
     robot = ET.parse(hrdf_file_name, parser).getroot()
-    robot.set('version', '1.2.0')
 
     num_actuators = len(list(robot.iter('actuator')))
 

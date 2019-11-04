@@ -103,7 +103,9 @@
     </joint>
   </xacro:macro>
 
-  <xacro:macro name="gripper" params="name type">
+  <xacro:macro name="gripper" params="name type:=Custom mass:=0.001 com_trans:='0 0 0.0005' output_trans:='0 0 0'">
+    <xacro:property name="com_trans_list" value="${com_trans.split(' ')}"/>
+    <xacro:property name="len" value="${sqrt( pow(float(com_trans_list[0]), 2) + pow(float(com_trans_list[1]), 2) + pow(float(com_trans_list[2]), 2) )}"/>
     <xacro:if value="${type == 'Custom'}">
       <link name="${name}/INPUT_INTERFACE">
         <collision>
@@ -119,15 +121,16 @@
           </geometry>
         </visual>
         <inertial>
-        <origin xyz="0 0 0" rpy="0 0 0"/>
-          <mass value="0.001"/>
+          <origin xyz="${com_trans}" rpy="0 0 0"/>
+          <mass value="${mass}"/>
           <inertia
-            ixx="0.001" ixy="0.0" ixz="0.0"
-            iyy="0.001" iyz="0.0"
-            izz="0.001"/>
+            ixx="${mass*len*len*2.0/5.0}" ixy="0.0" ixz="0.0"
+            iyy="${mass*len*len*2.0/5.0}" iyz="0.0"
+            izz="${mass*len*len*2.0/5.0}"/>
         </inertial>
       </link>
     </xacro:if>
+
     <xacro:if value="${type.endswith('Parallel')}">
       <!-- The base body of the gripper -->
       <link name="${name}/INPUT_INTERFACE">

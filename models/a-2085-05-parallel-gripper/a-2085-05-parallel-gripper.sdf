@@ -1,5 +1,5 @@
 <sdf version='1.6'>
-  <model name='a-2085-05'>
+  <model name='a-2085-05-parallel-gripper'>
     <link name='Arm/base/INPUT_INTERFACE'>
       <pose frame=''>0 0 0 0 -0 0</pose>
       <inertial>
@@ -774,55 +774,6 @@
           </limit>
         </ode>
       </physics>
-    </joint>
-    <link name='end_effector/INPUT_INTERFACE'>
-      <pose frame=''>0.65 -0.1085 0.026 3.14159 -0 0</pose>
-      <inertial>
-        <pose frame=''>0 0 0.0005 0 -0 0</pose>
-        <mass>0.001</mass>
-        <inertia>
-          <ixx>1e-10</ixx>
-          <ixy>0</ixy>
-          <ixz>0</ixz>
-          <iyy>1e-10</iyy>
-          <iyz>0</iyz>
-          <izz>1e-10</izz>
-        </inertia>
-      </inertial>
-      <collision name='end_effector/INPUT_INTERFACE_collision'>
-        <pose frame=''>0 0 0.0005 0 -0 0</pose>
-        <geometry>
-          <box>
-            <size>0.001 0.001 0.001</size>
-          </box>
-        </geometry>
-      </collision>
-      <visual name='end_effector/INPUT_INTERFACE_visual'>
-        <pose frame=''>0 0 0.0005 0 -0 0</pose>
-        <geometry>
-          <box>
-            <size>0.001 0.001 0.001</size>
-          </box>
-        </geometry>
-      </visual>
-    </link>
-    <joint name='Arm/wrist2/X5_1' type='revolute'>
-      <child>end_effector/INPUT_INTERFACE</child>
-      <parent>Arm/wrist2/INPUT_INTERFACE</parent>
-      <axis>
-        <xyz>-0 -0 -1</xyz>
-        <limit>
-          <lower>-1e+16</lower>
-          <upper>1e+16</upper>
-        </limit>
-        <dynamics>
-          <damping>0.1</damping>
-          <friction>0.1</friction>
-          <spring_reference>0</spring_reference>
-          <spring_stiffness>0</spring_stiffness>
-        </dynamics>
-        <use_parent_model_frame>1</use_parent_model_frame>
-      </axis>
     </joint>
     <static>0</static>
     <plugin name='hebi_gazebo_plugin' filename='libhebi_gazebo_plugin.so'/>

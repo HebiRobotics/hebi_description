@@ -9,6 +9,6 @@
   <actuator type="X5-4"/>
   <link type="X5" extension="0.325" twist="pi"/>
   <actuator type="X5-1"/>  
-  <gripper type="X5Parallel"/>
+  <end-effector type="X5Parallel"/>
     
 </robot>

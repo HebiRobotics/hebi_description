@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<robot xmlns:xacro="http://www.ros.org/wiki/xacro" version="1.2.0" name="a-2085-04">
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" version="1.2.0" name="a-2084-01-parallel-gripper">
   <xacro:include filename="$(find hebi_description)/urdf/hebi.xacro"/>
-  <!-- HEBI a-2085-04 Style Arm Kit -->
+  <!-- HEBI a-2084-01-parallel-gripper Style Arm Kit -->
   <link name="world"/>
   <joint name="world_joint" type="fixed">
     <origin xyz="0 0 0" rpy="0 0 0"/>
@@ -11,9 +11,9 @@
   <xacro:actuator type="X5_4" name="Arm/base" child="shoulder_bracket"/>
   <xacro:bracket type="X5HeavyRightOutside" name="shoulder_bracket" child="Arm/shoulder"/>
   <xacro:actuator type="X5_9" name="Arm/shoulder" child="shoulder_elbow"/>
-  <xacro:link type="X5" extension="0.325" twist="${pi}" name="shoulder_elbow" child="Arm/elbow"/>
+  <xacro:link type="X5" extension="0.325" twist="${pi/2}" name="shoulder_elbow" child="Arm/elbow"/>
   <xacro:actuator type="X5_4" name="Arm/elbow" child="elbow_wrist1"/>
-  <xacro:link type="X5" extension="0.325" twist="${pi}" name="elbow_wrist1" child="Arm/wrist1"/>
+  <xacro:link type="X5" extension="0.325" twist="0" name="elbow_wrist1" child="Arm/wrist1"/>
   <xacro:actuator type="X5_1" name="Arm/wrist1" child="end_effector"/>
-  <xacro:gripper type="Custom" name="end_effector"/>
+  <xacro:gripper type="X5Parallel" name="end_effector"/>
 </robot>

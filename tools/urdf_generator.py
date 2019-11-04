@@ -11,12 +11,12 @@ from lxml import etree as ET
 # this can be removed if hrdf filenames are changed to match moveit conventions
 model_codes = {
     '3-DoF_arm': '3-DoF_arm',
-    '4-DoF_arm_scara': 'A-2084-01',
-    '4-DoF_arm': 'A-2085-04',
-    '5-DoF_arm': 'A-2085-05',
-    '5-DoF_arm_w_gripper': 'A-2085-05-parallel-gripper',
-    '6-DoF_arm': 'A-2085-06',
-    '6-DoF_arm_w_gripper': 'A-2085-06-parallel-gripper',
+    '4-DoF_arm_scara': 'a-2084-01',
+    '4-DoF_arm': 'a-2085-04',
+    '5-DoF_arm': 'a-2085-05',
+    '5-DoF_arm_w_gripper': 'a-2085-05-parallel-gripper',
+    '6-DoF_arm': 'a-2085-06',
+    '6-DoF_arm_w_gripper': 'a-2085-06-parallel-gripper',
 }
 
 NS_XACRO = 'http://www.ros.org/wiki/xacro'
@@ -25,7 +25,7 @@ CONFIG_TEMPLATE = \
 """
 <?xml version="1.0"?>
 <model>
-  <name>HEBI {0}</name>
+  <name>HEBI {1}</name>
   <version>1.0</version>
   <sdf version="1.5">{0}.sdf</sdf>
 
@@ -39,7 +39,6 @@ CONFIG_TEMPLATE = \
 
 def get_names(num_names):
     names = []
-    count = 0
     print(f"There are {num_names} actuators in the provided model. Please provide names for each.")
     for i in range(num_names):
         names.append(input('Input Actuator {} Name: '.format(i+1)))
@@ -65,6 +64,7 @@ if __name__ == '__main__':
     ET.register_namespace('xacro', NS_XACRO)
     parser = ET.XMLParser(remove_blank_text=True)
     robot = ET.parse(hrdf_file_name, parser).getroot()
+    robot.set('version', '1.2.0')
 
     num_actuators = len(list(robot.iter('actuator')))
 
@@ -97,6 +97,9 @@ if __name__ == '__main__':
             prev_actuator_name = elmnts[idx-1].attrib['name'].split('/')[-1]
             next_actuator_name = elmnts[idx+1].attrib['name'].split('/')[-1]
             el.set('name', f'{prev_actuator_name}_{next_actuator_name}')
+        elif el.tag == 'end-effector':
+            el.tag = 'gripper'
+            el.set('name', 'end_effector')
 
         el.tag = '{'+NS_XACRO+'}' + el.tag
 
@@ -112,10 +115,10 @@ if __name__ == '__main__':
                     el.set(prop, f'${{{val}}}')
 
 
-    # add a null_end_effector if chain ends in a non-gripper
+    # add a placeholder end effector if chain ends in a non-gripper
     if elmnts[-1].tag != '{'+NS_XACRO+'}gripper':
-        null_end = ET.Element('{'+NS_XACRO+'}null_end_effector', {'name': 'end_effector'})
-        robot.append(null_end)
+        dummy_end = ET.Element('{'+NS_XACRO+'}gripper', {'type': 'Custom', 'name': 'end_effector'})
+        robot.append(dummy_end)
 
     # set child names for all elements
     elmnts = list(robot)
@@ -165,7 +168,7 @@ if __name__ == '__main__':
 
     # create the model.config file
     with open(join(model_folder, "model.config"), 'w') as config_file:
-        config_file.write(CONFIG_TEMPLATE.format(model_name))
+        config_file.write(CONFIG_TEMPLATE.format(model_name, model_name.capitalize()))
 
     with open(join(model_folder, f'{model_name}.sdf'), 'w') as sdf_file:
         sdf_cmd = ['gz', 'sdf', '-p', f'{model_name}.xacro.urdf']

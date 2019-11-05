@@ -8,24 +8,13 @@ import subprocess
 
 from lxml import etree as ET
 
-# this can be removed if hrdf filenames are changed to match moveit conventions
-model_codes = {
-    '3-DoF_arm': '3-DoF_arm',
-    '4-DoF_arm_scara': 'a-2084-01',
-    '4-DoF_arm': 'a-2085-04',
-    '5-DoF_arm': 'a-2085-05',
-    '5-DoF_arm_w_gripper': 'a-2085-05-parallel-gripper',
-    '6-DoF_arm': 'a-2085-06',
-    '6-DoF_arm_w_gripper': 'a-2085-06-parallel-gripper',
-}
-
 NS_XACRO = 'http://www.ros.org/wiki/xacro'
 
 CONFIG_TEMPLATE = \
 """
 <?xml version="1.0"?>
 <model>
-  <name>HEBI {1}</name>
+  <name>HEBI {0}</name>
   <version>1.0</version>
   <sdf version="1.5">{0}.sdf</sdf>
 
@@ -53,13 +42,12 @@ if __name__ == '__main__':
     parser.add_argument('--actuators', nargs="+", type=str, default=None)
     parser.add_argument('--urdfdir', default='.')
     parser.add_argument('--sdfdir', default='.')
+    parser.add_argument('--nosdf', dest='gensdf', action='store_false')
 
     args = parser.parse_args()
     hrdf_file_name = args.filename
 
     model_name = splitext(basename(hrdf_file_name))[0]
-    if model_name in model_codes:
-        model_name = model_codes[model_name]
 
     ET.register_namespace('xacro', NS_XACRO)
     parser = ET.XMLParser(remove_blank_text=True)
@@ -152,27 +140,29 @@ if __name__ == '__main__':
     with open(outfile, 'wb') as f:
         f.write(xmlstr)
 
-    # generate sdf and cleanup intermediate file
-    with open(f'{model_name}.xacro.urdf', 'w') as urdf_file:
-        xacro_cmd = ['xacro', '--xacro-ns', f'{outfile}']
-        subprocess.call(xacro_cmd, stdout=urdf_file)
+    if args.gensdf:
+        # generate sdf and cleanup intermediate file
+        with open(f'{model_name}.xacro.urdf', 'w') as urdf_file:
+            xacro_cmd = ['xacro', '--xacro-ns', f'{outfile}']
+            subprocess.call(xacro_cmd, stdout=urdf_file)
 
-    # do some extra work here to match the file tree needed for gazebo
-    model_folder = join(args.sdfdir, model_name)
-    try:
-        os.mkdir(model_folder , 0o755)
-    except FileExistsError:
-        # already exists? Don't care
-        pass
+        # do some extra work here to match the file tree needed for gazebo
+        model_folder = join(args.sdfdir, model_name)
+        try:
+            os.mkdir(model_folder , 0o755)
+        except FileExistsError:
+            # already exists? Don't care
+            pass
 
-    # create the model.config file
-    with open(join(model_folder, "model.config"), 'w') as config_file:
-        config_file.write(CONFIG_TEMPLATE.format(model_name, model_name.capitalize()))
+        # create the model.config file
+        with open(join(model_folder, "model.config"), 'w') as config_file:
+            #config_file.write(CONFIG_TEMPLATE.format(model_name, model_name.capitalize()))
+            config_file.write(CONFIG_TEMPLATE.format(model_name))
 
-    with open(join(model_folder, f'{model_name}.sdf'), 'w') as sdf_file:
-        sdf_cmd = ['gz', 'sdf', '-p', f'{model_name}.xacro.urdf']
-        subprocess.call(sdf_cmd, stdout=sdf_file)
+        with open(join(model_folder, f'{model_name}.sdf'), 'w') as sdf_file:
+            sdf_cmd = ['gz', 'sdf', '-p', f'{model_name}.xacro.urdf']
+            subprocess.call(sdf_cmd, stdout=sdf_file)
 
-    cleanup_cmd = ['rm', f'{model_name}.xacro.urdf']
-    subprocess.call(cleanup_cmd)
+        cleanup_cmd = ['rm', f'{model_name}.xacro.urdf']
+        subprocess.call(cleanup_cmd)
 

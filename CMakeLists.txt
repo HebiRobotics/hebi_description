@@ -8,6 +8,15 @@ find_package(catkin REQUIRED COMPONENTS
 catkin_package(
 )
 
+include_directories(
+  .
+  ${catkin_INCLUDE_DIRS}
+)
+add_custom_target(${PROJECT_NAME}_generate_xacro ALL 
+	${PROJECT_SOURCE_DIR}/scripts/generate_pipeline_batch.bash
+	WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
+)
+
 ## Mark files for installation (e.g. launch and bag files, etc.)
 install(DIRECTORY
   meshes

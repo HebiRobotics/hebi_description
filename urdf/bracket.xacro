@@ -154,6 +154,14 @@
     </xacro:if>
 
   </link>
+  <gazebo reference="${name}/INPUT_INTERFACE">
+    <xacro:if value="${bracket_type.startswith('X5Light')}">
+      <xacro:gazebo_beige_material/>
+    </xacro:if>
+    <xacro:if value="${bracket_type.startswith('X5Heavy')}">
+      <xacro:gazebo_black_material/>
+    </xacro:if>
+  </gazebo>
 
   <joint name="${name}/OUTPUT_INTERFACE" type="fixed">
     <parent link="${name}/INPUT_INTERFACE"/>

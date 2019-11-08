@@ -85,6 +85,11 @@
         </xacro:if>
       </inertial>
     </link>
+
+    <gazebo reference="${name}/INPUT_INTERFACE">
+      <xacro:gazebo_red_material/>
+    </gazebo>
+
     <joint name="${name}/${model_name}" type="${urdf_joint_type}">
       <parent link="${name}/INPUT_INTERFACE"/>
       <child link="${child}/INPUT_INTERFACE"/>

@@ -6,7 +6,7 @@
   <link name="${name}/INPUT_INTERFACE">
 
     <!-- Light bracket -->
-    <xacro:if value="${bracket_type.startswith('X5Light')}">
+    <xacro:if value="${bracket_type.startswith('X5Light') or bracket_type.startswith('R5Light')}">
       <visual>
         <xacro:if value="${bracket_type.endswith('Left')}">
           <origin xyz="0 0 0" rpy="${pi/2} 0 ${pi/2}"/>
@@ -50,7 +50,7 @@
     </xacro:if>
 
     <!-- Heavy bracket -->
-    <xacro:if value="${bracket_type.startswith('X5Heavy')}">
+    <xacro:if value="${bracket_type.startswith('X5Heavy') or bracket_type.startswith('R5Heavy')}">
       <visual>
         <xacro:if value="${bracket_type.endswith('RightOutside')}">
           <origin xyz="0 0 0.005" rpy="${pi/2} 0 ${pi/2}"/>
@@ -83,10 +83,10 @@
           <origin xyz="0 -.03 .04" rpy="${pi/2} 0 ${pi}"/>
         </xacro:if>
         <geometry>
-          <xacro:if value="${bracket_type.startswith('X5HeavyRight')}">
+          <xacro:if value="${bracket_type.startswith('X5HeavyRight') or bracket_type.startswith('R5HeavyRight')}">
             <mesh filename="package://hebi_description/meshes/PM-2150-01R.stl" scale="0.001 0.001 0.001"/>
           </xacro:if>
-          <xacro:if value="${bracket_type.startswith('X5HeavyLeft')}">
+          <xacro:if value="${bracket_type.startswith('X5HeavyLeft') or bracket_type.startswith('R5HeavyLeft')}">
             <mesh filename="package://hebi_description/meshes/PM-2150-01L.stl" scale="0.001 0.001 0.001"/>
           </xacro:if>
         </geometry>
@@ -124,10 +124,10 @@
           <origin xyz="0 -.03 .04" rpy="${pi/2} 0 ${pi}"/>
         </xacro:if>
         <geometry>
-          <xacro:if value="${bracket_type.startswith('X5HeavyRight')}">
+          <xacro:if value="${bracket_type.startswith('X5HeavyRight') or bracket_type.startswith('R5HeavyRight')}">
             <mesh filename="package://hebi_description/meshes/PM-2150-01R.stl" scale="0.001 0.001 0.001"/>
           </xacro:if>
-          <xacro:if value="${bracket_type.startswith('X5HeavyLeft')}">
+          <xacro:if value="${bracket_type.startswith('X5HeavyLeft') or bracket_type.startswith('R5HeavyLeft')}">
             <mesh filename="package://hebi_description/meshes/PM-2150-01L.stl" scale="0.001 0.001 0.001"/>
           </xacro:if>
         </geometry>
@@ -154,6 +154,14 @@
     </xacro:if>
 
   </link>
+  <gazebo reference="${name}/INPUT_INTERFACE">
+    <xacro:if value="${bracket_type.startswith('X5Light') or bracket_type.startswith('R5Light')}">
+      <xacro:gazebo_beige_material/>
+    </xacro:if>
+    <xacro:if value="${bracket_type.startswith('X5Heavy') or bracket_type.startswith('R5Heavy')}">
+      <xacro:gazebo_black_material/>
+    </xacro:if>
+  </gazebo>
 
   <joint name="${name}/OUTPUT_INTERFACE" type="fixed">
     <parent link="${name}/INPUT_INTERFACE"/>

@@ -71,11 +71,11 @@ Here is a segment of a XACRO file which connects a 3-DOF hebi arm to a "base" li
   </joint>
 
   <!-- define the HEBI robot -->
-  <xacro:actuator name="HEBI/base" child="shoulder_bracket" type="X5_4"/>
-  <xacro:bracket name="shoulder_bracket" child="HEBI/shoulder" type="X5HeavyRightInside"/>
-  <xacro:actuator name="HEBI/shoulder" child="shoulder_elbow" type="X5_4"/>
-  <xacro:link name="shoulder_elbow" child="HEBI/elbow" extension="0.33" twist="${PI}"/>
-  <xacro:actuator name="HEBI/elbow" child="elbow_end" type="X5_4"/>
+  <xacro:actuator name="Arm/J1_base" child="shoulder_bracket" type="X5_4"/>
+  <xacro:bracket name="shoulder_bracket" child="Arm/J2_shoulder" type="X5HeavyRightInside"/>
+  <xacro:actuator name="Arm/J2_shoulder" child="shoulder_elbow" type="X5_4"/>
+  <xacro:link name="shoulder_elbow" child="Arm/J3_elbow" extension="0.33" twist="${PI}"/>
+  <xacro:actuator name="Arm/J4_elbow" child="elbow_end" type="X5_4"/>
   <xacro:link name="elbow_end" child="end_effector" extension="0.325" twist="${PI}"/>
 
   <!-- end link; necessary to provide output for HEBI components to attach to. -->

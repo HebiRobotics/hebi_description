@@ -5,6 +5,7 @@ import sys
 import os
 from os.path import basename, splitext, join
 import subprocess
+import re
 
 from lxml import etree as ET
 
@@ -88,14 +89,27 @@ if __name__ == '__main__':
         if 'type' in el.attrib:
             el.set('type', el.attrib['type'].replace('-', '_'))
 
+    # This strips the J#_ from the front of joint names
+    # so brackets/links are named less verbosely
+    def get_joint_name(name):
+        matchstr = r'J\d_(.*)'
+        match = re.search(matchstr, name)
+        if match:
+            actuator_name = match.group(1)
+        else:
+            actuator_name = name.split('/')[-1]
+        return actuator_name
+
+
     elmnts = list(robot)
     for idx, el in enumerate(elmnts):
         if el.tag == 'bracket':
-            next_actuator_name = elmnts[idx+1].attrib['name'].split('/')[-1]
+            next_actuator_name = get_joint_name(elmnts[idx+1].attrib['name'])
             el.set('name', f'{next_actuator_name}_bracket')
+
         elif el.tag == 'link':
-            prev_actuator_name = elmnts[idx-1].attrib['name'].split('/')[-1]
-            next_actuator_name = elmnts[idx+1].attrib['name'].split('/')[-1]
+            prev_actuator_name = get_joint_name(elmnts[idx-1].attrib['name'])
+            next_actuator_name = get_joint_name(elmnts[idx+1].attrib['name'])
             el.set('name', f'{prev_actuator_name}_{next_actuator_name}')
 
         el.tag = '{'+NS_XACRO+'}' + el.tag

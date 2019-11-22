@@ -9,17 +9,6 @@ import re
 
 from lxml import etree as ET
 
-# this can be removed if hrdf filenames are changed to match moveit conventions
-model_codes = {
-    '3-DoF_arm': '3-DoF_arm',
-    '4-DoF_arm_scara': 'A-2084-01',
-    '4-DoF_arm': 'A-2085-04',
-    '5-DoF_arm': 'A-2085-05',
-    '5-DoF_arm_w_gripper': 'A-2085-05-parallel-gripper',
-    '6-DoF_arm': 'A-2085-06',
-    '6-DoF_arm_w_gripper': 'A-2085-06-parallel-gripper',
-}
-
 NS_XACRO = 'http://www.ros.org/wiki/xacro'
 
 CONFIG_TEMPLATE = \
@@ -40,7 +29,6 @@ CONFIG_TEMPLATE = \
 
 def get_names(num_names):
     names = []
-    count = 0
     print("There are {} actuators in the provided model. Please provide names for each.".format(num_names))
     for i in range(num_names):
         names.append(input('Input Actuator {} Name: '.format(i+1)))
@@ -55,13 +43,12 @@ if __name__ == '__main__':
     parser.add_argument('--actuators', nargs="+", type=str, default=None)
     parser.add_argument('--urdfdir', default='.')
     parser.add_argument('--sdfdir', default='.')
+    parser.add_argument('--nosdf', dest='gensdf', action='store_false')
 
     args = parser.parse_args()
     hrdf_file_name = args.filename
 
     model_name = splitext(basename(hrdf_file_name))[0]
-    if model_name in model_codes:
-        model_name = model_codes[model_name]
 
     ET.register_namespace('xacro', NS_XACRO)
     parser = ET.XMLParser(remove_blank_text=True)
@@ -100,17 +87,19 @@ if __name__ == '__main__':
             actuator_name = name.split('/')[-1]
         return actuator_name
 
-
     elmnts = list(robot)
     for idx, el in enumerate(elmnts):
         if el.tag == 'bracket':
             next_actuator_name = get_joint_name(elmnts[idx+1].attrib['name'])
             el.set('name', '{}_bracket'.format(next_actuator_name))
-
         elif el.tag == 'link':
             prev_actuator_name = get_joint_name(elmnts[idx-1].attrib['name'])
             next_actuator_name = get_joint_name(elmnts[idx+1].attrib['name'])
             el.set('name', '{}_{}'.format(prev_actuator_name, next_actuator_name))
+
+        elif el.tag == 'end-effector':
+            el.tag = 'gripper'
+            el.set('name', 'end_effector')
 
         el.tag = '{'+NS_XACRO+'}' + el.tag
 
@@ -126,10 +115,10 @@ if __name__ == '__main__':
                     el.set(prop, '${{{}}}'.format(val))
 
 
-    # add a null_end_effector if chain ends in a non-gripper
+    # add a placeholder end effector if chain ends in a non-gripper
     if elmnts[-1].tag != '{'+NS_XACRO+'}gripper':
-        null_end = ET.Element('{'+NS_XACRO+'}null_end_effector', {'name': 'end_effector'})
-        robot.append(null_end)
+        dummy_end = ET.Element('{'+NS_XACRO+'}gripper', {'type': 'Custom', 'name': 'end_effector'})
+        robot.append(dummy_end)
 
     # set child names for all elements
     elmnts = list(robot)
@@ -168,27 +157,29 @@ if __name__ == '__main__':
     with open(outfile, 'wb') as f:
         f.write(xmlstr)
 
-    # generate sdf and cleanup intermediate file
-    with open('{}.xacro.urdf'.format(model_name), 'w') as urdf_file:
-        xacro_cmd = ['xacro', '--xacro-ns', outfile]
-        subprocess.call(xacro_cmd, stdout=urdf_file)
+    if args.gensdf:
+        # generate sdf and cleanup intermediate file
+        with open('{}.xacro.urdf'.format(model_name), 'w') as urdf_file:
+            xacro_cmd = ['xacro', '--xacro-ns', outfile]
+            subprocess.call(xacro_cmd, stdout=urdf_file)
 
-    # do some extra work here to match the file tree needed for gazebo
-    model_folder = join(args.sdfdir, model_name)
-    try:
-        os.mkdir(model_folder , 0o755)
-    except FileExistsError:
-        # already exists? Don't care
-        pass
+        # do some extra work here to match the file tree needed for gazebo
+        model_folder = join(args.sdfdir, model_name)
+        try:
+            os.mkdir(model_folder , 0o755)
+        except FileExistsError:
+            # already exists? Don't care
+            pass
 
-    # create the model.config file
-    with open(join(model_folder, "model.config"), 'w') as config_file:
-        config_file.write(CONFIG_TEMPLATE.format(model_name))
+        # create the model.config file
+        with open(join(model_folder, "model.config"), 'w') as config_file:
+            #config_file.write(CONFIG_TEMPLATE.format(model_name, model_name.capitalize()))
+            config_file.write(CONFIG_TEMPLATE.format(model_name))
 
-    with open(join(model_folder, '{}.sdf'.format(model_name)), 'w') as sdf_file:
-        sdf_cmd = ['gz', 'sdf', '-p', '{}.xacro.urdf'.format(model_name)]
-        subprocess.call(sdf_cmd, stdout=sdf_file)
+        with open(join(model_folder, '{}.sdf'.format(model_name)), 'w') as sdf_file:
+            sdf_cmd = ['gz', 'sdf', '-p', '{}.xacro.urdf'.format(model_name)]
+            subprocess.call(sdf_cmd, stdout=sdf_file)
 
-    cleanup_cmd = ['rm', '{}.xacro.urdf'.format(model_name)]
-    subprocess.call(cleanup_cmd)
+        cleanup_cmd = ['rm', '{}.xacro.urdf'.format(model_name)]
+        subprocess.call(cleanup_cmd)
 

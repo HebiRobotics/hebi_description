@@ -1,5 +1,5 @@
 <sdf version='1.6'>
-  <model name='A-2085-05'>
+  <model name='A-2085-05-parallel-gripper'>
     <link name='Arm/J1_base/INPUT_INTERFACE'>
       <pose frame=''>0 0 0 0 -0 0</pose>
       <inertial>

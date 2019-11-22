@@ -2,13 +2,13 @@
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro" version="1.1.0" name="A-2085-05">
   <!-- HEBI A-2085-05 Arm Kit -->
   <xacro:include filename="$(find hebi_description)/urdf/hebi.xacro"/>
-  <xacro:arg default="world" name="hebi_base_frame"/>
+  <xacro:arg name="hebi_base_frame" default="world"/>
   <xacro:property name="hebi_base_frame" value="$(arg hebi_base_frame)"/>
   <xacro:if value="${hebi_base_frame == 'world'}">
     <link name="$(arg hebi_base_frame)"/>
   </xacro:if>
   <joint name="$(arg hebi_base_frame)_joint" type="fixed">
-    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
     <parent link="$(arg hebi_base_frame)"/>
     <child link="Arm/J1_base/INPUT_INTERFACE"/>
   </joint>
@@ -21,5 +21,5 @@
   <xacro:actuator type="X5_1" name="Arm/J4_wrist1" child="wrist2_bracket"/>
   <xacro:bracket type="X5LightRight" name="wrist2_bracket" child="Arm/J5_wrist2"/>
   <xacro:actuator type="X5_1" name="Arm/J5_wrist2" child="end_effector"/>
-  <xacro:gripper name="end_effector" type="Custom"/>
+  <xacro:gripper type="Custom" name="end_effector"/>
 </robot>

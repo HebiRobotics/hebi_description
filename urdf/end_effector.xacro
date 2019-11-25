@@ -191,7 +191,7 @@
       </inertial>
     </link>
     <gazebo reference="${name}/${prefix}_inner_linkage">
-      <xacro:gazebo_black_material/>
+      <xacro:gazebo_black_material />
     </gazebo>
 
     <joint name="${name}/center_hub_${prefix}_inner_linkage" type="continuous">
@@ -201,36 +201,41 @@
       <xacro:if value="${prefix == 'r'}">
         <origin xyz="0 -0.005 0.023" rpy="${-0.36*pi} 0 ${pi}" />
       </xacro:if>
-      <parent link="${name}/center_hub"/>
-      <child link="${name}/${prefix}_inner_linkage"/>
+      <parent link="${name}/center_hub" />
+      <child link="${name}/${prefix}_inner_linkage" />
       <mimic joint="${name}/input_l_finger" multiplier="1.0" offset="-1.145" />
     </joint>
   </xacro:macro>
 
-  <xacro:macro name="gripper" params="name type:=Custom mass:=0.02 com_trans:='0 0 -0.01' output_trans:='0 0 0'">
-    <xacro:property name="com_trans_list" value="${com_trans.split(' ')}"/>
-    <xacro:property name="len" value="${sqrt( pow(float(com_trans_list[0]), 2) + pow(float(com_trans_list[1]), 2) + pow(float(com_trans_list[2]), 2) )}"/>
+  <xacro:macro name="gripper" params="name type:=Custom mass:=0.020 com_trans:='0 0 0' output_trans:='0 0 0'">
+    <xacro:property name="com_trans_list" value="${map(float, com_trans.split(' '))}" />
+    <xacro:if value="${ com_trans_list[0] + com_trans_list[1] + com_trans_list[2] >= 0.01 }">
+      <xacro:property name="len" value="${sqrt( pow(com_trans_list[0], 2) + pow(com_trans_list[1], 2) + pow(com_trans_list[2], 2) )}" />
+    </xacro:if>
+    <xacro:unless value="${ com_trans_list[0] + com_trans_list[1] + com_trans_list[2] >= 0.01 }">
+      <xacro:property name="len" value="0.1" />
+    </xacro:unless>
     <xacro:if value="${type == 'Custom'}">
       <link name="${name}/INPUT_INTERFACE">
         <collision>
-          <origin xyz="0 0 0.0005" rpy="0 0 0"/>
+          <origin xyz="0 0 0.0005" rpy="0 0 0" />
           <geometry>
-            <box size="0.001 0.001 0.001" rpy="0 0 0"/>
+            <box size="0.001 0.001 0.001" rpy="0 0 0" />
           </geometry>
         </collision>
         <visual>
-          <origin xyz="0 0 0.0005" rpy="0 0 0"/>
+          <origin xyz="0 0 0.0005" rpy="0 0 0" />
           <geometry>
-            <box size="0.001 0.001 0.001" rpy="0 0 0"/>
+            <box size="0.001 0.001 0.001" rpy="0 0 0" />
           </geometry>
         </visual>
         <inertial>
-          <origin xyz="${com_trans}" rpy="0 0 0"/>
-          <mass value="${mass}"/>
+          <origin xyz="${com_trans}" rpy="0 0 0" />
+          <mass value="${mass}" />
           <inertia
             ixx="${2.0/5.0 * mass * pow(len, 2)}" ixy="0.0" ixz="0.0"
             iyy="${2.0/5.0 * mass * pow(len, 2)}" iyz="0.0"
-            izz="${2.0/5.0 * mass * pow(len, 2)}"/>
+            izz="${2.0/5.0 * mass * pow(len, 2)}" />
         </inertial>
       </link>
     </xacro:if>

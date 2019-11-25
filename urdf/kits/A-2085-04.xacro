@@ -19,5 +19,5 @@
   <xacro:actuator type="X5_4" name="Arm/J3_elbow" child="elbow_wrist1"/>
   <xacro:link type="X5" extension="0.325" twist="${pi}" name="elbow_wrist1" child="Arm/J4_wrist1"/>
   <xacro:actuator type="X5_1" name="Arm/J4_wrist1" child="end_effector"/>
-  <xacro:gripper type="Custom" name="end_effector"/>
+  <xacro:gripper type="Custom" name="end_effector" mass="0.02"/>
 </robot>

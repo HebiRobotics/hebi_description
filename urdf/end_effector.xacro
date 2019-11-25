@@ -207,7 +207,7 @@
     </joint>
   </xacro:macro>
 
-  <xacro:macro name="gripper" params="name type:=Custom mass:=0.001 com_trans:='0 0 0.0005' output_trans:='0 0 0'">
+  <xacro:macro name="gripper" params="name type:=Custom mass:=0.02 com_trans:='0 0 -0.01' output_trans:='0 0 0'">
     <xacro:property name="com_trans_list" value="${com_trans.split(' ')}"/>
     <xacro:property name="len" value="${sqrt( pow(float(com_trans_list[0]), 2) + pow(float(com_trans_list[1]), 2) + pow(float(com_trans_list[2]), 2) )}"/>
     <xacro:if value="${type == 'Custom'}">

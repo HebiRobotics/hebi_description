@@ -100,6 +100,11 @@ if __name__ == '__main__':
         elif el.tag == 'end-effector':
             el.tag = 'gripper'
             el.set('name', 'end_effector')
+            if 'mass' in el.attrib and float(el.attrib['mass']) < 0.02:
+                msg = ('WARNING: Low end effector mass creates unstable simulation!'
+                       ' Mass set to 20 grams.')
+                print(msg)
+                el.set('mass', '0.02')
 
         el.tag = '{'+NS_XACRO+'}' + el.tag
 
@@ -117,7 +122,7 @@ if __name__ == '__main__':
 
     # add a placeholder end effector if chain ends in a non-gripper
     if elmnts[-1].tag != '{'+NS_XACRO+'}gripper':
-        dummy_end = ET.Element('{'+NS_XACRO+'}gripper', {'type': 'Custom', 'name': 'end_effector'})
+        dummy_end = ET.Element('{'+NS_XACRO+'}gripper', {'type': 'Custom', 'name': 'end_effector', 'mass':'0.02'})
         robot.append(dummy_end)
 
     # set child names for all elements

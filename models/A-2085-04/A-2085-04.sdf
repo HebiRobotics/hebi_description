@@ -636,15 +636,15 @@
     <link name='end_effector/INPUT_INTERFACE'>
       <pose frame=''>0.65 -0.0685 0.086 1.5708 -0 0</pose>
       <inertial>
-        <pose frame=''>0 0 0.0005 0 -0 0</pose>
-        <mass>0.001</mass>
+        <pose frame=''>0 0 -0.01 0 -0 0</pose>
+        <mass>0.02</mass>
         <inertia>
-          <ixx>0.001</ixx>
+          <ixx>8e-07</ixx>
           <ixy>0</ixy>
           <ixz>0</ixz>
-          <iyy>0.001</iyy>
+          <iyy>8e-07</iyy>
           <iyz>0</iyz>
-          <izz>0.001</izz>
+          <izz>8e-07</izz>
         </inertia>
       </inertial>
       <collision name='end_effector/INPUT_INTERFACE_collision'>

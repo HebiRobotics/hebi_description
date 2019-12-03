@@ -328,6 +328,8 @@
         <origin xyz="0 0 0" rpy="0 0 0" />
         <axis xyz="0 0 1" />
         <limit effort="1000" velocity="1000" lower="-1.0" upper="1.0"/>
+        <!-- Don't actually want the pinion to move (only needed fore gazebo)
+             so set multiplier very small -->
         <mimic joint="${name}/input_l_finger" multiplier="0.00001" offset="0" />
         <physics>
           <ode>

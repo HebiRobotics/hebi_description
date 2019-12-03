@@ -163,10 +163,10 @@
     </joint>
 
     <joint name="${name}/${prefix}_outer_linkage_${prefix}_gripper" type="revolute">
-      <origin xyz="0 0.025 0.018" rpy="${0.0*pi} 0 0" />
+      <origin xyz="0 0.025 0.018" rpy="0 0 0" />
       <parent link="${name}/${prefix}_outer_linkage"/>
       <child link="${name}/${prefix}_gripper"/>
-      <mimic joint="${name}/input_l_finger" multiplier="-1.0" offset="${pi/2}" />
+      <mimic joint="${name}/input_l_finger" multiplier="-1.0" />
       <limit effort="1000" velocity="1000" lower="${-pi/2}" upper="0"/>
     </joint>
   </xacro:macro>
@@ -203,7 +203,7 @@
       </xacro:if>
       <parent link="${name}/center_hub" />
       <child link="${name}/${prefix}_inner_linkage" />
-      <mimic joint="${name}/input_l_finger" multiplier="1.0" offset="-1.145" />
+      <mimic joint="${name}/input_l_finger" multiplier="1.0" />
     </joint>
   </xacro:macro>
 
@@ -328,6 +328,9 @@
         <origin xyz="0 0 0" rpy="0 0 0" />
         <axis xyz="0 0 1" />
         <limit effort="1000" velocity="1000" lower="-1.0" upper="1.0"/>
+        <!-- Don't actually want the pinion to move (only needed fore gazebo)
+             so set multiplier very small -->
+        <mimic joint="${name}/input_l_finger" multiplier="0.00001" offset="0" />
         <physics>
           <ode>
             <implicit_spring_damper>true</implicit_spring_damper>

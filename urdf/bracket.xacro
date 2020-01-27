@@ -192,19 +192,15 @@
     <xacro:if value="${bracket_type.startswith('R8Heavy')}">
       <visual>
         <xacro:if value="${bracket_type.endswith('RightOutside')}">
-          <!-- <origin xyz="0 0 0.005" rpy="${pi/2} 0 ${pi/2}"/> -->
           <origin xyz="0 0 0" rpy="0 0 0"/>
         </xacro:if>
         <xacro:if value="${bracket_type.endswith('RightInside')}">
-          <!-- <origin xyz="0 0 0.005" rpy="${pi/2} 0 ${-pi/2}"/> -->
           <origin xyz="0 0 0" rpy="0 0 ${pi}"/>
         </xacro:if>
         <xacro:if value="${bracket_type.endswith('LeftOutside')}">
-          <!-- <origin xyz="0 0 0.005" rpy="${pi/2} 0 ${-pi/2}"/> -->
           <origin xyz="0 0 0" rpy="0 0 ${pi}"/>
         </xacro:if>
         <xacro:if value="${bracket_type.endswith('LeftInside')}">
-          <!-- <origin xyz="0 0 0.005" rpy="${pi/2} 0 ${pi/2}"/> -->
           <origin xyz="0 0 0" rpy="0 0 0"/>
         </xacro:if>
         <geometry>

@@ -134,7 +134,7 @@
       <gravity>1</gravity>
       <velocity_decay/>
     </link>
-    <joint name='Arm/J1_base/X5_4' type='revolute'>
+    <joint name='Arm/J1_base' type='revolute'>
       <child>shoulder_bracket/INPUT_INTERFACE</child>
       <parent>Arm/J1_base/INPUT_INTERFACE</parent>
       <axis>
@@ -338,7 +338,7 @@
       <gravity>1</gravity>
       <velocity_decay/>
     </link>
-    <joint name='Arm/J2_shoulder/X5_9' type='revolute'>
+    <joint name='Arm/J2_shoulder' type='revolute'>
       <child>shoulder_elbow/INPUT_INTERFACE</child>
       <parent>Arm/J2_shoulder/INPUT_INTERFACE</parent>
       <axis>
@@ -542,7 +542,7 @@
       <gravity>1</gravity>
       <velocity_decay/>
     </link>
-    <joint name='Arm/J3_elbow/X5_4' type='revolute'>
+    <joint name='Arm/J3_elbow' type='revolute'>
       <child>elbow_wrist/INPUT_INTERFACE</child>
       <parent>Arm/J3_elbow/INPUT_INTERFACE</parent>
       <axis>
@@ -633,54 +633,193 @@
         </ode>
       </physics>
     </joint>
-    <link name='end_effector/INPUT_INTERFACE'>
-      <pose frame=''>0.65 -0.0885 -0.036 3.14159 -0 0</pose>
+    <link name='HEBI_SIM/Arm/J4_wrist/X5_1'>
+      <pose frame=''>0.65 -0.0885 -0.005 3.14159 -0 0</pose>
       <inertial>
         <pose frame=''>0 0 0 0 -0 0</pose>
-        <mass>0.02</mass>
+        <mass>0.001</mass>
         <inertia>
-          <ixx>8e-05</ixx>
+          <ixx>1e-06</ixx>
           <ixy>0</ixy>
           <ixz>0</ixz>
-          <iyy>8e-05</iyy>
+          <iyy>1e-06</iyy>
           <iyz>0</iyz>
-          <izz>8e-05</izz>
+          <izz>1e-06</izz>
         </inertia>
       </inertial>
-      <collision name='end_effector/INPUT_INTERFACE_collision'>
-        <pose frame=''>0 0 0.0005 0 -0 0</pose>
+      <visual name='HEBI_SIM/Arm/J4_wrist/X5_1_visual'>
+        <pose frame=''>-0.03 0 0.02 0 -0 0</pose>
         <geometry>
-          <box>
-            <size>0.001 0.001 0.001</size>
-          </box>
-        </geometry>
-      </collision>
-      <visual name='end_effector/INPUT_INTERFACE_visual'>
-        <pose frame=''>0 0 0.0005 0 -0 0</pose>
-        <geometry>
-          <box>
-            <size>0.001 0.001 0.001</size>
-          </box>
+          <sphere>
+            <radius>0.001</radius>
+          </sphere>
         </geometry>
       </visual>
     </link>
-    <joint name='Arm/J4_wrist/X5_1' type='revolute'>
-      <child>end_effector/INPUT_INTERFACE</child>
+    <joint name='HEBI_SIM_JOINT/Arm/J4_wrist' type='fixed'>
+      <child>HEBI_SIM/Arm/J4_wrist/X5_1</child>
       <parent>Arm/J4_wrist/INPUT_INTERFACE</parent>
       <axis>
-        <xyz>0 -0 -1</xyz>
-        <limit>
-          <lower>-1e+16</lower>
-          <upper>1e+16</upper>
-        </limit>
         <dynamics>
-          <damping>0.1</damping>
-          <friction>0.1</friction>
           <spring_reference>0</spring_reference>
           <spring_stiffness>0</spring_stiffness>
         </dynamics>
         <use_parent_model_frame>1</use_parent_model_frame>
+        <xyz>0 0 1</xyz>
+        <limit>
+          <lower>-1e+16</lower>
+          <upper>1e+16</upper>
+        </limit>
       </axis>
+      <physics>
+        <ode>
+          <limit>
+            <cfm>0</cfm>
+            <erp>0.2</erp>
+          </limit>
+        </ode>
+      </physics>
+    </joint>
+    <link name='HEBI_SIM/Arm/J3_elbow/X5_4'>
+      <pose frame=''>0.325 -0.0885 0.066 3.14159 -0 0</pose>
+      <inertial>
+        <pose frame=''>0 0 0 0 -0 0</pose>
+        <mass>0.001</mass>
+        <inertia>
+          <ixx>1e-06</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>1e-06</iyy>
+          <iyz>0</iyz>
+          <izz>1e-06</izz>
+        </inertia>
+      </inertial>
+      <visual name='HEBI_SIM/Arm/J3_elbow/X5_4_visual'>
+        <pose frame=''>-0.03 0 0.02 0 -0 0</pose>
+        <geometry>
+          <sphere>
+            <radius>0.001</radius>
+          </sphere>
+        </geometry>
+      </visual>
+    </link>
+    <joint name='HEBI_SIM_JOINT/Arm/J3_elbow' type='fixed'>
+      <child>HEBI_SIM/Arm/J3_elbow/X5_4</child>
+      <parent>Arm/J3_elbow/INPUT_INTERFACE</parent>
+      <axis>
+        <dynamics>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+        <use_parent_model_frame>1</use_parent_model_frame>
+        <xyz>0 0 1</xyz>
+        <limit>
+          <lower>-1e+16</lower>
+          <upper>1e+16</upper>
+        </limit>
+      </axis>
+      <physics>
+        <ode>
+          <limit>
+            <cfm>0</cfm>
+            <erp>0.2</erp>
+          </limit>
+        </ode>
+      </physics>
+    </joint>
+    <link name='HEBI_SIM/Arm/J2_shoulder/X5_9'>
+      <pose frame=''>0 -0.0375 0.086 1.5708 -0 0</pose>
+      <inertial>
+        <pose frame=''>0 0 0 0 -0 0</pose>
+        <mass>0.001</mass>
+        <inertia>
+          <ixx>1e-06</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>1e-06</iyy>
+          <iyz>0</iyz>
+          <izz>1e-06</izz>
+        </inertia>
+      </inertial>
+      <visual name='HEBI_SIM/Arm/J2_shoulder/X5_9_visual'>
+        <pose frame=''>-0.03 0 0.02 0 -0 0</pose>
+        <geometry>
+          <sphere>
+            <radius>0.001</radius>
+          </sphere>
+        </geometry>
+      </visual>
+    </link>
+    <joint name='HEBI_SIM_JOINT/Arm/J2_shoulder' type='fixed'>
+      <child>HEBI_SIM/Arm/J2_shoulder/X5_9</child>
+      <parent>Arm/J2_shoulder/INPUT_INTERFACE</parent>
+      <axis>
+        <dynamics>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+        <use_parent_model_frame>1</use_parent_model_frame>
+        <xyz>0 0 1</xyz>
+        <limit>
+          <lower>-1e+16</lower>
+          <upper>1e+16</upper>
+        </limit>
+      </axis>
+      <physics>
+        <ode>
+          <limit>
+            <cfm>0</cfm>
+            <erp>0.2</erp>
+          </limit>
+        </ode>
+      </physics>
+    </joint>
+    <link name='HEBI_SIM/Arm/J1_base/X5_4'>
+      <pose frame=''>0 0 0 0 -0 0</pose>
+      <inertial>
+        <pose frame=''>0 0 0 0 -0 0</pose>
+        <mass>0.001</mass>
+        <inertia>
+          <ixx>1e-06</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>1e-06</iyy>
+          <iyz>0</iyz>
+          <izz>1e-06</izz>
+        </inertia>
+      </inertial>
+      <visual name='HEBI_SIM/Arm/J1_base/X5_4_visual'>
+        <pose frame=''>-0.03 0 0.02 0 -0 0</pose>
+        <geometry>
+          <sphere>
+            <radius>0.001</radius>
+          </sphere>
+        </geometry>
+      </visual>
+    </link>
+    <joint name='HEBI_SIM_JOINT/Arm/J1_base' type='fixed'>
+      <child>HEBI_SIM/Arm/J1_base/X5_4</child>
+      <parent>Arm/J1_base/INPUT_INTERFACE</parent>
+      <axis>
+        <dynamics>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+        <use_parent_model_frame>1</use_parent_model_frame>
+        <xyz>0 0 1</xyz>
+        <limit>
+          <lower>-1e+16</lower>
+          <upper>1e+16</upper>
+        </limit>
+      </axis>
+      <physics>
+        <ode>
+          <limit>
+            <cfm>0</cfm>
+            <erp>0.2</erp>
+          </limit>
+        </ode>
+      </physics>
     </joint>
     <static>0</static>
     <plugin name='hebi_gazebo_plugin' filename='libhebi_gazebo_plugin.so'/>

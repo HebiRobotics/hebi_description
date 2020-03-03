@@ -207,7 +207,7 @@
     </joint>
   </xacro:macro>
 
-  <xacro:macro name="gripper" params="name type:=Custom mass:=0.020 com_trans:='0 0 0' output_trans:='0 0 0'">
+  <xacro:macro name="gripper" params="name type:=Custom mass:=0.0 com_trans:='0 0 0' output_trans:='0 0 0'">
     <xacro:property name="com_trans_list" value="${map(float, com_trans.split(' '))}" />
     <xacro:if value="${ com_trans_list[0] + com_trans_list[1] + com_trans_list[2] >= 0.01 }">
       <xacro:property name="len" value="${sqrt( pow(com_trans_list[0], 2) + pow(com_trans_list[1], 2) + pow(com_trans_list[2], 2) )}" />
@@ -215,14 +215,9 @@
     <xacro:unless value="${ com_trans_list[0] + com_trans_list[1] + com_trans_list[2] >= 0.01 }">
       <xacro:property name="len" value="0.1" />
     </xacro:unless>
+
     <xacro:if value="${type == 'Custom'}">
       <link name="${name}/INPUT_INTERFACE">
-        <collision>
-          <origin xyz="0 0 0.0005" rpy="0 0 0" />
-          <geometry>
-            <box size="0.001 0.001 0.001" rpy="0 0 0" />
-          </geometry>
-        </collision>
         <visual>
           <origin xyz="0 0 0.0005" rpy="0 0 0" />
           <geometry>

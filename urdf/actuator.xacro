@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
   <!-- NOTE: joint must match the name of the module -->
-  <xacro:macro name="actuator" params="name child type limits:=${[]}">
+  <xacro:macro name="actuator" params="name child:='' type limits:=${[]}">
    
     <xacro:property name="model_name" value="${type}"/>
 
@@ -98,30 +98,27 @@
         </geometry>
       </collision>
       <inertial>
+        <mass value="${actuator_mass}"/>
         <xacro:if value="${model_name.startswith('X5')}">
           <origin xyz="-0.0142 -0.0031 0.0165" rpy="0 0 0" />
-          <mass value="${actuator_mass}"/>
           <inertia ixx="0.00015"  ixy="0.0000341"  ixz="0.0000118"
                    iyy="0.000255" iyz="0.00000229"
                    izz="0.000350" />
         </xacro:if>
         <xacro:if value="${model_name.startswith('X8')}">
           <origin xyz="-0.0145 -0.0031 0.0242" rpy="0 0 0" />
-          <mass value="${actuator_mass}"/>
           <inertia ixx="0.000246" ixy="0.0000444" ixz="0.0000266"
                    iyy="0.000380" iyz="0.00000422"
                    izz="0.000463"/>
         </xacro:if>
         <xacro:if value="${model_name.startswith('R8')}">
           <origin xyz="-0.02396 -0.00161 0.02557" rpy="0 0 0" />
-          <mass value="${actuator_mass}"/>
           <inertia ixx="0.000488" ixy="0.00001297" ixz="0.0000578"
                    iyy="0.001009" iyz="0.00000494"
                    izz="0.001186" />
         </xacro:if>
       </inertial>
     </link>
-
     <gazebo reference="${name}/INPUT_INTERFACE">
       <xacro:unless value="${model_name.startswith('R8')}">
         <xacro:gazebo_red_material/>
@@ -131,7 +128,33 @@
       </xacro:if>
     </gazebo>
 
-    <joint name="${name}/${model_name}" type="${urdf_joint_type}">
+    <link name="HEBI_SIM/${name}/${model_name}">
+      <visual>
+        <origin xyz="-0.03 0 0.02" rpy="0 0 0" />
+        <geometry>
+          <sphere radius="0.001"/>
+        </geometry>
+      </visual>
+      <inertial>
+        <mass value="0.001"/>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <inertia ixx="0.000001" ixy="0" ixz="0"
+                 iyy="0.000001" iyz="0"
+                 izz="0.000001" />
+      </inertial>
+    </link>
+
+    <joint name="HEBI_SIM_JOINT/${name}" type="fixed">
+      <parent link="${name}/INPUT_INTERFACE"/>
+      <child link="HEBI_SIM/${name}/${model_name}"/>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+    </joint>
+    <gazebo reference="HEBI_SIM_JOINT/${name}">
+      <disableFixedJointLumping>true</disableFixedJointLumping>
+      <preserveFixedJoint>true</preserveFixedJoint>
+    </gazebo>
+
+    <joint name="${name}" type="${urdf_joint_type}">
       <parent link="${name}/INPUT_INTERFACE"/>
       <child link="${child}/INPUT_INTERFACE"/>
       <xacro:if value="${model_name.startswith('X5')}">

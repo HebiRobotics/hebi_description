@@ -6,6 +6,10 @@ Along with the macros, several macros for full systems are defined.
 
 When using these macros, note that you may have to run `xacro --xacro-ns <filename>` in order to suppress legacy interpretation of xacro tags without namespaces (see http://wiki.ros.org/xacro).
 
+## Dependencies
+
+The scripts for converting between hrdf, xacro, and urdf depend on lxml, which can be installed by running `pip3 install --user lxml`
+
 ## xacro macros
 
 We provide several `xacro` macros for HEBI components that can be used to create robots for simulation or visualization:

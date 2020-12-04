@@ -18,47 +18,47 @@
     <xacro:if value="${model_name == 'X5_1'}">
       <xacro:property name="actuator_mass" value="0.315"/>
       <xacro:property name="effort_limit" value="2.5"/>
-      <xacro:property name="velocity_limit" value="90"/>
+      <xacro:property name="velocity_limit" value="9.425"/>
     </xacro:if>
     <xacro:if value="${model_name == 'X5_4'}">
       <xacro:property name="actuator_mass" value="0.335"/>
       <xacro:property name="effort_limit" value="7.0"/>
-      <xacro:property name="velocity_limit" value="32"/>
+      <xacro:property name="velocity_limit" value="3.351"/>
     </xacro:if>
     <xacro:if value="${model_name == 'X5_9'}">
       <xacro:property name="actuator_mass" value="0.360"/>
       <xacro:property name="effort_limit" value="13.0"/>
-      <xacro:property name="velocity_limit" value="14"/>
+      <xacro:property name="velocity_limit" value="1.466"/>
     </xacro:if>
     <xacro:if value="${model_name == 'X8_3'}">
       <xacro:property name="actuator_mass" value="0.460"/>
       <xacro:property name="effort_limit" value="7"/>
-      <xacro:property name="velocity_limit" value="84"/>
+      <xacro:property name="velocity_limit" value="8.796"/>
     </xacro:if>
     <xacro:if value="${model_name == 'X8_9'}">
       <xacro:property name="actuator_mass" value="0.480"/>
       <xacro:property name="effort_limit" value="20"/>
-      <xacro:property name="velocity_limit" value="30"/>
+      <xacro:property name="velocity_limit" value="3.142"/>
     </xacro:if>
     <xacro:if value="${model_name == 'X8_16'}">
       <xacro:property name="actuator_mass" value="0.500"/>
       <xacro:property name="effort_limit" value="38"/>
-      <xacro:property name="velocity_limit" value="15"/>
+      <xacro:property name="velocity_limit" value="1.571"/>
     </xacro:if>
     <xacro:if value="${model_name == 'R8_3'}">
       <xacro:property name="actuator_mass" value="0.670"/>
       <xacro:property name="effort_limit" value="7"/>
-      <xacro:property name="velocity_limit" value="84"/>
+      <xacro:property name="velocity_limit" value="8.796"/>
     </xacro:if>
     <xacro:if value="${model_name == 'R8_9'}">
       <xacro:property name="actuator_mass" value="0.685"/>
       <xacro:property name="effort_limit" value="20"/>
-      <xacro:property name="velocity_limit" value="30"/>
+      <xacro:property name="velocity_limit" value="3.142"/>
     </xacro:if>
     <xacro:if value="${model_name == 'R8_16'}">
       <xacro:property name="actuator_mass" value="0.715"/>
       <xacro:property name="effort_limit" value="38"/>
-      <xacro:property name="velocity_limit" value="15"/>
+      <xacro:property name="velocity_limit" value="1.571"/>
     </xacro:if>
 
     <!-- Note: the frction/damping probably need to be tuned more for accurate simulation -->

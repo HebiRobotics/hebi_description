@@ -1,0 +1,59 @@
+<?xml version='3.0' encoding='UTF-8'?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" version="1.1.0" name="A-2085-04">
+  <!-- HEBI Lily Hexapod Kit -->
+  <xacro:include filename="$(find hebi_description)/urdf/hebi.xacro"/>
+
+  <xacro:macro name="left_leg" params="family leg_num angle offset">
+    <joint name="base_leg${leg_num}_joint" type="fixed">
+      <origin xyz="${offset*cos(angle)} ${offset*sin(angle)} 0" rpy="0 0 ${angle}" />
+      <parent link="hexapod_base"/>
+      <child link="${family}/L${leg_num}_J1_base/INPUT_INTERFACE"/>
+    </joint>
+    <xacro:actuator type="R8_9" name="${family}/L${leg_num}_J1_base" child="shoulder${leg_num}_bracket"/>
+    <xacro:bracket type="R8HeavyLeftInside" name="shoulder${leg_num}_bracket" child="${family}/L${leg_num}_J2_shoulder"/>
+    <xacro:actuator type="R8_16" name="${family}/L${leg_num}_J2_shoulder" child="shoulder${leg_num}_elbow"/>
+    <xacro:link type="R8" extension="0.325" twist="${pi}" name="shoulder${leg_num}_elbow" child="${family}/L${leg_num}_J3_elbow"/>
+    <xacro:actuator type="R8_9" name="${family}/L${leg_num}_J3_elbow" child="elbow${leg_num}_foot"/>
+    <xacro:link type="R8" extension="0.325" twist="${0}" name="elbow${leg_num}_foot" output="Inline" child="foot${leg_num}"/>
+    <xacro:gripper type="Custom" name="foot${leg_num}" mass="0.06"/>
+  </xacro:macro>
+
+  <xacro:macro name="right_leg" params="family leg_num angle offset">
+    <joint name="base_leg${leg_num}_joint" type="fixed">
+      <origin xyz="${offset*cos(angle)} ${offset*sin(angle)} 0" rpy="0 0 ${angle}" />
+      <parent link="hexapod_base"/>
+      <child link="${family}/L${leg_num}_J1_base/INPUT_INTERFACE"/>
+    </joint>
+    <xacro:actuator type="R8_9" name="${family}/L${leg_num}_J1_base" child="shoulder${leg_num}_bracket"/>
+    <xacro:bracket type="R8HeavyRightInside" name="shoulder${leg_num}_bracket" child="${family}/L${leg_num}_J2_shoulder"/>
+    <xacro:actuator type="R8_16" name="${family}/L${leg_num}_J2_shoulder" child="shoulder${leg_num}_elbow"/>
+    <xacro:link type="R8" extension="0.325" twist="${pi}" name="shoulder${leg_num}_elbow" child="${family}/L${leg_num}_J3_elbow"/>
+    <xacro:actuator type="R8_9" name="${family}/L${leg_num}_J3_elbow" child="elbow${leg_num}_foot"/>
+    <xacro:link type="R8" extension="0.325" twist="${0}" name="elbow${leg_num}_foot" output="Inline" child="foot${leg_num}"/>
+    <xacro:gripper type="Custom" name="foot${leg_num}" mass="0.06"/>
+  </xacro:macro>
+
+  <link name="hexapod_base">
+    <visual>
+      <origin xyz="0 0 0.1" rpy="0 0 0" />
+      <geometry>
+        <box size="0.2 0.15 0.1"/>
+      </geometry>
+      <xacro:black_material/>
+    </visual>
+    <inertial>
+      <mass value="2.0"/>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <inertia ixx="0.001" ixy="0" ixz="0"
+               iyy="0.001" iyz="0"
+               izz="0.001" />
+    </inertial>
+  </link>
+  <xacro:left_leg family="Lily" leg_num="1" angle="${30*pi/180}" offset="0.3625" />
+  <xacro:right_leg family="Lily" leg_num="2" angle="${-30*pi/180}" offset="0.3625" />
+  <xacro:left_leg family="Lily" leg_num="3" angle="${90*pi/180}" offset="0.2625" />
+  <xacro:right_leg family="Lily" leg_num="4" angle="${-90*pi/180}" offset="0.2625" />
+  <xacro:left_leg family="Lily" leg_num="5" angle="${150*pi/180}" offset="0.3625" />
+  <xacro:right_leg family="Lily" leg_num="6" angle="${-150*pi/180}" offset="0.3625" />
+
+</robot>

@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro" version="1.1.0" name="A-2085-04">
-  <!-- HEBI Lily Hexapod Kit -->
+  <!-- HEBI Daisy Hexapod Kit -->
   <xacro:include filename="$(find hebi_description)/urdf/hebi.xacro"/>
 
   <xacro:macro name="left_leg" params="family leg_num angle offset">
@@ -49,11 +49,11 @@
                izz="0.001" />
     </inertial>
   </link>
-  <xacro:left_leg family="Lily" leg_num="1" angle="${30*pi/180}" offset="0.2375" />
-  <xacro:right_leg family="Lily" leg_num="2" angle="${-30*pi/180}" offset="0.2375" />
-  <xacro:left_leg family="Lily" leg_num="3" angle="${90*pi/180}" offset="0.1875" />
-  <xacro:right_leg family="Lily" leg_num="4" angle="${-90*pi/180}" offset="0.1875" />
-  <xacro:left_leg family="Lily" leg_num="5" angle="${150*pi/180}" offset="0.2375" />
-  <xacro:right_leg family="Lily" leg_num="6" angle="${-150*pi/180}" offset="0.2375" />
+  <xacro:left_leg family="Daisy" leg_num="1" angle="${30*pi/180}" offset="0.2375" />
+  <xacro:right_leg family="Daisy" leg_num="2" angle="${-30*pi/180}" offset="0.2375" />
+  <xacro:left_leg family="Daisy" leg_num="3" angle="${90*pi/180}" offset="0.1875" />
+  <xacro:right_leg family="Daisy" leg_num="4" angle="${-90*pi/180}" offset="0.1875" />
+  <xacro:left_leg family="Daisy" leg_num="5" angle="${150*pi/180}" offset="0.2375" />
+  <xacro:right_leg family="Daisy" leg_num="6" angle="${-150*pi/180}" offset="0.2375" />
 
 </robot>

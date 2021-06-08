@@ -136,17 +136,17 @@
     <xacro:reverse_actuator type="X8_16"
 	    name="${family}/L${leg_num}_J4_ankle" parent="leg${leg_num}_ankle_spacer_output" child="leg${leg_num}_tread_bracket_1"/>
 
-    <xacro:rigid_body mass="0.05" size="0.15 0.05 0.01" output_trans="-0.15 0 -0.01"
+    <xacro:rigid_body mass="0.3" size="0.15 0.05 0.01" output_trans="-0.137 0 -0.01"
 	    name="leg${leg_num}_tread_bracket_1" child="leg${leg_num}_tread_bracket_2"/>
-    <xacro:rigid_body mass="0.05" size="0.1 0.05 0.05" output_trans="0 0 0.05"
+    <xacro:rigid_body mass="0.3" size="0.08 0.05 0.05" output_trans="0 0 0.05"
 	    name="leg${leg_num}_tread_bracket_2" child="leg${leg_num}_tread_bracket_3"/>
-    <xacro:rigid_body mass="0.05" size="0.15 0.05 0.01" output_trans="-0.15 0 -0.01" output_rot="0 ${pi} 0"
+    <xacro:rigid_body mass="0.3" size="0.15 0.05 0.01" output_trans="-0.137 0 -0.01" output_rot="0 ${pi} 0"
 	    name="leg${leg_num}_tread_bracket_3" child="${family}/L${leg_num}_J5_tread"/>
     <xacro:actuator type="X8_16"
 	    name="${family}/L${leg_num}_J5_tread" child="leg${leg_num}_drive_pulley"/>
 
-    <xacro:drive_pulley mass="0.1" radius="0.08" width="0.02" name="leg${leg_num}_drive_pulley"/>
-    <xacro:idle_pulley mass="0.1" radius="0.08" width="0.02"
+    <xacro:drive_pulley mass="0.1" radius="0.068" width="0.033" name="leg${leg_num}_drive_pulley"/>
+    <xacro:idle_pulley mass="0.1" radius="0.068" width="0.033"
 	    name="leg${leg_num}_drive_pulley" parent="leg${leg_num}_tread_bracket_1"/>
   </xacro:macro>
 

@@ -1,0 +1,175 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" version="1.0" name="A-2085-04">
+  <!-- HEBI Lily Hexapod Kit -->
+  <xacro:include filename="$(find hebi_description)/urdf/hebi.xacro"/>
+
+  <xacro:macro name="rigid_body" params="mass size output_trans output_rot:='0 0 0' name child">
+    <xacro:property name="output_trans_prop" value="${[float(x) for x in output_trans.split(' ')]}"/>
+    <link name="${name}/INPUT_INTERFACE">
+      <visual>
+        <origin xyz="${output_trans_prop[0]/2} ${output_trans_prop[1]/2} ${output_trans_prop[2]/2}" rpy="0 0 0" />
+        <geometry>
+      	  <box size="${size}"/>
+        </geometry>
+        <xacro:beige_material/>
+      </visual>
+      <inertial>
+        <mass value="${mass}"/>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <inertia ixx="0.001" ixy="0" ixz="0"
+                 iyy="0.001" iyz="0"
+                 izz="0.001" />
+      </inertial>
+    </link>
+    <joint name="${name}_child_joint" type="fixed">
+	    <origin xyz="${output_trans_prop[0]} ${output_trans_prop[1]} ${output_trans_prop[2]}" rpy="${output_rot}" />
+      <parent link="${name}/INPUT_INTERFACE"/>
+      <child link="${child}/INPUT_INTERFACE"/>
+    </joint>
+  </xacro:macro>
+
+  <xacro:macro name="double_input_spacer" params="mass size output_trans name output_name">
+    <link name="${name}/INPUT_INTERFACE">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+		<cylinder radius="${0.025}" length="${size}"/>
+        </geometry>
+        <xacro:beige_material/>
+      </visual>
+      <inertial>
+        <mass value="${mass}"/>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <inertia ixx="0.001" ixy="0" ixz="0"
+                 iyy="0.001" iyz="0"
+                 izz="0.001" />
+      </inertial>
+    </link>
+
+    <link name="${output_name}/INPUT_INTERFACE">
+    </link>
+
+    <joint name="${name}_child_joint" type="fixed">
+      <origin xyz="${output_trans}" rpy="0 0 0" />
+      <parent link="${name}/INPUT_INTERFACE"/>
+      <child link="${output_name}/INPUT_INTERFACE"/>
+    </joint>
+  </xacro:macro>
+
+  <xacro:macro name="drive_pulley" params="mass radius width name">
+    <link name="${name}/INPUT_INTERFACE">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <cylinder radius="${radius}" length="${width}"/>
+        </geometry>
+        <xacro:black_material/>
+      </visual>
+      <inertial>
+        <mass value="${mass}"/>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <inertia ixx="0.001" ixy="0" ixz="0"
+                 iyy="0.001" iyz="0"
+                 izz="0.001" />
+      </inertial>
+    </link>
+  </xacro:macro>
+
+  <xacro:macro name="idle_pulley" params="mass radius width name parent">
+    <link name="${name}">
+      <visual>
+        <origin xyz="0 0 ${-width}" rpy="0 0 0" />
+        <geometry>
+          <cylinder radius="${radius}" length="${width}"/>
+        </geometry>
+        <xacro:black_material/>
+      </visual>
+      <inertial>
+        <mass value="${mass}"/>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <inertia ixx="0.001" ixy="0" ixz="0"
+                 iyy="0.001" iyz="0"
+                 izz="0.001" />
+      </inertial>
+    </link>
+    <joint name="leg${leg_num}_idle_pulley_joint" type="continuous">
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <parent link="${parent}/INPUT_INTERFACE"/>
+      <child link="${name}"/>
+    </joint>
+  </xacro:macro>
+
+  <xacro:macro name="cricket_leg" params="type family leg_num angle offset">
+    <joint name="base_leg${leg_num}_joint" type="fixed">
+      <origin xyz="${offset}" rpy="${angle}" />
+      <parent link="cricket_base"/>
+      <child link="leg${leg_num}_base_bracket/INPUT_INTERFACE"/>
+    </joint>
+
+    <xacro:rigid_body mass="0.05" size="0.05 0.05 0.02" output_trans="0 0 0.02"
+	    name="leg${leg_num}_base_bracket" child="leg${leg_num}_base_shoulder1"/>
+    <xacro:link type="X5" output="Inline" extension="0.075" twist="${pi/2}"
+	    name="leg${leg_num}_base_shoulder1" child="${family}/L${leg_num}_J1_shoulder1"/>
+
+    <xacro:actuator type="X8_16"
+	    name="${family}/L${leg_num}_J1_shoulder1" child="leg_${leg_num}_shoulder1_shoulder2"/>
+    <xacro:if value="${type == 'left'}">
+        <xacro:bracket type="X5HeavyLeftInside"
+    	    name="leg_${leg_num}_shoulder1_shoulder2" child="${family}/L${leg_num}_J2_shoulder2"/>
+    </xacro:if>
+    <xacro:if value="${type == 'right'}">
+        <xacro:bracket type="X5HeavyRightInside"
+    	    name="leg_${leg_num}_shoulder1_shoulder2" child="${family}/L${leg_num}_J2_shoulder2"/>
+    </xacro:if>
+    <xacro:actuator type="X8_16"
+	    name="${family}/L${leg_num}_J2_shoulder2" child="leg_${leg_num}_knee_to_link_spacer"/>
+    <xacro:rigid_body mass="0.05" size="0.05 0.05 0.02" output_trans="0 0 0.020"
+	    name="leg_${leg_num}_knee_to_link_spacer" child="leg_${leg_num}_shoulder2_knee"/>
+    <xacro:link type="X5" extension="0.150" twist="0"
+	    name="leg_${leg_num}_shoulder2_knee" child="${family}/L${leg_num}_J3_knee"/>
+    <xacro:actuator type="X8_16"
+	    name="${family}/L${leg_num}_J3_knee" child="leg${leg_num}_knee_ankle"/>
+    <xacro:link type="X5" extension="0.275" twist="0"
+	    name="leg${leg_num}_knee_ankle" child="leg${leg_num}_ankle_spacer"/>
+    <xacro:double_input_spacer mass="0.5" size="0.01" output_trans="0 0 0"
+	    name="leg${leg_num}_ankle_spacer" output_name="leg${leg_num}_ankle_spacer_output"/>
+    <xacro:reverse_actuator type="X8_16"
+	    name="${family}/L${leg_num}_J4_ankle" parent="leg${leg_num}_ankle_spacer_output" child="leg${leg_num}_tread_bracket_1"/>
+
+    <xacro:rigid_body mass="0.05" size="0.15 0.05 0.01" output_trans="-0.15 0 -0.01"
+	    name="leg${leg_num}_tread_bracket_1" child="leg${leg_num}_tread_bracket_2"/>
+    <xacro:rigid_body mass="0.05" size="0.1 0.05 0.05" output_trans="0 0 0.05"
+	    name="leg${leg_num}_tread_bracket_2" child="leg${leg_num}_tread_bracket_3"/>
+    <xacro:rigid_body mass="0.05" size="0.15 0.05 0.01" output_trans="-0.15 0 -0.01" output_rot="0 ${pi} 0"
+	    name="leg${leg_num}_tread_bracket_3" child="${family}/L${leg_num}_J5_tread"/>
+    <xacro:actuator type="X8_16"
+	    name="${family}/L${leg_num}_J5_tread" child="leg${leg_num}_drive_pulley"/>
+
+    <xacro:drive_pulley mass="0.1" radius="0.08" width="0.02" name="leg${leg_num}_drive_pulley"/>
+    <xacro:idle_pulley mass="0.1" radius="0.08" width="0.02"
+	    name="leg${leg_num}_drive_pulley" parent="leg${leg_num}_tread_bracket_1"/>
+  </xacro:macro>
+
+
+  <link name="cricket_base">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <box size="0.370 0.285 0.150"/>
+      </geometry>
+      <xacro:black_material/>
+    </visual>
+    <inertial>
+      <mass value="2.0"/>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <inertia ixx="0.001" ixy="0" ixz="0"
+               iyy="0.001" iyz="0"
+               izz="0.001" />
+    </inertial>
+  </link>
+
+  <xacro:cricket_leg type="left"  family="Cricket" leg_num="1" angle="${-pi/2} 0 0" offset="0.135 0.100 0.030" />
+  <xacro:cricket_leg type="right" family="Cricket" leg_num="2" angle="${pi/2} 0 0" offset="0.135 -0.100 0.030" />
+  <xacro:cricket_leg type="right" family="Cricket" leg_num="3" angle="${pi/2} 0 ${pi}" offset="-0.135 0.100 0.030" />
+  <xacro:cricket_leg type="left"  family="Cricket" leg_num="4" angle="${-pi/2} 0 ${-pi}" offset="-0.135 -0.100 0.030" />
+</robot>

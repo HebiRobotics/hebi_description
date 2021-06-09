@@ -28,15 +28,8 @@
     </joint>
   </xacro:macro>
 
-  <xacro:macro name="dummy_spacer" params="mass size output_trans name">
+  <xacro:macro name="dummy_spacer" params="mass name">
     <link name="${name}/INPUT_INTERFACE">
-      <visual>
-        <origin xyz="0 0 0" rpy="0 0 0" />
-        <geometry>
-		<cylinder radius="${0.025}" length="${size}"/>
-        </geometry>
-        <xacro:beige_material/>
-      </visual>
       <inertial>
         <mass value="${mass}"/>
         <origin xyz="0 0 0" rpy="0 0 0" />
@@ -128,8 +121,7 @@
 	    name="${family}/L${leg_num}_J3_knee" child="leg${leg_num}_knee_ankle"/>
     <xacro:link type="X5" extension="0.275" twist="0"
 	    name="leg${leg_num}_knee_ankle" child="leg${leg_num}_ankle_spacer"/>
-    <xacro:dummy_spacer mass="0.05" size="0.0" output_trans="0 0 0"
-	    name="leg${leg_num}_ankle_spacer"/>
+    <xacro:dummy_spacer mass="0.01" name="leg${leg_num}_ankle_spacer"/>
     <xacro:reverse_actuator type="X8_16"
 	    name="${family}/L${leg_num}_J4_ankle" parent="leg${leg_num}_ankle_spacer" child="leg${leg_num}_tread_bracket_1"/>
 
@@ -162,6 +154,8 @@
         <box size="0.370 0.285 0.150"/>
       </geometry>
     </collision>
+  </link>
+  <link name="cricket_base_inertia">
     <inertial>
       <mass value="2.0"/>
       <origin xyz="0 0 0" rpy="0 0 0" />
@@ -170,6 +164,10 @@
                izz="0.001" />
     </inertial>
   </link>
+  <joint name="cricket_base_inertia_joint" type="fixed">
+	  <parent link="cricket_base"/>
+	  <child link="cricket_base_inertia"/>
+  </joint>
 
   <xacro:cricket_leg type="left"  family="Cricket" leg_num="1" angle="${-pi/2} 0 0" offset="0.135 0.100 0.030" />
   <xacro:cricket_leg type="right" family="Cricket" leg_num="2" angle="${pi/2} 0 0" offset="0.135 -0.100 0.030" />

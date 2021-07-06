@@ -3,6 +3,36 @@
   <!-- HEBI Lily Hexapod Kit -->
   <xacro:include filename="$(find hebi_description)/urdf/hebi.xacro"/>
 
+  <gazebo>
+    <plugin name="hebi_gazebo_plugin" filename="libhebi_gazebo_plugin.so">
+      <actuators>
+        <actuator family="Cricket" name="L1_J1_shoulder1" type="X8_16" mocked="false"/>
+        <actuator family="Cricket" name="L1_J2_shoulder2" type="X8_16" mocked="false"/>
+        <actuator family="Cricket" name="L1_J3_knee"      type="X8_16" mocked="false"/>
+        <actuator family="Cricket" name="L1_J4_ankle"     type="X8_16" mocked="false"/>
+        <actuator family="Cricket" name="L1_J5_tread"     type="X8_16" mocked="false"/>
+
+        <actuator family="Cricket" name="L2_J1_shoulder1" type="X8_16" mocked="false"/>
+        <actuator family="Cricket" name="L2_J2_shoulder2" type="X8_16" mocked="false"/>
+        <actuator family="Cricket" name="L2_J3_knee"      type="X8_16" mocked="false"/>
+        <actuator family="Cricket" name="L2_J4_ankle"     type="X8_16" mocked="false"/>
+        <actuator family="Cricket" name="L2_J5_tread"     type="X8_16" mocked="false"/>
+
+        <actuator family="Cricket" name="L3_J1_shoulder1" type="X8_16" mocked="false"/>
+        <actuator family="Cricket" name="L3_J2_shoulder2" type="X8_16" mocked="false"/>
+        <actuator family="Cricket" name="L3_J3_knee"      type="X8_16" mocked="false"/>
+        <actuator family="Cricket" name="L3_J4_ankle"     type="X8_16" mocked="false"/>
+        <actuator family="Cricket" name="L3_J5_tread"     type="X8_16" mocked="false"/>
+
+        <actuator family="Cricket" name="L4_J1_shoulder1" type="X8_16" mocked="false"/>
+        <actuator family="Cricket" name="L4_J2_shoulder2" type="X8_16" mocked="false"/>
+        <actuator family="Cricket" name="L4_J3_knee"      type="X8_16" mocked="false"/>
+        <actuator family="Cricket" name="L4_J4_ankle"     type="X8_16" mocked="false"/>
+        <actuator family="Cricket" name="L4_J5_tread"     type="X8_16" mocked="false"/>
+      </actuators>
+    </plugin>
+  </gazebo>
+
   <xacro:macro name="rigid_body" params="mass size output_trans output_rot:='0 0 0' name child">
     <xacro:property name="output_trans_prop" value="${[float(x) for x in output_trans.split(' ')]}"/>
     <link name="${name}/INPUT_INTERFACE">
@@ -43,14 +73,14 @@
   <xacro:macro name="drive_pulley" params="mass radius width name">
     <link name="${name}/INPUT_INTERFACE">
       <visual>
-        <origin xyz="0 0 0" rpy="0 0 0" />
+        <origin xyz="0 0 0.020" rpy="0 0 0" />
         <geometry>
           <cylinder radius="${radius}" length="${width}"/>
         </geometry>
         <xacro:black_material/>
       </visual>
       <collision>
-        <origin xyz="0 0 0" rpy="0 0 0" />
+        <origin xyz="0 0 0.020" rpy="0 0 0" />
         <geometry>
           <cylinder radius="${radius}" length="${width}"/>
         </geometry>
@@ -68,7 +98,7 @@
   <xacro:macro name="idle_pulley" params="mass radius width name parent">
     <link name="${name}">
       <visual>
-        <origin xyz="0 0 ${-width}" rpy="0 0 0" />
+        <origin xyz="0.0 0.0 -0.03" rpy="0 0 0" />
         <geometry>
           <cylinder radius="${radius}" length="${width}"/>
         </geometry>
@@ -86,6 +116,7 @@
       <origin xyz="0 0 0" rpy="0 0 0" />
       <parent link="${parent}/INPUT_INTERFACE"/>
       <child link="${name}"/>
+      <axis xyz="0 0 1"/>
     </joint>
   </xacro:macro>
 
@@ -124,7 +155,6 @@
     <xacro:dummy_spacer mass="0.01" name="leg${leg_num}_ankle_spacer"/>
     <xacro:reverse_actuator type="X8_16"
 	    name="${family}/L${leg_num}_J4_ankle" parent="leg${leg_num}_ankle_spacer" child="leg${leg_num}_tread_bracket_1"/>
-
     <xacro:rigid_body mass="0.3" size="0.15 0.05 0.01" output_trans="-0.137 0 -0.01"
 	    name="leg${leg_num}_tread_bracket_1" child="leg${leg_num}_tread_bracket_2"/>
     <xacro:rigid_body mass="0.3" size="0.08 0.05 0.05" output_trans="0 0 0.05"
@@ -136,9 +166,8 @@
 
     <xacro:drive_pulley mass="0.1" radius="0.068" width="0.033" name="leg${leg_num}_drive_pulley"/>
     <xacro:idle_pulley mass="0.1" radius="0.068" width="0.033"
-	    name="leg${leg_num}_drive_pulley" parent="leg${leg_num}_tread_bracket_1"/>
+	    name="leg${leg_num}_idle_pulley" parent="${family}/L${leg_num}_J4_ankle"/>
   </xacro:macro>
-
 
   <link name="cricket_base">
     <visual>
@@ -165,8 +194,8 @@
     </inertial>
   </link>
   <joint name="cricket_base_inertia_joint" type="fixed">
-	  <parent link="cricket_base"/>
-	  <child link="cricket_base_inertia"/>
+    <parent link="cricket_base"/>
+    <child link="cricket_base_inertia"/>
   </joint>
 
   <xacro:cricket_leg type="left"  family="Cricket" leg_num="1" angle="${-pi/2} 0 0" offset="0.135 0.100 0.030" />

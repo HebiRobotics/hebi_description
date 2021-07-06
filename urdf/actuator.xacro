@@ -128,32 +128,6 @@
       </xacro:if>
     </gazebo>
 
-    <link name="HEBI_SIM/${name}/${model_name}">
-      <visual>
-        <origin xyz="-0.03 0 0.02" rpy="0 0 0" />
-        <geometry>
-          <sphere radius="0.001"/>
-        </geometry>
-      </visual>
-      <inertial>
-        <mass value="0.001"/>
-        <origin xyz="0 0 0" rpy="0 0 0" />
-        <inertia ixx="0.000001" ixy="0" ixz="0"
-                 iyy="0.000001" iyz="0"
-                 izz="0.000001" />
-      </inertial>
-    </link>
-
-    <joint name="HEBI_SIM_JOINT/${name}" type="fixed">
-      <parent link="${name}/INPUT_INTERFACE"/>
-      <child link="HEBI_SIM/${name}/${model_name}"/>
-      <origin xyz="0 0 0" rpy="0 0 0"/>
-    </joint>
-    <gazebo reference="HEBI_SIM_JOINT/${name}">
-      <disableFixedJointLumping>true</disableFixedJointLumping>
-      <preserveFixedJoint>true</preserveFixedJoint>
-    </gazebo>
-
     <joint name="${name}" type="${urdf_joint_type}">
       <parent link="${name}/INPUT_INTERFACE"/>
       <child link="${child}/INPUT_INTERFACE"/>
@@ -307,32 +281,6 @@
       <xacro:if value="${model_name.startswith('R8')}">
         <xacro:gazebo_black_material/>
       </xacro:if>
-    </gazebo>
-
-    <link name="HEBI_SIM/${name}/${model_name}">
-      <visual>
-        <origin xyz="-0.03 0 0.02" rpy="0 0 0" />
-        <geometry>
-          <sphere radius="0.001"/>
-        </geometry>
-      </visual>
-      <inertial>
-        <mass value="0.001"/>
-        <origin xyz="0 0 0" rpy="0 0 0" />
-        <inertia ixx="0.000001" ixy="0" ixz="0"
-                 iyy="0.000001" iyz="0"
-                 izz="0.000001" />
-      </inertial>
-    </link>
-
-    <joint name="HEBI_SIM_JOINT/${name}" type="fixed">
-      <parent link="${name}/INPUT_INTERFACE"/>
-      <child link="HEBI_SIM/${name}/${model_name}"/>
-      <origin xyz="0 0 0" rpy="0 0 0"/>
-    </joint>
-    <gazebo reference="HEBI_SIM_JOINT/${name}">
-      <disableFixedJointLumping>true</disableFixedJointLumping>
-      <preserveFixedJoint>true</preserveFixedJoint>
     </gazebo>
 
     <joint name="${name}" type="${urdf_joint_type}">

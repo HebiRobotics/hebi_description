@@ -71,10 +71,12 @@ if __name__ == '__main__':
         msg = 'Given {} names, but there are {} actuators in model'.format(len(args.actuators), num_actuators)
         raise ValueError(msg)
 
+    actuator_types = []
     for idx, el in enumerate(robot.iter('actuator')):
         el.set('name', '{}/{}'.format(family_name, actuator_names[idx]))
         if 'type' in el.attrib:
             el.set('type', el.attrib['type'].replace('-', '_'))
+            actuator_types.append(el.attrib['type'])
 
     # This strips the J#_ from the front of joint names
     # so brackets/links are named less verbosely
@@ -115,8 +117,10 @@ if __name__ == '__main__':
                     el.set(prop, '${{{}}}'.format(val))
 
 
+    has_dummy_end = False
     # add a placeholder end effector if chain ends in a non-gripper
     if elmnts[-1].tag != '{'+NS_XACRO+'}gripper':
+        has_dummy_end = True
         dummy_end = ET.Element('{'+NS_XACRO+'}gripper', {'type': 'Custom', 'name': 'end_effector', 'mass':'0.0'})
         robot.append(dummy_end)
 
@@ -141,6 +145,18 @@ if __name__ == '__main__':
     robot.insert(0, base_link_conditional)
     robot.insert(0, ET.Element('{'+NS_XACRO+'}property', {'name': 'hebi_base_frame', 'value': '$(arg hebi_base_frame)'}))
     robot.insert(0, ET.Element('{'+NS_XACRO+'}arg', {'name': 'hebi_base_frame', 'default': 'world'}))
+
+    gazebo = ET.Element('gazebo')
+    actuators = ET.SubElement(gazebo, 'actuators')
+    for idx, name in enumerate(actuator_names):
+        # mock the last actuator in the chain if it's a dummy end effector
+        if has_dummy_end and idx == len(actuator_names) - 1:
+            should_mock = "true"
+        else:
+            should_mock = "false"
+        ET.SubElement(actuators, 'actuator', {'family': family_name, 'name': name, 'type': actuator_types[idx], 'mocked': should_mock})
+    robot.insert(0, gazebo)
+
     robot.insert(0, ET.Element('{'+NS_XACRO+'}include', {'filename': '$(find hebi_description)/urdf/hebi.xacro'}))
     robot.insert(0, ET.Comment(' HEBI {} Arm Kit '.format(model_name)))
 

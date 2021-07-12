@@ -129,10 +129,6 @@
         <origin xyz="${0} ${0} ${extension}" rpy="${0} ${0} ${twist-pi/2}"/>
       </xacro:if>
     </joint>
-    <gazebo reference="${name}/OUTPUT_JOINT">
-      <disableFixedJointLumping>true</disableFixedJointLumping>
-      <preserveFixedJoint>true</preserveFixedJoint>
-    </gazebo>
   </xacro:macro>
 </robot>
 

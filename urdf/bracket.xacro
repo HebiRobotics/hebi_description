@@ -286,9 +286,5 @@
       <origin xyz="0 -.043 .04" rpy="${pi/2} 0 0"/>
     </xacro:if>
   </joint>
-  <gazebo reference="${name}/OUTPUT_INTERFACE">
-    <disableFixedJointLumping>true</disableFixedJointLumping>
-    <preserveFixedJoint>true</preserveFixedJoint>
-  </gazebo>
   </xacro:macro>
 </robot>

@@ -295,7 +295,7 @@
       <xacro:if value="${model_name.startswith('R8')}">
         <origin xyz="0 0 0.051" rpy="0 ${pi} 0"/>
       </xacro:if>
-      <axis xyz="0 0 1"/>
+      <axis xyz="0 0 -1"/>
 
       <!-- Continuous joints (no position limits) -->
       <xacro:if value="${limits == []}">

@@ -1,0 +1,108 @@
+<?xml version="1.0" ?>
+<robot name="rosie_test" xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <xacro:include filename="$(find hebiros_description)/urdf/hebi.xacro"/>
+
+  <link name="base_footprint"/>
+
+  <joint name="base_joint" type="fixed">
+    <parent link="base_footprint"/>
+    <child link="base_link" />
+    <origin xyz="0 0 0.010" rpy="0 0 0"/>
+  </joint>
+
+  <link name="base_link">
+    <visual>
+      <origin xyz="-0.1625 0.1775 0" rpy="1.5708 0 0"/>
+      <geometry>
+        <!--box size="0.50 0.50 0.10"/-->
+        <mesh filename="package://hebiros_description/meshes/rosie_base.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="light_black"/>
+    </visual>
+
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.50 0.50 0.1"/>
+      </geometry>
+    </collision>
+    
+  </link>
+
+  <joint name="Wheel1_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="HEBI/Wheel1/INPUT_INTERFACE"/>
+    <origin xyz="0.0680 0.135 0.030" rpy="0.523599 1.5708 1.5708"/>
+    <axis xyz="0 0 1"/>
+  </joint>
+
+  <joint name="wheel_2_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="HEBI/Wheel2/INPUT_INTERFACE"/>
+    <origin xyz="0.0680 -0.135 0.030" rpy="-0.523599 1.5708 -1.5708"/>
+    <axis xyz="0 0 1"/>
+  </joint>
+
+  <joint name="wheel_3_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="HEBI/Wheel3/INPUT_INTERFACE"/>
+    <origin xyz="-0.155 0.0 0.030" rpy="0 1.5708 3.14159"/>
+    <axis xyz="0 0 1"/>
+  </joint>
+
+  <xacro:x5 joint="HEBI/Wheel1" child="omniwheel1" model="X5_4"/>
+  <xacro:x5 joint="HEBI/Wheel2" child="omniwheel2" model="X5_4"/>
+  <xacro:x5 joint="HEBI/Wheel3" child="omniwheel3" model="X5_4"/>
+
+  <link name="omniwheel1/INPUT_INTERFACE">
+    <visual>
+      <origin xyz="0.1030 0.185 0.050" rpy="0.523599 1.5708 1.5708"/>
+      <geometry>
+        <!--box size="0.50 0.50 0.10"/-->
+        <mesh filename="package://hebiros_description/meshes/omniwheel.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </visual>
+
+  </link>
+
+
+  <link name="omniwheel2/INPUT_INTERFACE">
+    <visual>
+      <origin xyz="0.0930 -0.175 0.050" rpy="-0.523599 1.5708 1.5708"/>
+      <geometry>
+        <!--box size="0.50 0.50 0.10"/-->
+        <mesh filename="package://hebiros_description/meshes/omni_25k.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </visual>
+  </link>  
+
+  <link name="omniwheel3/INPUT_INTERFACE">
+    <visual>
+      <origin xyz="-0.220 0 0.050" rpy="0 1.5708 3.14159"/>
+      <geometry>
+        <!--box size="0.50 0.50 0.10"/-->
+        <mesh filename="package://hebiros_description/meshes/omni_25k.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </visual>
+  </link>
+
+  <joint name="arm_base_joint" type="fixed">
+    <origin xyz="0 0 0.180" rpy="0 0 1.5708"/>
+    <child link="Arm/J1_base/INPUT_INTERFACE"/>
+    <parent link="base_link"/>
+  </joint>
+  <xacro:actuator type="X8_9" name="Arm/J1_base" child="shoulder_bracket"/>
+  <xacro:bracket type="X5HeavyRightOutside" name="shoulder_bracket" child="Arm/J2_shoulder"/>
+  <xacro:actuator type="X8_16" name="Arm/J2_shoulder" child="shoulder_elbow"/>
+  <xacro:link type="X5" extension="0.325" twist="${pi}" name="shoulder_elbow" child="Arm/J3_elbow"/>
+  <xacro:actuator type="X8_9" name="Arm/J3_elbow" child="elbow_wrist1"/>
+  <xacro:link type="X5" extension="0.325" twist="${pi}" name="elbow_wrist1" child="Arm/J4_wrist1"/>
+  <xacro:actuator type="X5_1" name="Arm/J4_wrist1" child="wrist2_bracket"/>
+  <xacro:bracket type="X5LightRight" name="wrist2_bracket" child="Arm/J5_wrist2"/>
+  <xacro:actuator type="X5_1" name="Arm/J5_wrist2" child="wrist3_bracket"/>
+  <xacro:bracket type="X5LightRight" name="wrist3_bracket" child="Arm/J6_wrist3"/>
+  <xacro:actuator type="X5_1" name="Arm/J6_wrist3" child="end_effector"/>
+  <xacro:gripper type="Custom" name="end_effector" mass="0.0"/>
+
+
+</robot>

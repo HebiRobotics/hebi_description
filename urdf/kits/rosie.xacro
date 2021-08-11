@@ -1,6 +1,6 @@
 <?xml version="1.0" ?>
 <robot name="rosie_test" xmlns:xacro="http://www.ros.org/wiki/xacro">
-  <xacro:include filename="$(find hebiros_description)/urdf/hebi.xacro"/>
+  <xacro:include filename="$(find hebi_description)/urdf/hebi.xacro"/>
 
   <link name="base_footprint"/>
 
@@ -15,7 +15,7 @@
       <origin xyz="-0.1625 0.1775 0" rpy="1.5708 0 0"/>
       <geometry>
         <!--box size="0.50 0.50 0.10"/-->
-        <mesh filename="package://hebiros_description/meshes/rosie_base.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="package://hebi_description/meshes/rosie_base.stl" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="light_black"/>
     </visual>
@@ -50,16 +50,16 @@
     <axis xyz="0 0 1"/>
   </joint>
 
-  <xacro:x5 joint="HEBI/Wheel1" child="omniwheel1" model="X5_4"/>
-  <xacro:x5 joint="HEBI/Wheel2" child="omniwheel2" model="X5_4"/>
-  <xacro:x5 joint="HEBI/Wheel3" child="omniwheel3" model="X5_4"/>
+  <xacro:actuator type="X5_4" name="HEBI/Wheel1" child="omniwheel1"/>
+  <xacro:actuator type="X5_4" name="HEBI/Wheel2" child="omniwheel2"/>
+  <xacro:actuator type="X5_4" name="HEBI/Wheel3" child="omniwheel3"/>
 
   <link name="omniwheel1/INPUT_INTERFACE">
     <visual>
       <origin xyz="0.1030 0.185 0.050" rpy="0.523599 1.5708 1.5708"/>
       <geometry>
         <!--box size="0.50 0.50 0.10"/-->
-        <mesh filename="package://hebiros_description/meshes/omniwheel.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="package://hebi_description/meshes/omniwheel.stl" scale="0.001 0.001 0.001"/>
       </geometry>
     </visual>
 
@@ -71,7 +71,7 @@
       <origin xyz="0.0930 -0.175 0.050" rpy="-0.523599 1.5708 1.5708"/>
       <geometry>
         <!--box size="0.50 0.50 0.10"/-->
-        <mesh filename="package://hebiros_description/meshes/omni_25k.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="package://hebi_description/meshes/omni_25k.stl" scale="0.001 0.001 0.001"/>
       </geometry>
     </visual>
   </link>  
@@ -81,7 +81,7 @@
       <origin xyz="-0.220 0 0.050" rpy="0 1.5708 3.14159"/>
       <geometry>
         <!--box size="0.50 0.50 0.10"/-->
-        <mesh filename="package://hebiros_description/meshes/omni_25k.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="package://hebi_description/meshes/omni_25k.stl" scale="0.001 0.001 0.001"/>
       </geometry>
     </visual>
   </link>

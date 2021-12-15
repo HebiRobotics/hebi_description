@@ -16,47 +16,47 @@
 
     <!-- Set properties for model of actuator -->
     <xacro:if value="${model_name == 'X5_1'}">
-      <xacro:property name="actuator_mass" value="0.315"/>
+      <xacro:property name="actuator_mass" value="1.0"/>
       <xacro:property name="effort_limit" value="2.5"/>
       <xacro:property name="velocity_limit" value="9.425"/>
     </xacro:if>
     <xacro:if value="${model_name == 'X5_4'}">
-      <xacro:property name="actuator_mass" value="0.335"/>
+      <xacro:property name="actuator_mass" value="1.0"/>
       <xacro:property name="effort_limit" value="7.0"/>
       <xacro:property name="velocity_limit" value="3.351"/>
     </xacro:if>
     <xacro:if value="${model_name == 'X5_9'}">
-      <xacro:property name="actuator_mass" value="0.360"/>
+      <xacro:property name="actuator_mass" value="1.0"/>
       <xacro:property name="effort_limit" value="13.0"/>
       <xacro:property name="velocity_limit" value="1.466"/>
     </xacro:if>
     <xacro:if value="${model_name == 'X8_3'}">
-      <xacro:property name="actuator_mass" value="0.460"/>
+      <xacro:property name="actuator_mass" value="1.0"/>
       <xacro:property name="effort_limit" value="7"/>
       <xacro:property name="velocity_limit" value="8.796"/>
     </xacro:if>
     <xacro:if value="${model_name == 'X8_9'}">
-      <xacro:property name="actuator_mass" value="0.480"/>
+      <xacro:property name="actuator_mass" value="1.0"/>
       <xacro:property name="effort_limit" value="20"/>
       <xacro:property name="velocity_limit" value="3.142"/>
     </xacro:if>
     <xacro:if value="${model_name == 'X8_16'}">
-      <xacro:property name="actuator_mass" value="0.500"/>
+      <xacro:property name="actuator_mass" value="1.0"/>
       <xacro:property name="effort_limit" value="38"/>
       <xacro:property name="velocity_limit" value="1.571"/>
     </xacro:if>
     <xacro:if value="${model_name == 'R8_3'}">
-      <xacro:property name="actuator_mass" value="0.670"/>
+      <xacro:property name="actuator_mass" value="1.0"/>
       <xacro:property name="effort_limit" value="7"/>
       <xacro:property name="velocity_limit" value="8.796"/>
     </xacro:if>
     <xacro:if value="${model_name == 'R8_9'}">
-      <xacro:property name="actuator_mass" value="0.685"/>
+      <xacro:property name="actuator_mass" value="1.0"/>
       <xacro:property name="effort_limit" value="20"/>
       <xacro:property name="velocity_limit" value="3.142"/>
     </xacro:if>
     <xacro:if value="${model_name == 'R8_16'}">
-      <xacro:property name="actuator_mass" value="0.715"/>
+      <xacro:property name="actuator_mass" value="1.0"/>
       <xacro:property name="effort_limit" value="38"/>
       <xacro:property name="velocity_limit" value="1.571"/>
     </xacro:if>
@@ -64,16 +64,22 @@
     <!-- Note: the frction/damping probably need to be tuned more for accurate simulation -->
     <xacro:if value="${model_name.startswith('X5')}">
       <xacro:property name="mesh_filename" value="package://hebi_description/meshes/X5.stl"/>
+      <xacro:property name="collision_box_origin" value="-0.0185 0 0.0155"/>
+      <xacro:property name="collision_box_size" value="0.110 0.073 0.031"/>
       <xacro:property name="damping" value="0.1"/>
       <xacro:property name="friction" value="0.1"/>
     </xacro:if>
     <xacro:if value="${model_name.startswith('X8')}">
       <xacro:property name="mesh_filename" value="package://hebi_description/meshes/X8.stl"/>
+      <xacro:property name="collision_box_origin" value="-0.0185 0 0.0225"/>
+      <xacro:property name="collision_box_size" value="0.110 0.073 0.045"/>
       <xacro:property name="damping" value="0.5"/>
       <xacro:property name="friction" value="0.5"/>
     </xacro:if>
     <xacro:if value="${model_name.startswith('R8')}">
       <xacro:property name="mesh_filename" value="package://hebi_description/meshes/R8.stl"/>
+      <xacro:property name="collision_box_origin" value="-0.039 0.0 0.0255"/>
+      <xacro:property name="collision_box_size" value="0.156 0.078 0.051"/>
       <xacro:property name="damping" value="0.5"/>
       <xacro:property name="friction" value="0.5"/>
     </xacro:if>
@@ -92,41 +98,33 @@
         </xacro:if>
       </visual>
       <collision>
-        <origin xyz="0 0 0" rpy="0 0 0" />
+        <origin xyz="${collision_box_origin}" rpy="0 0 0" />
         <geometry>
-          <mesh filename="${mesh_filename}" scale="0.001 0.001 0.001"/>
+	  <box size="${collision_box_size}"/>
         </geometry>
       </collision>
       <inertial>
         <mass value="${actuator_mass}"/>
         <xacro:if value="${model_name.startswith('X5')}">
           <origin xyz="-0.0142 -0.0031 0.0165" rpy="0 0 0" />
-          <inertia ixx="0.00015"  ixy="0.0000341"  ixz="0.0000118"
-                   iyy="0.000255" iyz="0.00000229"
-                   izz="0.000350" />
+          <inertia ixx="0.001" ixy="0.0"  ixz="0.0"
+                   iyy="0.001" iyz="0.0"
+                   izz="0.001" />
         </xacro:if>
         <xacro:if value="${model_name.startswith('X8')}">
           <origin xyz="-0.0145 -0.0031 0.0242" rpy="0 0 0" />
-          <inertia ixx="0.000246" ixy="0.0000444" ixz="0.0000266"
-                   iyy="0.000380" iyz="0.00000422"
-                   izz="0.000463"/>
+          <inertia ixx="0.001" ixy="0.0" ixz="0.0"
+                   iyy="0.001" iyz="0.0"
+                   izz="0.001"/>
         </xacro:if>
         <xacro:if value="${model_name.startswith('R8')}">
           <origin xyz="-0.02396 -0.00161 0.02557" rpy="0 0 0" />
-          <inertia ixx="0.000488" ixy="0.00001297" ixz="0.0000578"
-                   iyy="0.001009" iyz="0.00000494"
-                   izz="0.001186" />
+          <inertia ixx="0.001" ixy="0.0" ixz="0.0"
+                   iyy="0.001" iyz="0.0"
+                   izz="0.001" />
         </xacro:if>
       </inertial>
     </link>
-    <gazebo reference="${name}/INPUT_INTERFACE">
-      <xacro:unless value="${model_name.startswith('R8')}">
-        <xacro:gazebo_red_material/>
-      </xacro:unless>
-      <xacro:if value="${model_name.startswith('R8')}">
-        <xacro:gazebo_black_material/>
-      </xacro:if>
-    </gazebo>
 
     <joint name="${name}" type="${urdf_joint_type}">
       <parent link="${name}/INPUT_INTERFACE"/>
@@ -171,47 +169,47 @@
 
     <!-- Set properties for model of actuator -->
     <xacro:if value="${model_name == 'X5_1'}">
-      <xacro:property name="actuator_mass" value="0.315"/>
+      <xacro:property name="actuator_mass" value="1.0"/>
       <xacro:property name="effort_limit" value="2.5"/>
       <xacro:property name="velocity_limit" value="9.425"/>
     </xacro:if>
     <xacro:if value="${model_name == 'X5_4'}">
-      <xacro:property name="actuator_mass" value="0.335"/>
+      <xacro:property name="actuator_mass" value="1.0"/>
       <xacro:property name="effort_limit" value="7.0"/>
       <xacro:property name="velocity_limit" value="3.351"/>
     </xacro:if>
     <xacro:if value="${model_name == 'X5_9'}">
-      <xacro:property name="actuator_mass" value="0.360"/>
+      <xacro:property name="actuator_mass" value="1.0"/>
       <xacro:property name="effort_limit" value="13.0"/>
       <xacro:property name="velocity_limit" value="1.466"/>
     </xacro:if>
     <xacro:if value="${model_name == 'X8_3'}">
-      <xacro:property name="actuator_mass" value="0.460"/>
+      <xacro:property name="actuator_mass" value="1.0"/>
       <xacro:property name="effort_limit" value="7"/>
       <xacro:property name="velocity_limit" value="8.796"/>
     </xacro:if>
     <xacro:if value="${model_name == 'X8_9'}">
-      <xacro:property name="actuator_mass" value="0.480"/>
+      <xacro:property name="actuator_mass" value="1.0"/>
       <xacro:property name="effort_limit" value="20"/>
       <xacro:property name="velocity_limit" value="3.142"/>
     </xacro:if>
     <xacro:if value="${model_name == 'X8_16'}">
-      <xacro:property name="actuator_mass" value="0.500"/>
+      <xacro:property name="actuator_mass" value="1.0"/>
       <xacro:property name="effort_limit" value="38"/>
       <xacro:property name="velocity_limit" value="1.571"/>
     </xacro:if>
     <xacro:if value="${model_name == 'R8_3'}">
-      <xacro:property name="actuator_mass" value="0.670"/>
+      <xacro:property name="actuator_mass" value="1.0"/>
       <xacro:property name="effort_limit" value="7"/>
       <xacro:property name="velocity_limit" value="8.796"/>
     </xacro:if>
     <xacro:if value="${model_name == 'R8_9'}">
-      <xacro:property name="actuator_mass" value="0.685"/>
+      <xacro:property name="actuator_mass" value="1.0"/>
       <xacro:property name="effort_limit" value="20"/>
       <xacro:property name="velocity_limit" value="3.142"/>
     </xacro:if>
     <xacro:if value="${model_name == 'R8_16'}">
-      <xacro:property name="actuator_mass" value="0.715"/>
+      <xacro:property name="actuator_mass" value="1.0"/>
       <xacro:property name="effort_limit" value="38"/>
       <xacro:property name="velocity_limit" value="1.571"/>
     </xacro:if>
@@ -219,16 +217,19 @@
     <!-- Note: the frction/damping probably need to be tuned more for accurate simulation -->
     <xacro:if value="${model_name.startswith('X5')}">
       <xacro:property name="mesh_filename" value="package://hebi_description/meshes/X5.stl"/>
+      <xacro:property name="collision_box_size" value="0.031 0.073 0.110"/>
       <xacro:property name="damping" value="0.1"/>
       <xacro:property name="friction" value="0.1"/>
     </xacro:if>
     <xacro:if value="${model_name.startswith('X8')}">
       <xacro:property name="mesh_filename" value="package://hebi_description/meshes/X8.stl"/>
+      <xacro:property name="collision_box_size" value="0.045 0.073 0.110"/>
       <xacro:property name="damping" value="0.5"/>
       <xacro:property name="friction" value="0.5"/>
     </xacro:if>
     <xacro:if value="${model_name.startswith('R8')}">
       <xacro:property name="mesh_filename" value="package://hebi_description/meshes/R8.stl"/>
+      <xacro:property name="collision_box_size" value="0.051 0.078 0.156"/>
       <xacro:property name="damping" value="0.5"/>
       <xacro:property name="friction" value="0.5"/>
     </xacro:if>
@@ -249,7 +250,7 @@
       <collision>
         <origin xyz="0 0 0" rpy="0 0 0" />
         <geometry>
-          <mesh filename="${mesh_filename}" scale="0.001 0.001 0.001"/>
+	  <box size="${collision_box_size}"/>
         </geometry>
       </collision>
       <inertial>
@@ -274,14 +275,6 @@
         </xacro:if>
       </inertial>
     </link>
-    <gazebo reference="${name}/INPUT_INTERFACE">
-      <xacro:unless value="${model_name.startswith('R8')}">
-        <xacro:gazebo_red_material/>
-      </xacro:unless>
-      <xacro:if value="${model_name.startswith('R8')}">
-        <xacro:gazebo_black_material/>
-      </xacro:if>
-    </gazebo>
 
     <joint name="${name}" type="${urdf_joint_type}">
       <parent link="${parent}/INPUT_INTERFACE"/>

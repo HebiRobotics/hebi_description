@@ -51,9 +51,6 @@
       </inertial>
       <self_collide>true</self_collide>
     </link>
-    <gazebo reference="${name}/${prefix}_finger">
-      <xacro:gazebo_silver_material/>
-    </gazebo>
 
     <link name="${name}/${prefix}_outer_linkage">
       <visual>
@@ -73,9 +70,6 @@
           izz="${1/12 * 0.010 * (0.023*0.023 + 0.03*0.03)}"/>
       </inertial>
     </link>
-    <gazebo reference="${name}/${prefix}_outer_linkage">
-      <xacro:gazebo_black_material/>
-    </gazebo>
 
     <link name="${name}/${prefix}_gripper">
       <visual>
@@ -100,9 +94,6 @@
           izz="${1/12 * 0.014 * ( 0.01*0.01 + 0.01*0.01 )}"/>
       </inertial>
     </link>
-    <gazebo reference="${name}/${prefix}_gripper">
-      <xacro:gazebo_black_material/>
-    </gazebo>
 
     <link name="${name}/${prefix}_gripper_bend">
       <visual>
@@ -122,19 +113,12 @@
           izz="${1/2  * 0.001 * pow(0.002, 2)}"/>
       </inertial>
     </link>
-    <gazebo reference="${name}/${prefix}_gripper_bend">
-      <xacro:gazebo_silver_material/>
-    </gazebo>
 
     <joint name="${name}/${prefix}_gripper_finger_${prefix}_gripper_bend" type="fixed">
       <origin xyz="0.0 -0.0075 0.0165" rpy="0 0 0" />
       <parent link="${name}/${prefix}_gripper"/>
       <child link="${name}/${prefix}_gripper_bend"/>
     </joint>
-    <gazebo reference="${name}/${prefix}_gripper_finger_${prefix}_gripper_bend">
-      <disableFixedJointLumping>true</disableFixedJointLumping>
-      <preserveFixedJoint>true</preserveFixedJoint>
-    </gazebo>
 
     <joint name="${name}/input_${prefix}_finger" type="revolute">
       <xacro:if value="${prefix == 'l'}">
@@ -148,13 +132,6 @@
       <child link="${name}/${prefix}_finger"/>
       <limit effort="1000" velocity="1000" lower="0" upper="${0.37*pi}"/>
     </joint>
-    <gazebo reference="${name}/input_${prefix}_finger">
-      <physics>
-        <ode>
-          <implicit_spring_damper>true</implicit_spring_damper>
-        </ode>
-      </physics>
-    </gazebo>
 
     <joint name="${name}/${prefix}_finger_${prefix}_outer_linkage" type="fixed">
       <origin xyz="0 0.015 0" rpy="0 0 0" />
@@ -190,9 +167,6 @@
           izz="${1/12 * 0.010 * (0.02*0.02 + 0.05*0.05)}"/>
       </inertial>
     </link>
-    <gazebo reference="${name}/${prefix}_inner_linkage">
-      <xacro:gazebo_black_material />
-    </gazebo>
 
     <joint name="${name}/center_hub_${prefix}_inner_linkage" type="continuous">
       <xacro:if value="${prefix == 'l'}">
@@ -255,9 +229,6 @@
             izz="${1.0/2.0  * 0.072 * pow(0.0225, 2)}"/>
         </inertial>
       </link>
-      <gazebo reference="${name}/INPUT_INTERFACE">
-        <xacro:gazebo_black_material/>
-      </gazebo>
 
       <!-- Tree branch for center hub -->
       <link name="${name}/center_hub">
@@ -278,9 +249,6 @@
             izz="${0.66*0.010*pow(0.0225, 2)}"/>
         </inertial>
       </link>
-      <gazebo reference="${name}/center_hub">
-        <xacro:gazebo_black_material/>
-      </gazebo>
 
       <joint name="${name}/input_center_hub" type="fixed">
         <origin xyz="0 0 0.0045" rpy="0 0 0" />
@@ -312,10 +280,6 @@
             izz="${0.66*0.010*pow(0.0225, 2)}"/>
         </inertial>
       </link>
-      <gazebo reference="${name}/center_pinion">
-        <self_collide>true</self_collide>
-        <xacro:gazebo_silver_material/>
-      </gazebo>
 
       <joint name="${name}/center_hub_pinion" type="prismatic">
         <parent link="${name}/center_hub"/>
@@ -323,7 +287,7 @@
         <origin xyz="0 0 0" rpy="0 0 0" />
         <axis xyz="0 0 1" />
         <limit effort="1000" velocity="1000" lower="-1.0" upper="1.0"/>
-        <!-- Don't actually want the pinion to move (only needed fore gazebo)
+        <!-- Don't actually want the pinion to move (only needed for gazebo)
              so set multiplier very small -->
         <mimic joint="${name}/input_l_finger" multiplier="0.00001" offset="0" />
         <physics>
@@ -332,10 +296,6 @@
           </ode>
         </physics>
       </joint>
-      <gazebo reference="${name}/center_hub_pinion">
-        <disableFixedJointLumping>true</disableFixedJointLumping>
-        <preserveFixedJoint>true</preserveFixedJoint>
-      </gazebo>
 
       <!-- Tree branches for fingers, outer linkages, and grippers -->
       <xacro:parallel_gripper_outer_subassembly name="${name}" prefix="l"/>
@@ -344,50 +304,6 @@
       <!-- Tree branches for inner linkages -->
       <xacro:parallel_gripper_inner_subassembly name="${name}" prefix="l"/>
       <xacro:parallel_gripper_inner_subassembly name="${name}" prefix="r"/>
-      <gazebo>
-        <joint name="${name}/l_inner_outer_pin" type="revolute">
-          <pose>0 0 0.0439 0 0 0</pose>
-          <parent>${name}/l_gripper_bend</parent>
-          <child>${name}/l_inner_linkage</child>
-          <axis>
-            <xyz>-1 0 0</xyz>
-            <limit>
-              <lower>${-2*pi}</lower>
-              <upper>${2*pi}</upper>
-              <effort>1000</effort>
-              <velocity>1000</velocity>
-            </limit>
-          </axis>
-        </joint>
-        <joint name="${name}/r_inner_outer_pin" type="revolute">
-          <pose>0 0 0.0439 0 0 0</pose>
-          <parent>${name}/r_gripper_bend</parent>
-          <child>${name}/r_inner_linkage</child>
-          <axis>
-            <xyz>-1 0 0</xyz>
-            <limit>
-              <lower>${-2*pi}</lower>
-              <upper>${2*pi}</upper>
-              <effort>1000</effort>
-              <velocity>1000</velocity>
-            </limit>
-          </axis>
-        </joint>
-
-        <!-- Add constraint between gripper fingers (they mirror each other) using a gearbox -->
-        <joint name="${name}/finger_gearbox" type="gearbox">
-          <parent>${name}/r_finger</parent>
-          <child>${name}/l_finger</child>
-          <gearbox_reference_body>${name}/INPUT_INTERFACE</gearbox_reference_body>
-          <gearbox_ratio>1</gearbox_ratio>
-          <axis>
-            <xyz>1 0 0</xyz>
-          </axis>
-          <axis2>
-            <xyz>1 0 0</xyz>
-          </axis2>
-        </joint>
-      </gazebo>
     </xacro:if>
 
   </xacro:macro>

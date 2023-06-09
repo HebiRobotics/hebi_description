@@ -36,7 +36,8 @@
           </geometry>
         </xacro:if>
       </collision>
-      <!-- NOTE: inertia is just modelled as small sphere, and could be improved. -->
+      
+      <!-- inertia is just modelled as small sphere, and could be improved. -->
       <inertial>
         <xacro:if value="${bracket_type.endswith('Left')}">
           <origin xyz="0 .0215 .02" rpy="0 0 0" />
@@ -73,7 +74,8 @@
           <mesh filename="package://hebi_description/meshes/A-2220-01.stl" scale="0.001 0.001 0.001"/>
         </geometry>
       </collision>
-      <!-- NOTE: inertia is just modelled as small sphere, and could be improved. -->
+      
+      <!-- inertia is just modelled as small sphere, and could be improved. -->
       <inertial>
         <xacro:if value="${bracket_type.endswith('Left')}">
           <origin xyz="0 .0215 .02" rpy="0 0 0" />
@@ -170,7 +172,8 @@
         </geometry>
       </collision>
 
-      <!-- NOTE: inertia is just modelled as small sphere, and could be improved. -->
+      
+      <!-- inertia is just modelled as small sphere, and could be improved. -->
       <inertial>
         <xacro:if value="${bracket_type.endswith('RightOutside')}">
           <origin xyz="0 ${0.5 * -.0375} .0275" rpy="0 0 0" />
@@ -236,7 +239,8 @@
         </geometry>
       </collision>
 
-      <!-- NOTE: inertia is just modelled as small sphere, and could be improved. -->
+      
+      <!-- inertia is just modelled as small sphere, and could be improved. -->
       <inertial>
         <xacro:if value="${bracket_type.endswith('RightOutside')}">
           <origin xyz="0 ${0.5 * -.0375} .0275" rpy="0 0 0" />

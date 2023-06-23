@@ -30,14 +30,14 @@
       <visual>
         <origin xyz="-0.006 -0.0055 -0.0045" rpy="${pi/2} 0 ${pi/2}" />
         <geometry>
-          <mesh filename="package://hebi_description/meshes/PM-2221-01.stl" scale="0.001 0.001 0.001"/>
+          <mesh filename="file://$(find hebi_description)/meshes/PM-2221-01.stl" scale="0.001 0.001 0.001"/>
         </geometry>
         <xacro:silver_material/>
       </visual>
       <collision>
         <origin xyz="-0.006 -0.0055 -0.0045" rpy="${pi/2} 0 ${pi/2}" />
         <geometry>
-          <mesh filename="package://hebi_description/meshes/PM-2221-01.stl" scale="0.001 0.001 0.001"/>
+          <mesh filename="file://$(find hebi_description)/meshes/PM-2221-01.stl" scale="0.001 0.001 0.001"/>
         </geometry>
       </collision>
       <inertial>
@@ -59,7 +59,7 @@
       <visual>
         <origin xyz="-0.0115 0.029 -0.004" rpy="${pi/2} 0 0" />
         <geometry>
-          <mesh filename="package://hebi_description/meshes/PM-2358-02.stl" scale="0.001 0.001 0.001"/>
+          <mesh filename="file://$(find hebi_description)/meshes/PM-2358-02.stl" scale="0.001 0.001 0.001"/>
         </geometry>
         <xacro:black_material/>
       </visual>
@@ -81,14 +81,14 @@
       <visual>
         <origin xyz="-0.006 -0.0115 -0.0036" rpy="${0.5*pi} ${0.0*pi} ${0.5*pi}" />
         <geometry>
-          <mesh filename="package://hebi_description/meshes/PM-2360-02.stl" scale="0.001 0.001 0.001"/>
+          <mesh filename="file://$(find hebi_description)/meshes/PM-2360-02.stl" scale="0.001 0.001 0.001"/>
         </geometry>
         <xacro:black_material/>
       </visual>
       <collision>
         <origin xyz="-0.006 -0.0115 -0.0036" rpy="${0.5*pi} ${0.0*pi} ${0.5*pi}" />
         <geometry>
-          <mesh filename="package://hebi_description/meshes/PM-2360-02.stl" scale="0.001 0.001 0.001"/>
+          <mesh filename="file://$(find hebi_description)/meshes/PM-2360-02.stl" scale="0.001 0.001 0.001"/>
         </geometry>
       </collision>
       <inertial>
@@ -176,7 +176,7 @@
       <visual>
         <origin xyz="-0.0115 -0.004 -0.004" rpy="0 0 0" />
         <geometry>
-          <mesh filename="package://hebi_description/meshes/PM-2359-02.stl" scale="0.001 0.001 0.001"/>
+          <mesh filename="file://$(find hebi_description)/meshes/PM-2359-02.stl" scale="0.001 0.001 0.001"/>
         </geometry>
         <xacro:black_material/>
       </visual>
@@ -264,7 +264,7 @@
         <visual>
           <origin xyz="-0.0225 0.0225 0" rpy="${pi/2} 0 0" />
           <geometry>
-            <mesh filename="package://hebi_description/meshes/PM-2357-02.stl" scale="0.001 0.001 0.001"/>
+            <mesh filename="file://$(find hebi_description)/meshes/PM-2357-02.stl" scale="0.001 0.001 0.001"/>
           </geometry>
           <xacro:black_material/>
         </visual>
@@ -292,14 +292,14 @@
         <visual>
           <origin xyz="-0.0145 -0.008 0.0038" rpy="${0.5*pi} ${0.0*pi} ${0.5*pi}" />
           <geometry>
-            <mesh filename="package://hebi_description/meshes/PM-2291-01.stl" scale="0.001 0.001 0.001"/>
+            <mesh filename="file://$(find hebi_description)/meshes/PM-2291-01.stl" scale="0.001 0.001 0.001"/>
           </geometry>
           <xacro:silver_material/>
         </visual>
         <collision>
           <origin xyz="-0.0145 -0.008 0.004" rpy="${0.5*pi} ${0.0*pi} ${0.5*pi}" />
           <geometry>
-            <mesh filename="package://hebi_description/meshes/PM-2291-01.stl" scale="0.001 0.001 0.001"/>
+            <mesh filename="file://$(find hebi_description)/meshes/PM-2291-01.stl" scale="0.001 0.001 0.001"/>
           </geometry>
         </collision>
         <inertial>

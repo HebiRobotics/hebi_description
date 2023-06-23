@@ -63,17 +63,17 @@
 
     <!-- Note: the frction/damping probably need to be tuned more for accurate simulation -->
     <xacro:if value="${model_name.startswith('X5')}">
-      <xacro:property name="mesh_filename" value="package://hebi_description/meshes/X5.stl"/>
+      <xacro:property name="mesh_filename" value="file://$(find hebi_description)/meshes/X5.stl"/>
       <xacro:property name="damping" value="0.1"/>
       <xacro:property name="friction" value="0.1"/>
     </xacro:if>
     <xacro:if value="${model_name.startswith('X8')}">
-      <xacro:property name="mesh_filename" value="package://hebi_description/meshes/X8.stl"/>
+      <xacro:property name="mesh_filename" value="file://$(find hebi_description)/meshes/X8.stl"/>
       <xacro:property name="damping" value="0.5"/>
       <xacro:property name="friction" value="0.5"/>
     </xacro:if>
     <xacro:if value="${model_name.startswith('R8')}">
-      <xacro:property name="mesh_filename" value="package://hebi_description/meshes/R8.stl"/>
+      <xacro:property name="mesh_filename" value="file://$(find hebi_description)/meshes/R8.stl"/>
       <xacro:property name="damping" value="0.5"/>
       <xacro:property name="friction" value="0.5"/>
     </xacro:if>
@@ -218,17 +218,17 @@
 
     <!-- Note: the frction/damping probably need to be tuned more for accurate simulation -->
     <xacro:if value="${model_name.startswith('X5')}">
-      <xacro:property name="mesh_filename" value="package://hebi_description/meshes/X5.stl"/>
+      <xacro:property name="mesh_filename" value="file://$(find hebi_description)/meshes/X5.stl"/>
       <xacro:property name="damping" value="0.1"/>
       <xacro:property name="friction" value="0.1"/>
     </xacro:if>
     <xacro:if value="${model_name.startswith('X8')}">
-      <xacro:property name="mesh_filename" value="package://hebi_description/meshes/X8.stl"/>
+      <xacro:property name="mesh_filename" value="file://$(find hebi_description)/meshes/X8.stl"/>
       <xacro:property name="damping" value="0.5"/>
       <xacro:property name="friction" value="0.5"/>
     </xacro:if>
     <xacro:if value="${model_name.startswith('R8')}">
-      <xacro:property name="mesh_filename" value="package://hebi_description/meshes/R8.stl"/>
+      <xacro:property name="mesh_filename" value="file://$(find hebi_description)/meshes/R8.stl"/>
       <xacro:property name="damping" value="0.5"/>
       <xacro:property name="friction" value="0.5"/>
     </xacro:if>

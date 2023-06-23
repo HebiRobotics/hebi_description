@@ -37,128 +37,57 @@
         </xacro:unless>
       </hardware>
       <joint name="J1_base">
-        <command_interface name="position">     <!-- Add/Remove interfaces as needed -->
-          <param name="min">-3.1428</param>
-          <param name="max">3.1428</param>
-        </command_interface>
+        <command_interface name="position" />
         <state_interface name="position">
           <param name="initial_value">0.0</param>
         </state_interface>
-        <state_interface name="velocity">
-          <param name="initial_value">0.0</param>
-        </state_interface>
-        <state_interface name="effort">
-          <param name="initial_value">0.0</param>
-        </state_interface>
+        <state_interface name="velocity" />
       </joint>
       <joint name="J2_shoulder">
-        <command_interface name="position">     <!-- Add/Remove interfaces as needed -->
-          <param name="min">-3.1428</param>
-          <param name="max">3.1428</param>
-        </command_interface>
+        <command_interface name="position" />
         <state_interface name="position">
           <param name="initial_value">0.0</param>
         </state_interface>
-        <state_interface name="velocity">
-          <param name="initial_value">0.0</param>
-        </state_interface>
-        <state_interface name="effort">
-          <param name="initial_value">0.0</param>
-        </state_interface>
+        <state_interface name="velocity" />
       </joint>
       <joint name="J3_elbow">
-        <command_interface name="position">     <!-- Add/Remove interfaces as needed -->
-          <param name="min">-3.1428</param>
-          <param name="max">3.1428</param>
-        </command_interface>
+        <command_interface name="position" />
         <state_interface name="position">
           <param name="initial_value">0.0</param>
         </state_interface>
-        <state_interface name="velocity">
-          <param name="initial_value">0.0</param>
-        </state_interface>
-        <state_interface name="effort">
-          <param name="initial_value">0.0</param>
-        </state_interface>
+        <state_interface name="velocity" />
       </joint>
       <joint name="J4_wrist1">
-        <command_interface name="position">     <!-- Add/Remove interfaces as needed -->
-          <param name="min">-3.1428</param>
-          <param name="max">3.1428</param>
-        </command_interface>
+        <command_interface name="position" />
         <state_interface name="position">
           <param name="initial_value">0.0</param>
         </state_interface>
-        <state_interface name="velocity">
-          <param name="initial_value">0.0</param>
-        </state_interface>
-        <state_interface name="effort">
-          <param name="initial_value">0.0</param>
-        </state_interface>
+        <state_interface name="velocity" />
       </joint>
       <joint name="J5_wrist2">
-        <command_interface name="position">     <!-- Add/Remove interfaces as needed -->
-          <param name="min">-3.1428</param>
-          <param name="max">3.1428</param>
-        </command_interface>
+        <command_interface name="position" />
         <state_interface name="position">
           <param name="initial_value">0.0</param>
         </state_interface>
-        <state_interface name="velocity">
-          <param name="initial_value">0.0</param>
-        </state_interface>
-        <state_interface name="effort">
-          <param name="initial_value">0.0</param>
-        </state_interface>
+        <state_interface name="velocity" />
       </joint>
       <joint name="J6_wrist3">
-        <command_interface name="position">     <!-- Add/Remove interfaces as needed -->
-          <param name="min">-3.1428</param>
-          <param name="max">3.1428</param>
-        </command_interface>
+        <command_interface name="position" />
         <state_interface name="position">
           <param name="initial_value">0.0</param>
         </state_interface>
-        <state_interface name="velocity">
-          <param name="initial_value">0.0</param>
-        </state_interface>
-        <state_interface name="effort">
-          <param name="initial_value">0.0</param>
-        </state_interface>
+        <state_interface name="velocity" />
       </joint>
-      <!-- <sensor name="tcp_fts_sensor"> 
-        <state_interface name="fx"/>
-        <state_interface name="fy"/>
-        <state_interface name="fz"/>
-        <state_interface name="tx"/>
-        <state_interface name="ty"/>
-        <state_interface name="tz"/>
-        <param name="frame_id">end_effector</param> 
-        <param name="min_fx">-100</param>
-        <param name="max_fx">100</param>
-        <param name="min_fy">-100</param>
-        <param name="max_fy">100</param>
-        <param name="min_fz">-200</param>
-        <param name="max_fz">200</param>
-        <param name="min_tx">-10</param>
-        <param name="max_tx">10</param>
-        <param name="min_ty">-10</param>
-        <param name="max_ty">10</param>
-        <param name="min_tz">-15</param>
-        <param name="max_tz">15</param>
-      </sensor> -->
     </ros2_control>
 
-    <xacro:if value="$(arg sim_gazebo_classic)">
-      <!-- Gazebo plugins -->
-      <gazebo reference="world">
-      </gazebo>
+    <!-- Gazebo plugins -->
+    <!-- <xacro:if value="$(arg sim_gazebo_classic)">
       <gazebo>
         <plugin filename="libgazebo_ros2_control.so" name="gazebo_ros2_control">
-          <parameters>${simulation_controllers}</parameters>
+          <parameters>$(find hebi_bringup)/config/A-2085-06_controllers.yaml</parameters>
         </plugin>
       </gazebo>
-    </xacro:if>
+    </xacro:if> -->
 
     <xacro:if value="$(arg sim_gazebo)">
       <!-- Gazebo plugins -->

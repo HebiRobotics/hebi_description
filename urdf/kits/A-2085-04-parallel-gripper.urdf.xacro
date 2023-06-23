@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="A-2085-04-parallel-gripper">
+  
+  <!-- HEBI A-2085-04-parallel-gripper Arm Kit -->
+  <xacro:include filename="$(find hebi_description)/urdf/components/hebi.xacro"/>
+
+  <link name="base_link" />
+
+  <joint name="base_joint" type="fixed">
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <parent link="base_link" />
+    <child link="J1_base/INPUT_INTERFACE"/>
+  </joint>
+
+  <xacro:actuator type="X5_4" name="J1_base" child="shoulder_bracket"/>
+  <xacro:bracket type="X5HeavyRightOutside" name="shoulder_bracket" child="J2_shoulder"/>
+  <xacro:actuator type="X5_9" name="J2_shoulder" child="shoulder_elbow"/>
+  <xacro:link type="X5" extension="0.325" twist="${pi}" name="shoulder_elbow" child="J3_elbow"/>
+  <xacro:actuator type="X5_4" name="J3_elbow" child="elbow_wrist"/>
+  <xacro:link type="X5" extension="0.325" twist="${pi}" name="elbow_wrist" child="J4_wrist"/>
+  <xacro:actuator type="X5_1" name="J4_wrist" child="end_effector"/>
+  <xacro:gripper type="X5Parallel" name="end_effector"/>
+
+</robot>

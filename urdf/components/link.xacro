@@ -58,7 +58,7 @@
       <!-- Output Cap -->
       <visual>
         <xacro:if value="${input == 'RightAngle' and output == 'RightAngle'}">
-          <origin xyz="${extension} ${sin(-twist) * edge_to_center} ${edge_to_center * (1 + cos(-twist))}" rpy="${-twist} 0 0"/>
+          <origin xyz="${extension} ${sin(-twist) * edge_to_center} ${edge_to_center * (1 + cos(-twist))}" rpy="${twist} 0 0"/>
         </xacro:if>
         <xacro:if value="${input == 'RightAngle' and output == 'Inline'}">
           <origin xyz="${extension} 0 ${edge_to_center}" rpy="${pi/2} ${twist+pi} ${pi/2}"/>
@@ -81,7 +81,7 @@
       </visual>
       <collision>
         <xacro:if value="${input == 'RightAngle' and output == 'RightAngle'}">
-          <origin xyz="${extension} ${sin(-twist) * edge_to_center} ${edge_to_center * (1 + cos(-twist))}" rpy="${-twist} 0 0"/>
+          <origin xyz="${extension} ${sin(-twist) * edge_to_center} ${edge_to_center * (1 + cos(-twist))}" rpy="${twist} 0 0"/>
         </xacro:if>
         <xacro:if value="${input == 'RightAngle' and output == 'Inline'}">
           <origin xyz="${extension} 0 ${edge_to_center}" rpy="${pi/2} ${twist+pi} ${pi/2}"/>

@@ -1,8 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <robot xmlns:xacro="http://wiki.ros.org/xacro" name="A-2085-06">
 
-  <!-- HEBI A-2085-06 Arm Kit -->
+  <!-- Use this if parameters are set from the launch file, otherwise delete -->
+  <xacro:arg name="prefix" default="" />
+
+  <xacro:arg name="families" default="" />
+  <xacro:arg name="names" default="" />
+  <xacro:arg name="config_pkg" default="" />
+
+  <xacro:arg name="use_mock_hardware" default="false" />
+  <xacro:arg name="mock_sensor_commands" default="false" />
+  <xacro:arg name="sim_gazebo_classic" default="false" />
+  <xacro:arg name="sim_gazebo" default="false" />
+  <xacro:arg name="simulation_controllers" default="" />
+
   <xacro:include filename="$(find hebi_description)/urdf/components/hebi.xacro" />
+  <xacro:include filename="$(find hebi_description)/urdf/kits/ros2_control/A-2085-06_macro.ros2_control.xacro"/>
+
+  <!-- create link fixed to the "world" -->
+  <link name="world" />
+
+  <joint name="world_to_base_joint" type="fixed">
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <parent link="world" />
+    <child link="base_link"/>
+  </joint>
 
   <link name="base_link" />
 
@@ -24,5 +46,17 @@
   <xacro:bracket type="X5LightRight" name="wrist3_bracket" child="J6_wrist3"/>
   <xacro:actuator type="X5_1" name="J6_wrist3" child="end_effector"/>
   <xacro:gripper type="Custom" name="end_effector" mass="0.005"/>
+
+  
+  <xacro:A-2085-06_ros2_control
+    name="A-2085-06"
+    prefix="$(arg prefix)"
+    use_mock_hardware="$(arg use_mock_hardware)"
+    mock_sensor_commands="$(arg mock_sensor_commands)"
+    sim_gazebo_classic="$(arg sim_gazebo_classic)"
+    sim_gazebo="$(arg sim_gazebo)"
+    families="$(arg families)"
+    names="$(arg names)"
+    config_pkg="$(arg config_pkg)" />
 
 </robot>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <robot xmlns:xacro="http://wiki.ros.org/xacro">
 
-  <xacro:macro name="A-2085-06_ros2_control" params="
+  <xacro:macro name="A-2085-05_ros2_control" params="
                 name
                 use_mock_hardware:=^|false
                 mock_sensor_commands:=^|false
@@ -69,20 +69,13 @@
         </state_interface>
         <state_interface name="velocity" />
       </joint>
-      <joint name="J6_wrist3">
-        <command_interface name="position" />
-        <state_interface name="position">
-          <param name="initial_value">0.0</param>
-        </state_interface>
-        <state_interface name="velocity" />
-      </joint>
     </ros2_control>
 
     <!-- Gazebo Classic plugins -->
     <xacro:if value="$(arg sim_gazebo)">
       <gazebo>
         <plugin filename="libgazebo_ros2_control.so" name="gazebo_ros2_control">
-          <parameters>$(find hebi_bringup)/config/A-2085-06_controllers.yaml</parameters>
+          <parameters>$(find hebi_bringup)/config/A-2085-05_controllers.yaml</parameters>
         </plugin>
       </gazebo>
     </xacro:if>

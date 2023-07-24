@@ -3,6 +3,7 @@
 
   <xacro:macro name="A-2085-06_ros2_control" params="
                 name
+                prefix
                 use_mock_hardware:=^|false
                 mock_sensor_commands:=^|false
                 sim_gazebo:=^|false
@@ -11,7 +12,8 @@
                 hrdf_pkg
                 hrdf_file
                 gains_pkg
-                gains_file"
+                gains_file
+                home_position"
                >
 
     <ros2_control name="${name}" type="system">
@@ -31,50 +33,69 @@
           <param name="hrdf_file">${hrdf_file}</param>
           <param name="gains_pkg">${gains_pkg}</param>
           <param name="gains_file">${gains_file}</param>
+          <param name="home_position">${home_position}</param>
           <plugin>hebi_hardware/HEBIHardwareInterface</plugin>
         </xacro:unless>
       </hardware>
-      <joint name="J1_base">
+      <joint name="${prefix}J1_base">
         <command_interface name="position" />
+        <command_interface name="velocity" />
         <state_interface name="position">
           <param name="initial_value">0.0</param>
         </state_interface>
-        <state_interface name="velocity" />
+        <state_interface name="velocity">
+          <param name="initial_value">0.0</param>
+        </state_interface>
       </joint>
-      <joint name="J2_shoulder">
+      <joint name="${prefix}J2_shoulder">
         <command_interface name="position" />
+        <command_interface name="velocity" />
         <state_interface name="position">
           <param name="initial_value">0.0</param>
         </state_interface>
-        <state_interface name="velocity" />
+        <state_interface name="velocity">
+          <param name="initial_value">0.0</param>
+        </state_interface>
       </joint>
-      <joint name="J3_elbow">
+      <joint name="${prefix}J3_elbow">
         <command_interface name="position" />
+        <command_interface name="velocity" />
         <state_interface name="position">
           <param name="initial_value">0.0</param>
         </state_interface>
-        <state_interface name="velocity" />
+        <state_interface name="velocity">
+          <param name="initial_value">0.0</param>
+        </state_interface>
       </joint>
-      <joint name="J4_wrist1">
+      <joint name="${prefix}J4_wrist1">
         <command_interface name="position" />
+        <command_interface name="velocity" />
         <state_interface name="position">
           <param name="initial_value">0.0</param>
         </state_interface>
-        <state_interface name="velocity" />
+        <state_interface name="velocity">
+          <param name="initial_value">0.0</param>
+        </state_interface>
       </joint>
-      <joint name="J5_wrist2">
+      <joint name="${prefix}J5_wrist2">
         <command_interface name="position" />
+        <command_interface name="velocity" />
         <state_interface name="position">
           <param name="initial_value">0.0</param>
         </state_interface>
-        <state_interface name="velocity" />
+        <state_interface name="velocity">
+          <param name="initial_value">0.0</param>
+        </state_interface>
       </joint>
-      <joint name="J6_wrist3">
+      <joint name="${prefix}J6_wrist3">
         <command_interface name="position" />
+        <command_interface name="velocity" />
         <state_interface name="position">
           <param name="initial_value">0.0</param>
         </state_interface>
-        <state_interface name="velocity" />
+        <state_interface name="velocity">
+          <param name="initial_value">0.0</param>
+        </state_interface>
       </joint>
     </ros2_control>
 

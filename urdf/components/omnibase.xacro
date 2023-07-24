@@ -1,0 +1,131 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <xacro:macro name="omnibase" params="child">
+
+    <joint name="base_child_joint" type="fixed">
+      <origin xyz="0 0 0.21" rpy="0 0 0"/>
+      <parent link="omni_base" />
+      <child link="${child}"/>
+    </joint>
+
+    <link name="base_link">
+      <origin xyz="0 0 0" rpy="0 0 0" />
+    </link>
+
+    <joint name="base_joint" type="fixed">
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <parent link="base_link" />
+      <child link="omni_base"/>
+    </joint>
+
+    <link name="omni_base">
+      <visual>
+        <origin xyz="0 0 0.075" rpy="${pi/2} 0 0" />
+        <geometry>
+          <mesh filename="file://$(find hebi_description)/meshes/A-2121-01_Export.obj" />
+        </geometry>
+      </visual>
+      <collision>
+        <origin xyz="0 0 0.075" rpy="${pi/2} 0 0" />
+        <geometry>
+          <mesh filename="file://$(find hebi_description)/meshes/A-2121-01_Export.obj" />
+        </geometry>
+      </collision>
+      <inertial>
+        <mass value="5"/>
+        <origin xyz="0 0 0.075" rpy="0 0 0" />
+          <inertia ixx="0.00015"  ixy="0.0000341"  ixz="0.0000118"
+                    iyy="0.000255" iyz="0.00000229"
+                    izz="0.000350" />
+      </inertial>
+    </link>
+
+    <joint name="wheel_1_joint" type="fixed">
+      <origin xyz="0.0788 -0.1364 0.0750" rpy="0 ${pi/2} ${-pi/3}" />
+      <parent link="omni_base" />
+      <child link="wheel_1/INPUT_INTERFACE"/>
+    </joint>
+
+    <joint name="wheel_2_joint" type="fixed">
+      <origin xyz="0.0788 0.1364 0.0750" rpy="0 ${pi/2} ${pi/3}" />
+      <parent link="omni_base" />
+      <child link="wheel_2/INPUT_INTERFACE"/>
+    </joint>
+
+    <joint name="wheel_3_joint" type="fixed">
+      <origin xyz="-0.1575 0 0.0750" rpy="0 ${pi/2} ${pi}" />
+      <parent link="omni_base" />
+      <child link="wheel_3/INPUT_INTERFACE"/>
+    </joint>
+
+    <xacro:actuator type="X5_4" name="wheel_1" child="wheel_1_end"/>
+    <link name="wheel_1_end/INPUT_INTERFACE">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="file://$(find hebi_description)/meshes/omnibase_wheel.obj" />
+        </geometry>
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="file://$(find hebi_description)/meshes/omnibase_wheel.obj" />
+        </geometry>
+      </collision>
+      <inertial>
+        <mass value="0.5"/>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+          <inertia ixx="0.00015"  ixy="0.0000341"  ixz="0.0000118"
+                    iyy="0.000255" iyz="0.00000229"
+                    izz="0.000350" />
+      </inertial>
+    </link>  
+
+    <xacro:actuator type="X5_4" name="wheel_2" child="wheel_2_end"/>
+    <link name="wheel_2_end/INPUT_INTERFACE">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="file://$(find hebi_description)/meshes/omnibase_wheel.obj" />
+        </geometry>
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="file://$(find hebi_description)/meshes/omnibase_wheel.obj" />
+        </geometry>
+      </collision>
+      <inertial>
+        <mass value="0.5"/>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+          <inertia ixx="0.00015"  ixy="0.0000341"  ixz="0.0000118"
+                    iyy="0.000255" iyz="0.00000229"
+                    izz="0.000350" />
+      </inertial>
+    </link>  
+
+    <xacro:actuator type="X5_4" name="wheel_3" child="wheel_3_end"/>
+    <link name="wheel_3_end/INPUT_INTERFACE">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="file://$(find hebi_description)/meshes/omnibase_wheel.obj" />
+        </geometry>
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="file://$(find hebi_description)/meshes/omnibase_wheel.obj" />
+        </geometry>
+      </collision>
+      <inertial>
+        <mass value="0.5"/>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+          <inertia ixx="0.00015"  ixy="0.0000341"  ixz="0.0000118"
+                    iyy="0.000255" iyz="0.00000229"
+                    izz="0.000350" />
+      </inertial>
+    </link> 
+  </xacro:macro>
+</robot>

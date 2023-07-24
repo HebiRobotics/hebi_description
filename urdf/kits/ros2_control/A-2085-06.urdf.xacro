@@ -7,6 +7,8 @@
   <xacro:arg name="hrdf_file" default="" />
   <xacro:arg name="gains_pkg" default="" />
   <xacro:arg name="gains_file" default="" />
+  <xacro:arg name="prefix" default="" />
+  <xacro:arg name="home_position" default="" />
 
   <xacro:arg name="use_mock_hardware" default="false" />
   <xacro:arg name="mock_sensor_commands" default="false" />
@@ -35,6 +37,8 @@
     hrdf_pkg="$(arg hrdf_pkg)"
     hrdf_file="$(arg hrdf_file)"
     gains_pkg="$(arg gains_pkg)"
-    gains_file="$(arg gains_file)" />
+    gains_file="$(arg gains_file)"
+    prefix="$(arg prefix)"
+    home_position="$(arg home_position)" />
 
 </robot>

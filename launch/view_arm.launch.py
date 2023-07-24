@@ -1,3 +1,4 @@
+# Copyright (c) 2023, HEBI Robotics Inc.
 # Copyright (c) 2022, Stogl Robotics Consulting UG (haftungsbeschränkt) (template)
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -11,10 +12,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-#
-#
-# Author: Dr. Denis
-#
+
 
 from launch import LaunchDescription
 from launch.actions import DeclareLaunchArgument
@@ -29,7 +27,14 @@ def generate_launch_description():
     declared_arguments.append(
         DeclareLaunchArgument(
             "hebi_arm",
-            description="HEBI Arm name",
+            description="Name of the robot to be used.",
+        )
+    )
+    declared_arguments.append(
+        DeclareLaunchArgument(
+            "prefix",
+            default_value="",
+            description="Prefix for the HEBI Arm name. Usually the argument is not set",
         )
     )
     declared_arguments.append(
@@ -53,7 +58,9 @@ def generate_launch_description():
             PathJoinSubstitution(
                 [FindPackageShare(description_package), "urdf", "kits", PythonExpression(['"', hebi_arm, '.urdf.xacro"'])]
             ),
-            " ",
+            " "
+            "prefix:=",
+            LaunchConfiguration("prefix"),
         ]
     )
 

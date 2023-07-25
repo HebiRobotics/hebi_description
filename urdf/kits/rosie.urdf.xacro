@@ -3,10 +3,21 @@
 
   <xacro:include filename="$(find hebi_description)/urdf/components/hebi.xacro" />
 
-  <xacro:arg name="prefix" default="arm/" />
-  <!-- HEBI A-2085-05 Arm Kit -->
-  <xacro:include filename="$(find hebi_description)/urdf/kits/A-2085-05.urdf.xacro" />
+  <xacro:arg name="prefix" default="" />
+  <xacro:arg name="hebi_arm" default="A-2085-06" />
+  
+  <!-- HEBI Arm Kit -->
+  <xacro:include filename="$(find hebi_description)/urdf/kits/$(arg hebi_arm).urdf.xacro" />
 
   <xacro:omnibase child="$(arg prefix)base_link" />
+
+  <!-- Robot Footprint -->
+  <link name="base_footprint"/>
+
+  <joint name="base_joint" type="fixed">
+    <parent link="base_footprint"/>
+    <child link="base_link"/>
+    <origin xyz="0.0 0.0 0.075" rpy="0 0 0"/>
+  </joint>
 
 </robot>

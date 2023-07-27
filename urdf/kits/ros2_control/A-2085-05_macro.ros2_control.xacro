@@ -12,7 +12,8 @@
                 hrdf_pkg
                 hrdf_file
                 gains_pkg
-                gains_file"
+                gains_file
+                home_position"
                >
 
     <ros2_control name="${name}" type="system">
@@ -32,6 +33,7 @@
           <param name="hrdf_file">${hrdf_file}</param>
           <param name="gains_pkg">${gains_pkg}</param>
           <param name="gains_file">${gains_file}</param>
+          <param name="home_position">${home_position}</param>
           <plugin>hebi_hardware/HEBIHardwareInterface</plugin>
         </xacro:unless>
       </hardware>

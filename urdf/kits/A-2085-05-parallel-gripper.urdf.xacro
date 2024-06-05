@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<robot xmlns:xacro="http://wiki.ros.org/xacro" version="1.2.0" name="A-2085-05-parallel-gripper">
+<robot xmlns:xacro="http://wiki.ros.org/xacro" name="A-2085-05-parallel-gripper">
   <xacro:arg name="prefix" default=""/>
   <!-- HEBI A-2085-05-parallel-gripper Arm Kit -->
   <xacro:include filename="$(find hebi_description)/urdf/components/hebi.xacro"/>

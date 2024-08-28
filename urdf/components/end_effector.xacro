@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
   <xacro:macro name="null_end_effector" params="name">
-    <link name="${name}/INPUT_INTERFACE">
+    <link name="${name}">
       <collision>
         <origin xyz="0 0 0.0005" rpy="0 0 0"/>
           <geometry>
@@ -144,7 +144,7 @@
         <origin xyz="0 -0.01265 .0115" rpy="0 0 ${pi}" />
         <mimic joint="${name}/input_l_finger" multiplier="1.0" offset="0" />
       </xacro:if>
-      <parent link="${name}/INPUT_INTERFACE"/>
+      <parent link="${name}"/>
       <child link="${name}/${prefix}_finger"/>
       <limit effort="1000.0" velocity="1000.0" lower="0" upper="${0.37*pi}"/>
     </joint>
@@ -217,7 +217,7 @@
     </xacro:unless>
 
     <xacro:if value="${type == 'Custom'}">
-      <link name="${name}/INPUT_INTERFACE">
+      <link name="${name}">
         <visual>
           <origin xyz="0 0 0.0005" rpy="0 0 0" />
           <geometry>
@@ -237,7 +237,7 @@
 
     <xacro:if value="${type.endswith('Parallel')}">
       <!-- The base body of the gripper -->
-      <link name="${name}/INPUT_INTERFACE">
+      <link name="${name}">
         <visual>
           <origin xyz="0 0 0.00375" />
             <geometry>
@@ -255,7 +255,7 @@
             izz="${1.0/2.0  * 0.072 * pow(0.0225, 2)}"/>
         </inertial>
       </link>
-      <gazebo reference="${name}/INPUT_INTERFACE">
+      <gazebo reference="${name}">
         <xacro:gazebo_black_material/>
       </gazebo>
 
@@ -284,7 +284,7 @@
 
       <joint name="${name}/input_center_hub" type="fixed">
         <origin xyz="0 0 0.0045" rpy="0 0 0" />
-        <parent link="${name}/INPUT_INTERFACE"/>
+        <parent link="${name}"/>
         <child link="${name}/center_hub"/>
       </joint>
 
@@ -378,7 +378,7 @@
         <joint name="${name}/finger_gearbox" type="gearbox">
           <parent>${name}/r_finger</parent>
           <child>${name}/l_finger</child>
-          <gearbox_reference_body>${name}/INPUT_INTERFACE</gearbox_reference_body>
+          <gearbox_reference_body>${name}</gearbox_reference_body>
           <gearbox_ratio>1</gearbox_ratio>
           <axis>
             <xyz>1 0 0</xyz>
@@ -392,4 +392,3 @@
 
   </xacro:macro>
 </robot>
-

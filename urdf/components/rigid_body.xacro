@@ -5,14 +5,14 @@
     <link name="${name}">
       <xacro:if value="${mesh_path != ''}">
         <visual>
-          <origin xyz="0 0 0" rpy="0 0 0"/>
+          <origin xyz="${mesh_trans}" rpy="${mesh_rot}"/>
           <geometry>
             <mesh filename="${mesh_path}"/>
           </geometry>
           <xacro:black_material/>
         </visual>
         <collision>
-          <origin xyz="0 0 0" rpy="0 0 0"/>
+          <origin xyz="${mesh_trans}" rpy="${mesh_rot}"/>
           <geometry>
             <mesh filename="${mesh_path}"/>
           </geometry>

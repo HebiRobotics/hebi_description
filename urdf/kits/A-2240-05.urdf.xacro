@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<robot xmlns:xacro="http://wiki.ros.org/xacro" name="A-2240-05">
+  <xacro:arg name="prefix" default=""/>
+  <!-- HEBI A-2240-05 Arm Kit -->
+  <xacro:include filename="$(find hebi_description)/urdf/components/hebi.xacro"/>
+  <link name="$(arg prefix)base_link"/>
+  <joint name="$(arg prefix)base_joint" type="fixed">
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <parent link="$(arg prefix)base_link"/>
+    <child link="$(arg prefix)J1_base"/>
+  </joint>
+  <xacro:actuator type="R8_16" name="$(arg prefix)J1_base" child="$(arg prefix)B1"/>
+  <xacro:bracket type="R8HeavyRightOutside" name="$(arg prefix)B1"/>
+  <xacro:output type="R8HeavyRightOutside" parent="$(arg prefix)B1" child="$(arg prefix)J2_shoulder" name="$(arg prefix)B1_J2_shoulder"/>
+  <xacro:actuator type="R8_16" name="$(arg prefix)J2_shoulder" child="$(arg prefix)L1"/>
+  <xacro:link type="R8" extension="0.325" twist="${pi}" name="$(arg prefix)L1" child="$(arg prefix)J3_elbow" output="RightAngle"/>
+  <xacro:actuator type="R8_16" name="$(arg prefix)J3_elbow" child="$(arg prefix)L2"/>
+  <xacro:link type="R8" extension="0.325" twist="${pi}" name="$(arg prefix)L2" child="$(arg prefix)J4_wrist1" output="RightAngle"/>
+  <xacro:actuator type="R8_3" name="$(arg prefix)J4_wrist1" child="$(arg prefix)B2"/>
+  <xacro:bracket type="R8LightRight" name="$(arg prefix)B2"/>
+  <xacro:output type="R8LightRight" parent="$(arg prefix)B2" child="$(arg prefix)J5_wrist2" name="$(arg prefix)B2_J5_wrist2"/>
+  <xacro:actuator type="R8_3" name="$(arg prefix)J5_wrist2" child="$(arg prefix)EE1"/>
+  <xacro:gripper name="$(arg prefix)EE1" type="Custom" mass="0.01"/>
+</robot>

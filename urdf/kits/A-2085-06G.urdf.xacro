@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<robot xmlns:xacro="http://wiki.ros.org/xacro" name="A-2085-06">
+<robot xmlns:xacro="http://wiki.ros.org/xacro" name="A-2085-06G">
   <xacro:arg name="prefix" default=""/>
-  <!-- HEBI A-2085-06 Arm Kit -->
+  <!-- HEBI A-2085-06G Arm Kit -->
   <xacro:include filename="$(find hebi_description)/urdf/components/hebi.xacro"/>
   <link name="$(arg prefix)base_link"/>
   <joint name="$(arg prefix)base_joint" type="fixed">
@@ -23,5 +23,5 @@
   <xacro:bracket type="X5LightRight" name="$(arg prefix)B3"/>
   <xacro:output type="X5LightRight" parent="$(arg prefix)B3" child="$(arg prefix)J6_wrist3" name="$(arg prefix)B3_J6_wrist3"/>
   <xacro:actuator type="X5_1" name="$(arg prefix)J6_wrist3" child="$(arg prefix)EE1"/>
-  <xacro:gripper name="$(arg prefix)EE1" type="Custom" mass="0.01"/>
+  <xacro:gripper type="X5Parallel" name="$(arg prefix)EE1" mass="0.01"/>
 </robot>

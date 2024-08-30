@@ -1,9 +1,8 @@
 #! /usr/bin/env python3
 
 import argparse
-import sys
-import os
-from os.path import basename, splitext, join
+import hebi
+from os.path import basename, splitext, join, dirname, isabs, abspath
 import subprocess
 import re
 import numpy as np
@@ -57,8 +56,16 @@ def simplify_rot_expr(expression):
     return euler_str
 
 def read_hrdf(hrdf_file_name):
+    try:
+        robot_model = hebi.robot_model.import_from_hrdf(hrdf_file_name)
+    except Exception as e:
+        print(f"Error reading HRDF file: {e}")
+        exit(1)
     parser = ET.XMLParser(remove_blank_text=True, remove_comments=True)
-    return ET.parse(hrdf_file_name, parser).getroot()
+    try:
+        return ET.parse(hrdf_file_name, parser).getroot()
+    except OSError:
+        raise ValueError(f"File {hrdf_file_name} not found")
 
 # Print in hierarchical order and level-based tabbing
 def print_robot(robot):
@@ -83,7 +90,7 @@ def flatten_etree(tree):
 
     return new_root
 
-def convert_to_URDF(hrdf_file_name, meshdir):
+def convert_to_URDF(hrdf_file_name, actuator_names, meshdir, outputdir):
     model_name = splitext(basename(hrdf_file_name))[0]
     robot = read_hrdf(hrdf_file_name)
 
@@ -92,13 +99,14 @@ def convert_to_URDF(hrdf_file_name, meshdir):
     # Joint is not supported yet
     if len(list(robot.iter('joint'))) > 0:
         raise ValueError("Joint tag not supported yet")
-
+    if len(list(robot.iter('actuator', 'joint'))) != len(actuator_names):
+        raise ValueError(f"Number of actuators in HRDF file ({len(list(robot.iter('actuator', 'joint')))}) does not match number of provided names ({len(actuator_names)})")
     for include in robot.iter('include'):
         include_fp = include.attrib['path']
         if include_fp == basename(hrdf_file_name):
             raise ValueError(f"Recursive include detected: Include path {include_fp} is same as current file")
         
-        include_fp = join(os.path.dirname(hrdf_file_name), include_fp)
+        include_fp = join(dirname(hrdf_file_name), include_fp)
         include_root = read_hrdf(include_fp)
         include_content = include_root.getchildren()
         
@@ -137,7 +145,10 @@ def convert_to_URDF(hrdf_file_name, meshdir):
 
     # Name all actuators and joints
     for idx, el in enumerate(robot.iter('actuator', 'joint')):
-        el.attrib['name'] = f"J{idx+1}"
+        if actuator_names is None:
+            el.attrib['name'] = f"J{idx+1}"
+        else:
+            el.attrib['name'] = actuator_names[idx]
         if el.tag == 'actuator':
             el.attrib['type'] = el.attrib['type'].replace('-', '_')
 
@@ -271,7 +282,7 @@ def convert_to_URDF(hrdf_file_name, meshdir):
         encoding='UTF-8'
     )
 
-    outfile = join(os.path.dirname(hrdf_file_name), '{}.urdf.xacro'.format(model_name))
+    outfile = join(outputdir, '{}.urdf.xacro'.format(model_name))
     print('Writing to {}'.format(outfile))
     with open(outfile, 'wb') as f:
         f.write(xmlstr)
@@ -283,14 +294,31 @@ if __name__ == '__main__':
     parser.add_argument('filename')
     parser.add_argument('--actuators', nargs="+", type=str, default=None)
     parser.add_argument('--meshdir', default='meshes')
+    parser.add_argument('--outputdir', default='./')
 
     args = parser.parse_args()
-    hrdf_file_name = args.filename
+    
+    actuator_names = args.actuators
+
+    if args.filename.endswith('.hrdf'):
+        hrdf_file_name = args.filename
+    elif args.filename.endswith('.yaml'):
+        import yaml
+        with open(args.filename, 'r') as f:
+            cfg = yaml.safe_load(f)
+            hrdf_file_name = join(dirname(args.filename), cfg['hrdf'])
+            actuator_names = cfg['names']
+    else:
+        raise ValueError("Invalid file format. Please provide a valid HRDF or YAML file")
+    
     meshdir = args.meshdir
     # If mesh dir is relative, make it absolute
-    if not os.path.isabs(meshdir):
-        meshdir = os.path.abspath(meshdir)
+    if not isabs(meshdir):
+        meshdir = abspath(meshdir)
+    
+    outputdir = args.outputdir
+    # If output dir is relative, make it absolute
+    if not isabs(outputdir):
+        outputdir = abspath(outputdir)
 
-    convert_to_URDF(hrdf_file_name, meshdir)
-
-    exit()
+    convert_to_URDF(hrdf_file_name, actuator_names, meshdir, outputdir)

@@ -3,12 +3,6 @@
   <xacro:arg name="prefix" default=""/>
   <!-- HEBI daisy Arm Kit -->
   <xacro:include filename="$(find hebi_description)/urdf/components/hebi.xacro"/>
-  <link name="$(arg prefix)base_link"/>
-  <joint name="$(arg prefix)base_joint" type="fixed">
-    <origin xyz="0 0 0" rpy="0 0 0"/>
-    <parent link="$(arg prefix)base_link"/>
-    <child link="$(arg prefix)RB1"/>
-  </joint>
   <xacro:rigid-body mass="0.01" name="$(arg prefix)RB1"/>
   <xacro:output rot="0 0 0.5236" parent="$(arg prefix)RB1" child="$(arg prefix)RB2" name="$(arg prefix)RB1_RB2"/>
   <xacro:rigid-body mass="0.01" name="$(arg prefix)RB2"/>

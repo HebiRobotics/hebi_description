@@ -2,7 +2,7 @@
 
 import argparse
 import hebi
-from os.path import basename, splitext, join, dirname, isabs, abspath
+from os.path import basename, splitext, join, dirname, isabs, abspath, exists
 import subprocess
 import re
 import numpy as np
@@ -56,11 +56,13 @@ def simplify_rot_expr(expression):
     return euler_str
 
 def read_hrdf(hrdf_file_name):
-    try:
-        robot_model = hebi.robot_model.import_from_hrdf(hrdf_file_name)
-    except Exception as e:
-        print(f"Error reading HRDF file: {e}")
-        exit(1)
+    # Update: T-Series not supported yet, so commented out
+    # Check the validity of the HRDF file
+    # try:
+    #     robot_model = hebi.robot_model.import_from_hrdf(hrdf_file_name)
+    # except Exception as e:
+    #     print(f"Error reading HRDF file: {e}")
+    #     exit(1)
     parser = ET.XMLParser(remove_blank_text=True, remove_comments=True)
     try:
         return ET.parse(hrdf_file_name, parser).getroot()
@@ -94,13 +96,6 @@ def convert_to_URDF(hrdf_file_name, actuator_names, meshdir, outputdir):
     model_name = splitext(basename(hrdf_file_name))[0]
     robot = read_hrdf(hrdf_file_name)
 
-    if len(list(robot.iter('robot'))) > 1:
-        raise ValueError("Multiple robot tags found in HRDF file")
-    # Joint is not supported yet
-    if len(list(robot.iter('joint'))) > 0:
-        raise ValueError("Joint tag not supported yet")
-    if len(list(robot.iter('actuator', 'joint'))) != len(actuator_names):
-        raise ValueError(f"Number of actuators in HRDF file ({len(list(robot.iter('actuator', 'joint')))}) does not match number of provided names ({len(actuator_names)})")
     for include in robot.iter('include'):
         include_fp = include.attrib['path']
         if include_fp == basename(hrdf_file_name):
@@ -115,6 +110,14 @@ def convert_to_URDF(hrdf_file_name, actuator_names, meshdir, outputdir):
         for el in include_content:
             parent.append(el)
         parent.remove(include)
+
+    if len(list(robot.iter('robot'))) > 1:
+        raise ValueError("Multiple robot tags found in HRDF file")
+    # Joint is not supported yet
+    if len(list(robot.iter('joint'))) > 0:
+        raise ValueError("Joint tag not supported yet")
+    if actuator_names is not None and len(list(robot.iter('actuator', 'joint'))) != len(actuator_names):
+        raise ValueError(f"Number of actuators in HRDF file ({len(list(robot.iter('actuator', 'joint')))}) does not match number of provided names ({len(actuator_names)})")
 
     # Simplify rotation expressions
     for el in robot.iter():
@@ -132,7 +135,7 @@ def convert_to_URDF(hrdf_file_name, actuator_names, meshdir, outputdir):
                 filename = el.attrib['mesh_path'].split('/')[-1]
                 filepath = join(meshdir, filename)
                 # Check if file already exists
-                if not os.path.exists(filepath):
+                if not exists(filepath):
                     print(f"Downloading mesh file to {meshdir}")
                     subprocess.run(['wget', '-O', join(meshdir, filename), el.attrib['mesh_path']])
                 else:

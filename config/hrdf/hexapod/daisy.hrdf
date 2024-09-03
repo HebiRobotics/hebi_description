@@ -31,7 +31,7 @@
             <rigid-body mass="0" output_trans="0.2375 0 0" mesh_path=""/>
             <include path="left.hrdf"/>
         </output>
-        <output rot="Rz(5*-pi/6)"> <!-- leg 6 -->
+        <output rot="Rz(-5*pi/6)"> <!-- leg 6 -->
             <rigid-body mass="0" output_trans="0.2375 0 0" mesh_path=""/>
             <include path="right.hrdf"/>
         </output>

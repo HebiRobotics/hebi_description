@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot xmlns:xacro="http://wiki.ros.org/xacro" name="A-2240-06">
+
+  <xacro:arg name="families" default="" />
+  <xacro:arg name="names" default="" />
+  <xacro:arg name="hrdf_pkg" default="" />
+  <xacro:arg name="hrdf_file" default="" />
+  <xacro:arg name="gains_pkg" default="" />
+  <xacro:arg name="gains_file" default="" />
+  <xacro:arg name="prefix" default="" />
+  <xacro:arg name="home_position" default="" />
+
+  <xacro:arg name="use_mock_hardware" default="false" />
+  <xacro:arg name="mock_sensor_commands" default="false" />
+  <xacro:arg name="sim_gazebo_classic" default="false" />
+  <xacro:arg name="sim_gazebo" default="false" />
+
+  <xacro:include filename="$(find hebi_description)/urdf/kits/ros2_control/A-2240-06_macro.ros2_control.xacro"/>
+
+  <!-- create link fixed to the "world" -->
+  <link name="world" />
+
+  <joint name="world_to_base_joint" type="fixed">
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <parent link="world" />
+    <child link="base_link"/>
+  </joint>
+
+  <xacro:include filename="$(find hebi_description)/urdf/kits/A-2240-06.urdf.xacro"/>
+  
+  <xacro:A-2240-06_ros2_control
+    name="A-2240-06"
+    use_mock_hardware="$(arg use_mock_hardware)"
+    mock_sensor_commands="$(arg mock_sensor_commands)"
+    sim_gazebo_classic="$(arg sim_gazebo_classic)"
+    sim_gazebo="$(arg sim_gazebo)"
+    families="$(arg families)"
+    names="$(arg names)"
+    hrdf_pkg="$(arg hrdf_pkg)"
+    hrdf_file="$(arg hrdf_file)"
+    gains_pkg="$(arg gains_pkg)"
+    gains_file="$(arg gains_file)"
+    prefix="$(arg prefix)"
+    home_position="$(arg home_position)" />
+
+</robot>

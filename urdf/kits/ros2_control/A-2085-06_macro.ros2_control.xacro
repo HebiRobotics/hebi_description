@@ -17,7 +17,6 @@
                >
 
     <ros2_control name="${name}" type="system">
-
       <hardware>
         <xacro:if value="${use_mock_hardware}">
           <plugin>mock_components/GenericSystem</plugin>
@@ -100,7 +99,7 @@
     </ros2_control>
 
     <!-- Gazebo plugins -->
-    <xacro:if value="$(arg sim_gazebo)">
+    <xacro:if value="${sim_gazebo}">
       <gazebo>
         <plugin filename="gz_ros2_control-system" name="gz_ros2_control::GazeboSimROS2ControlPlugin">
           <parameters>$(find hebi_bringup)/config/A-2085-06_controllers.yaml</parameters>

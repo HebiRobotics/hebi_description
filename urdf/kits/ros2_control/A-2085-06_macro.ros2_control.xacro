@@ -8,13 +8,8 @@
                 mock_sensor_commands:=^|false
                 sim_gazebo_classic:=^|false
                 sim_gazebo:=^|false
-                families
-                names
-                hrdf_pkg
-                hrdf_file
-                gains_pkg
-                gains_file
-                home_position"
+                config_pkg
+                config_file"
                >
 
     <ros2_control name="${name}" type="system">
@@ -30,13 +25,8 @@
           <plugin>gz_ros2_control/GazeboSimSystem</plugin>
         </xacro:if>
         <xacro:unless value="${use_mock_hardware or sim_gazebo_classic or sim_gazebo}">
-          <param name="families">${families}</param>
-          <param name="names">${names}</param>
-          <param name="hrdf_pkg">${hrdf_pkg}</param>
-          <param name="hrdf_file">${hrdf_file}</param>
-          <param name="gains_pkg">${gains_pkg}</param>
-          <param name="gains_file">${gains_file}</param>
-          <param name="home_position">${home_position}</param>
+          <param name="config_pkg">${config_pkg}</param>
+          <param name="config_file">${config_file}</param>
           <plugin>hebi_hardware/HEBIHardwareInterface</plugin>
         </xacro:unless>
       </hardware>

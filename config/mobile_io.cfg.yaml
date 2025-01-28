@@ -1,0 +1,14 @@
+# 6-DoF Arm
+version: 1.0
+families: ["Blank"]
+names: ["Blank"]
+hrdf: "blank"
+
+gains:
+  default: "blank"
+
+user_data:
+
+  mobile_io_family: "Arm"
+  mobile_io_name: "mobileIO"
+  mobile_io_layout: "layouts/default.json"

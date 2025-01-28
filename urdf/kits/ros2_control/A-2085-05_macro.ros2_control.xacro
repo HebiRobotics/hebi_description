@@ -6,7 +6,6 @@
                 prefix
                 use_mock_hardware:=^|false
                 mock_sensor_commands:=^|false
-                sim_gazebo_classic:=^|false
                 sim_gazebo:=^|false
                 config_pkg
                 config_file"
@@ -18,13 +17,10 @@
           <plugin>mock_components/GenericSystem</plugin>
           <param name="mock_sensor_commands">${mock_sensor_commands}</param>
         </xacro:if>
-        <xacro:if value="${sim_gazebo_classic}">
-          <plugin>gazebo_ros2_control/GazeboSystem</plugin>
-        </xacro:if>
         <xacro:if value="${sim_gazebo}">
           <plugin>gz_ros2_control/GazeboSimSystem</plugin>
         </xacro:if>
-        <xacro:unless value="${use_mock_hardware or sim_gazebo_classic or sim_gazebo}">
+        <xacro:unless value="${use_mock_hardware or sim_gazebo}">
           <param name="config_pkg">${config_pkg}</param>
           <param name="config_file">${config_file}</param>
           <plugin>hebi_hardware/HEBIHardwareInterface</plugin>
@@ -81,15 +77,6 @@
         </state_interface>
       </joint>
     </ros2_control>
-
-    <!-- Gazebo Classic plugins -->
-    <xacro:if value="${sim_gazebo_classic}">
-      <gazebo>
-        <plugin filename="libgazebo_ros2_control.so" name="gazebo_ros2_control">
-          <parameters>$(find hebi_bringup)/config/A-2085-05_controllers.yaml</parameters>
-        </plugin>
-      </gazebo>
-    </xacro:if>
 
     <!-- Gazebo plugins -->
     <xacro:if value="${sim_gazebo}">

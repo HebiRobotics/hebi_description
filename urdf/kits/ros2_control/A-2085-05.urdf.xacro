@@ -1,14 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <robot xmlns:xacro="http://wiki.ros.org/xacro" name="A-2085-05">
 
-  <xacro:arg name="families" default="" />
-  <xacro:arg name="names" default="" />
-  <xacro:arg name="hrdf_pkg" default="" />
-  <xacro:arg name="hrdf_file" default="" />
-  <xacro:arg name="gains_pkg" default="" />
-  <xacro:arg name="gains_file" default="" />
+  <xacro:arg name="config_pkg" default="" />
+  <xacro:arg name="config_file" default="" />
   <xacro:arg name="prefix" default="" />
-  <xacro:arg name="home_position" default="" />
 
   <xacro:arg name="use_mock_hardware" default="false" />
   <xacro:arg name="mock_sensor_commands" default="false" />
@@ -34,13 +29,8 @@
     mock_sensor_commands="$(arg mock_sensor_commands)"
     sim_gazebo_classic="$(arg sim_gazebo_classic)"
     sim_gazebo="$(arg sim_gazebo)"
-    families="$(arg families)"
-    names="$(arg names)"
-    hrdf_pkg="$(arg hrdf_pkg)"
-    hrdf_file="$(arg hrdf_file)"
-    gains_pkg="$(arg gains_pkg)"
-    gains_file="$(arg gains_file)"
-    prefix="$(arg prefix)"
-    home_position="$(arg home_position)" />
+    config_pkg="$(arg config_pkg)"
+    config_file="$(arg config_file)"
+    prefix="$(arg prefix)" />
     
 </robot>

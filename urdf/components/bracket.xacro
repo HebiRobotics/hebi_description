@@ -116,7 +116,7 @@
           <origin xyz="0 .03 .04" rpy="${pi/2} 0 0"/>
         </xacro:if>
         <xacro:if value="${bracket_type.endswith('LeftOutside')}">
-          <origin xyz="0 -.03 .04" rpy="${pi/2} 0 0"/>
+          <origin xyz="0 .03 .04" rpy="${pi/2} 0 ${pi}"/>
         </xacro:if>
         <xacro:if value="${bracket_type.endswith('LeftInside')}">
           <origin xyz="0 -.03 .04" rpy="${pi/2} 0 ${pi}"/>
@@ -271,24 +271,24 @@
   <joint name="${name}/OUTPUT_INTERFACE" type="fixed">
     <parent link="${name}/INPUT_INTERFACE"/>
     <child link="${child}/INPUT_INTERFACE"/>
-    <xacro:if value="${bracket_type.endswith('RightOutside')}">
-      <origin xyz="0 -.0375 .055" rpy="${pi/2} 0 0"/>
-    </xacro:if>
-    <xacro:if value="${bracket_type.endswith('RightInside')}">
-      <origin xyz="0 .0225 .055" rpy="${pi/2} 0 0"/>
-    </xacro:if>
-    <xacro:if value="${bracket_type.endswith('LeftOutside')}">
-      <origin xyz="0 .0375 .055" rpy="${-pi/2} 0 0"/>
-    </xacro:if>
-    <xacro:if value="${bracket_type.endswith('LeftInside')}">
-      <origin xyz="0 -.0225 .055" rpy="${-pi/2} 0 0"/>
-    </xacro:if>
-    <xacro:if value="${bracket_type.endswith('Left')}">
-      <origin xyz="0 .043 .04" rpy="${-pi/2} 0 0"/>
-    </xacro:if>
-    <xacro:if value="${bracket_type.endswith('Right')}">
-      <origin xyz="0 -.043 .04" rpy="${pi/2} 0 0"/>
-    </xacro:if>
-  </joint>
+      <xacro:if value="${bracket_type.endswith('RightOutside')}">
+        <origin xyz="0 -.0375 .055" rpy="${pi/2} 0 0"/>
+      </xacro:if>
+      <xacro:if value="${bracket_type.endswith('RightInside')}">
+        <origin xyz="0 .0225 .055" rpy="${pi/2} 0 0"/>
+      </xacro:if>
+      <xacro:if value="${bracket_type.endswith('LeftOutside')}">
+        <origin xyz="0 .0375 .055" rpy="${-pi/2} 0 0"/>
+      </xacro:if>
+      <xacro:if value="${bracket_type.endswith('LeftInside')}">
+        <origin xyz="0 -.0225 .055" rpy="${-pi/2} 0 0"/>
+      </xacro:if>
+      <xacro:if value="${bracket_type.endswith('Left')}">
+        <origin xyz="0 .043 .04" rpy="${-pi/2} 0 0"/>
+      </xacro:if>
+      <xacro:if value="${bracket_type.endswith('Right')}">
+        <origin xyz="0 -.043 .04" rpy="${pi/2} 0 0"/>
+      </xacro:if>
+    </joint>
   </xacro:macro>
 </robot>

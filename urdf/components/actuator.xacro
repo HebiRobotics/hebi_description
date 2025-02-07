@@ -459,15 +459,7 @@
     <joint name="${name}_fixed" type="fixed">
       <parent link="${name}"/>
       <child link="${child}"/>
-      <xacro:if value="${model_name.startswith('X')}">
-        <origin xyz="0 0 0" rpy="0 0 0"/>
-      </xacro:if>
-      <xacro:if value="${model_name.startswith('T')}">
-        <origin xyz="0 0 0" rpy="0 0 0"/>
-      </xacro:if>
-      <xacro:if value="${model_name.startswith('R')}">
-        <origin xyz="0 0 0" rpy="0 0 0"/>
-      </xacro:if>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
     </joint>
   </xacro:macro>
 </robot>

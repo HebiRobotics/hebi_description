@@ -2,15 +2,7 @@
 <!-- For documentation on the HEBI Robot Configuration please visit: -->
 <!-- https://github.com/HebiRobotics/hebi-hrdf/blob/master/FORMAT.md -->
 
-<<<<<<< HEAD:config/hrdf/A-2240-06G.hrdf
 <!-- R-Series Arm (6-DoF with Gripper) -->
-=======
-<<<<<<<< HEAD:config/hrdf/A-2240-06.hrdf
-<!-- R-Series Arm (6-DoF) -->
-========
-<!-- R-Series Arm (6-DoF with Gripper) -->
->>>>>>>> ros2/humble:config/arms/hrdf/A-2240-06G.hrdf
->>>>>>> ros2/humble:config/arms/hrdf/A-2240-06G.hrdf
 <robot version="1.2.0">
   <actuator type="R8-16"/>
   <bracket type="R8HeavyRightOutside"/>
@@ -23,17 +15,5 @@
   <actuator type="R8-3"/>
   <bracket type="R8LightRight"/>
   <actuator type="R8-3"/>
-<<<<<<< HEAD:config/hrdf/A-2240-06G.hrdf
   <end-effector type="R8Parallel"/>
-=======
-<<<<<<<< HEAD:config/hrdf/A-2240-06.hrdf
-  
-  <!-- For custom end-effector parameters and formatting please visit: -->
-  <!-- https://github.com/HebiRobotics/hebi-hrdf/blob/master/FORMAT.md#end-effector -->
-  <end-effector />
-  
-========
-  <end-effector type="R8Parallel"/>
->>>>>>>> ros2/humble:config/arms/hrdf/A-2240-06G.hrdf
->>>>>>> ros2/humble:config/arms/hrdf/A-2240-06G.hrdf
 </robot>

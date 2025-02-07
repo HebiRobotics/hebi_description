@@ -22,7 +22,7 @@
           <plugin>gazebo_ros2_control/GazeboSystem</plugin>
         </xacro:if>
         <xacro:if value="${sim_gazebo}">
-          <plugin>gz_ros2_control/GazeboSimSystem</plugin>
+          <plugin>ign_ros2_control/IgnitionSystem</plugin>
         </xacro:if>
         <xacro:unless value="${use_mock_hardware or sim_gazebo_classic or sim_gazebo}">
           <param name="config_pkg">${config_pkg}</param>
@@ -104,7 +104,7 @@
     <!-- Gazebo plugins -->
     <xacro:if value="${sim_gazebo}">
       <gazebo>
-        <plugin filename="gz_ros2_control-system" name="gz_ros2_control::GazeboSimROS2ControlPlugin">
+        <plugin filename="ign_ros2_control-system" name="ign_ros2_control::IgnitionROS2ControlPlugin">
           <parameters>$(find hebi_bringup)/config/A-2085-06_controllers.yaml</parameters>
         </plugin>
       </gazebo>

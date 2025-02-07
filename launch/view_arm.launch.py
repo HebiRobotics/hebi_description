@@ -41,7 +41,7 @@ def generate_launch_description():
         DeclareLaunchArgument(
             "description_package",
             default_value="hebi_description",
-            description="Description package of the A-2085-06. Usually the argument is not set, \
+            description="Description package of the HEBI arm. Usually the argument is not set, \
         it enables use of a custom description.",
         )
     )

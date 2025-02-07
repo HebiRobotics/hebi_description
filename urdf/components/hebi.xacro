@@ -31,6 +31,20 @@
     <material>Gazebo/Black</material>
   </xacro:macro>
 
+  <xacro:macro name="tangerine_material">
+    <material name="tangerine">
+      <color rgba="0.91 0.43 0.218 1"/>
+    </material>
+  </xacro:macro>
+  <xacro:macro name="gazebo_tangerine_material">
+    <visual>
+      <material>
+          <ambient>0.91 0.43 0.218 1</ambient>
+          <diffuse>0.91 0.43 0.218 1</diffuse>
+      </material>
+    </visual>
+  </xacro:macro>
+
   <xacro:macro name="beige_material">
     <material name="beige">
       <color rgba="0.96 0.945 0.871 1"/>

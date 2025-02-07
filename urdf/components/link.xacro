@@ -61,13 +61,13 @@
           <origin xyz="${extension} ${sin(-twist) * edge_to_center} ${edge_to_center * (1 + cos(-twist))}" rpy="${twist} 0 0"/>
         </xacro:if>
         <xacro:if value="${input == 'RightAngle' and output == 'Inline'}">
-          <origin xyz="${extension} 0 ${edge_to_center}" rpy="${pi/2} ${twist+pi} ${pi/2}"/>
+          <origin xyz="${extension} 0 ${edge_to_center}" rpy="${pi/2} ${twist} ${pi/2}"/>
         </xacro:if>
         <xacro:if value="${input == 'Inline' and output =='RightAngle'}">
-          <origin xyz="${edge_to_center * sin(twist+pi/2)} ${edge_to_center * -cos(twist+pi/2)} ${extension}" rpy="${pi/2} ${-pi/2} ${twist+pi/2}"/>
+          <origin xyz="${edge_to_center * sin(twist-pi/2)} ${edge_to_center * -cos(twist-pi/2)} ${extension}" rpy="${pi/2} ${-pi/2} ${twist-pi/2}"/>
         </xacro:if>
         <xacro:if value="${input == 'Inline' and output =='Inline'}">
-          <origin xyz="${0} ${0} ${extension}" rpy="${0} ${0} ${twist-pi/2}"/>
+          <origin xyz="${0} ${0} ${extension}" rpy="${0} ${0} ${twist+pi/2}"/>
         </xacro:if>
         <geometry>
           <xacro:if value="${output == 'RightAngle'}">
@@ -84,13 +84,13 @@
           <origin xyz="${extension} ${sin(-twist) * edge_to_center} ${edge_to_center * (1 + cos(-twist))}" rpy="${twist} 0 0"/>
         </xacro:if>
         <xacro:if value="${input == 'RightAngle' and output == 'Inline'}">
-          <origin xyz="${extension} 0 ${edge_to_center}" rpy="${pi/2} ${twist+pi} ${pi/2}"/>
+          <origin xyz="${extension} 0 ${edge_to_center}" rpy="${pi/2} ${twist} ${pi/2}"/>
         </xacro:if>
         <xacro:if value="${input == 'Inline' and output =='RightAngle'}">
-          <origin xyz="${edge_to_center * sin(twist+pi/2)} ${edge_to_center * -cos(twist+pi/2)} ${extension}" rpy="${pi/2} ${-pi/2} ${twist+pi/2}"/>
+          <origin xyz="${edge_to_center * sin(twist-pi/2)} ${edge_to_center * -cos(twist-pi/2)} ${extension}" rpy="${pi/2} ${-pi/2} ${twist-pi/2}"/>
         </xacro:if>
         <xacro:if value="${input == 'Inline' and output =='Inline'}">
-          <origin xyz="${0} ${0} ${extension}" rpy="${0} ${0} ${twist-pi/2}"/>
+          <origin xyz="${0} ${0} ${extension}" rpy="${0} ${0} ${twist+pi/2}"/>
         </xacro:if>
         <geometry>
           <xacro:if value="${input == 'RightAngle'}">
@@ -120,13 +120,13 @@
         <origin xyz="${extension} ${-sin(twist) * edge_to_center} ${edge_to_center * (1 + cos(twist))}" rpy="${twist} 0 0"/>
       </xacro:if>
       <xacro:if value="${input == 'RightAngle' and output == 'Inline'}">
-        <origin xyz="${extension} 0 ${edge_to_center}" rpy="${pi/2} ${twist+pi} ${pi/2}"/>
+        <origin xyz="${extension} 0 ${edge_to_center}" rpy="${pi/2} ${twist+pi/2} ${pi/2}"/>
       </xacro:if>
       <xacro:if value="${input == 'Inline' and output =='RightAngle'}">
-        <origin xyz="${edge_to_center * sin(twist+pi/2)} ${edge_to_center * -cos(twist+pi/2)} ${extension}" rpy="${pi/2} ${-pi/2} ${twist+pi/2}"/>
+        <origin xyz="${edge_to_center * sin(twist-pi/2)} ${edge_to_center * -cos(twist-pi/2)} ${extension}" rpy="${pi/2} ${-pi/2} ${twist-pi/2}"/>
       </xacro:if>
       <xacro:if value="${input == 'Inline' and output =='Inline'}">
-        <origin xyz="${0} ${0} ${extension}" rpy="${0} ${0} ${twist-pi/2}"/>
+        <origin xyz="${0} ${0} ${extension}" rpy="${0} ${0} ${twist}"/>
       </xacro:if>
     </joint>
   </xacro:macro>

@@ -221,11 +221,18 @@ def convert_to_URDF(hrdf_file_name, actuator_names, meshdir, outputdir):
         child_name = el[0].attrib['name']
         el.attrib['child'] = child_name
         el.attrib['name'] = f"{parent_name}_{child_name}"
+        # Append '_body' to actuator names since they are not links
+        if el[0].tag == 'actuator':
+            el.attrib['child'] += '_body'
     
     for el in robot.iter('actuator', 'link'):
-        el.attrib['child'] = list(el.getparent())[el.getparent().index(el)+1].attrib['name']
-        if el.tag == 'link' and 'output' not in el.attrib:
-            el.attrib['output'] = "None" if "EE" in el.attrib['child'] else "RightAngle"
+        child = list(el.getparent())[el.getparent().index(el)+1]
+        if child.tag == 'actuator':
+            el.attrib['child'] = child.attrib['name'] + '_body'
+        else:
+            el.attrib['child'] = child.attrib['name']
+        if el.tag == 'link' and 'output' not in el.attrib and "EE" in el.attrib['child']:
+            el.attrib['output'] = "None"
     
     robot = flatten_etree(robot)
     
@@ -264,7 +271,10 @@ def convert_to_URDF(hrdf_file_name, actuator_names, meshdir, outputdir):
     base_rpy = "0 0 0" if 'rot' not in robot.attrib else robot.attrib['rot']
     ET.SubElement(base_joint, 'origin', {'xyz': base_xyz, 'rpy': base_rpy})
     ET.SubElement(base_joint, 'parent', {'link': '$(arg prefix)base_link'})
-    ET.SubElement(base_joint, 'child', {'link': list(robot.iter())[1].attrib['name']})
+    base_joint_child_name = list(robot.iter())[1].attrib['name']
+    if list(robot.iter())[1].tag == '{'+NS_XACRO+'}actuator':
+        base_joint_child_name += '_body'
+    ET.SubElement(base_joint, 'child', {'link': base_joint_child_name})
     robot.insert(0, base_joint)
     
     robot.insert(0, ET.Element('link', {'name': '$(arg prefix)base_link'}))

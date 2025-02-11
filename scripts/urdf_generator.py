@@ -127,7 +127,7 @@ def convert_to_URDF(hrdf_file_name, actuator_names, meshdir, outputdir):
 
     # Name all rigid bodies and check for mesh files
     for idx, el in enumerate(robot.iter('rigid-body')):
-        el.attrib['name'] = f"RB{idx+1}"
+        el.attrib['name'] = f"rigid_body_{idx+1}"
         if 'mesh_path' in el.attrib:
             # check if mesh_path is an URL
             if el.attrib['mesh_path'].startswith('http'):
@@ -157,15 +157,15 @@ def convert_to_URDF(hrdf_file_name, actuator_names, meshdir, outputdir):
 
     # Name all links
     for idx, el in enumerate(robot.iter('link')):
-        el.attrib['name'] = f"L{idx+1}"
+        el.attrib['name'] = f"link_{idx+1}"
 
     # Name all brackets
     for idx, el in enumerate(robot.iter('bracket')):
-        el.attrib['name'] = f"B{idx+1}"
+        el.attrib['name'] = f"bracket_{idx+1}"
     
     # Name all end effectors
     for idx, el in enumerate(robot.iter('end-effector')):
-        el.attrib['name'] = f"EE{idx+1}"
+        el.attrib['name'] = f"end_effector_{idx+1}"
         el.tag = 'gripper'
         if 'type' not in el.attrib:
             el.set('type', 'Custom')
@@ -211,8 +211,8 @@ def convert_to_URDF(hrdf_file_name, actuator_names, meshdir, outputdir):
     name_counter = 1
     for el in robot.iter('output'):    
         if len(list(el)) == 0:
-            # Make dummy link inside output
-            link_el = ET.Element('dummy-link', {'name': f"output_link{name_counter}"})
+            # Make virtual link inside output
+            link_el = ET.Element('virtual-link', {'name': f"output_link_{name_counter}"})
             name_counter += 1
             el.append(link_el)
         
@@ -226,12 +226,15 @@ def convert_to_URDF(hrdf_file_name, actuator_names, meshdir, outputdir):
             el.attrib['child'] += '_body'
     
     for el in robot.iter('actuator', 'link'):
+        # Set child to actuators and links
         child = list(el.getparent())[el.getparent().index(el)+1]
+        el.attrib['child'] = child.attrib['name']
+        # Append '_body' to actuator names since they are not links
         if child.tag == 'actuator':
-            el.attrib['child'] = child.attrib['name'] + '_body'
-        else:
-            el.attrib['child'] = child.attrib['name']
-        if el.tag == 'link' and 'output' not in el.attrib and "EE" in el.attrib['child']:
+            el.attrib['child'] += '_body'
+
+        # Set output to None for links if they end in end_effector
+        if el.tag == 'link' and 'output' not in el.attrib and "end_effector" in el.attrib['child']:
             el.attrib['output'] = "None"
     
     robot = flatten_etree(robot)
@@ -259,8 +262,8 @@ def convert_to_URDF(hrdf_file_name, actuator_names, meshdir, outputdir):
                 except ValueError:
                     el.set(prop, '${{{}}}'.format(val))
         
-        # Handle dummy links
-        if el.tag == '{'+NS_XACRO+'}dummy-link':
+        # Handle virtual links
+        if el.tag == '{'+NS_XACRO+'}virtual-link':
             el.tag = 'link'
 
     robot.tag = ('robot')

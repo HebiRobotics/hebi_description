@@ -207,7 +207,7 @@
     </joint>
   </xacro:macro>
 
-  <xacro:macro name="gripper" params="name type:=Custom mass:=0.01 com_trans:='0 0 0' com_rot:='0 0 0' output_trans:='0 0 0' output_rot:='0 0 0' ixx='None' iyy='None' izz='None' ixy=0.0 ixz=0.0 iyz=0.0 mesh_path='' mesh_rot='0 0 0' mesh_trans='0 0 0' mesh_scale='1 1 1'">
+  <xacro:macro name="gripper" params="name type:=Custom mass:=0.01 com_trans:='0 0 0' com_rot:='0 0 0' output_trans:='0 0 0' output_rot:='0 0 0' ixx='None' iyy='None' izz='None' ixy=0.0 ixz=0.0 iyz=0.0 mesh_path='' mesh_rot='0 0 0' mesh_trans='0 0 0'">
     <xacro:property name="com_trans_list" value="${list(map(float, com_trans.split(' ')))}" />
     <xacro:if value="${ com_trans_list[0] + com_trans_list[1] + com_trans_list[2] >= 0.01 }">
       <xacro:property name="gripper_len" value="${sqrt( pow(com_trans_list[0], 2) + pow(com_trans_list[1], 2) + pow(com_trans_list[2], 2) )}" />
@@ -243,14 +243,14 @@
           <visual>
             <origin xyz="${mesh_trans}" rpy="${mesh_rot}"/>
             <geometry>
-              <mesh filename="${mesh_path}" scale="${mesh_scale}"/>
+              <mesh filename="${mesh_path}"/>
             </geometry>
             <xacro:black_material/>
           </visual>
           <collision>
             <origin xyz="${mesh_trans}" rpy="${mesh_rot}"/>
             <geometry>
-              <mesh filename="${mesh_path}" scale="${mesh_scale}"/>
+              <mesh filename="${mesh_path}"/>
             </geometry>
           </collision>
         </xacro:if>

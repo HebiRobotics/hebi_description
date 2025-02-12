@@ -207,13 +207,34 @@
     </joint>
   </xacro:macro>
 
-  <xacro:macro name="gripper" params="name type:=Custom mass:=0.0 com_trans:='0 0 0' output_trans:='0 0 0'">
+  <xacro:macro name="gripper" params="name type:=Custom mass:=0.01 output_trans:='0 0 0' output_rot:='0 0 0' com_trans:='0 0 0' com_rot:='0 0 0' ixx='None' iyy='None' izz='None' ixy=0 ixz=0 iyz=0">
     <xacro:property name="com_trans_list" value="${list(map(float, com_trans.split(' ')))}" />
     <xacro:if value="${ com_trans_list[0] + com_trans_list[1] + com_trans_list[2] >= 0.01 }">
       <xacro:property name="gripper_len" value="${sqrt( pow(com_trans_list[0], 2) + pow(com_trans_list[1], 2) + pow(com_trans_list[2], 2) )}" />
     </xacro:if>
     <xacro:unless value="${ com_trans_list[0] + com_trans_list[1] + com_trans_list[2] >= 0.01 }">
       <xacro:property name="gripper_len" value="0.1" />
+    </xacro:unless>
+
+    <xacro:if value="${ixx == 'None'}">
+      <xacro:property name="_ixx" value="${2.0/5.0 * mass * pow(gripper_len, 2)}" />
+    </xacro:if>
+    <xacro:unless value="${ixx == 'None'}">
+      <xacro:property name="_ixx" value="${ixx}" />
+    </xacro:unless>
+
+    <xacro:if value="${iyy == 'None'}">
+      <xacro:property name="_iyy" value="${2.0/5.0 * mass * pow(gripper_len, 2)}" />
+    </xacro:if>
+    <xacro:unless value="${iyy == 'None'}">
+      <xacro:property name="_iyy" value="${iyy}" />
+    </xacro:unless>
+
+    <xacro:if value="${izz == 'None'}">
+      <xacro:property name="_izz" value="${2.0/5.0 * mass * pow(gripper_len, 2)}" />
+    </xacro:if>
+    <xacro:unless value="${izz == 'None'}">
+      <xacro:property name="_izz" value="${izz}" />
     </xacro:unless>
 
     <xacro:if value="${type == 'Custom'}">
@@ -225,14 +246,22 @@
           </geometry>
         </visual>
         <inertial>
-          <origin xyz="${com_trans}" rpy="0 0 0" />
+          <origin xyz="${com_trans}" rpy="${com_rot}" />
           <mass value="${mass}" />
           <inertia
-            ixx="${2.0/5.0 * mass * pow(gripper_len, 2)}" ixy="0.0" ixz="0.0"
-            iyy="${2.0/5.0 * mass * pow(gripper_len, 2)}" iyz="0.0"
-            izz="${2.0/5.0 * mass * pow(gripper_len, 2)}" />
+            ixx="${_ixx}" ixy="${ixy}" ixz="${ixz}"
+            iyy="${_iyy}" iyz="${iyz}"
+            izz="${_izz}"/>
         </inertial>
       </link>
+
+      <link name="${name}/output"/>
+
+      <joint name="${name}/output_joint" type="fixed">
+        <origin xyz="${output_trans}" rpy="${output_rot}" />
+        <parent link="${name}"/>
+        <child link="${name}/output"/>
+      </joint>
     </xacro:if>
 
     <xacro:if value="${type.endswith('Parallel')}">
@@ -388,6 +417,14 @@
           </axis2>
         </joint>
       </gazebo>
+
+      <link name="${name}/output"/>
+
+      <joint name="${name}/output_joint" type="fixed">
+        <origin xyz="0 0 0.05" rpy="0 0 0" />
+        <parent link="${name}"/>
+        <child link="${name}/output"/>
+      </joint>
     </xacro:if>
 
   </xacro:macro>

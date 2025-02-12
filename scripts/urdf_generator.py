@@ -165,12 +165,10 @@ def convert_to_URDF(hrdf_file_name, actuator_names, meshdir, outputdir):
     
     # Name all end effectors
     for idx, el in enumerate(robot.iter('end-effector')):
-        el.attrib['name'] = f"end_effector_{idx+1}"
         el.tag = 'gripper'
-        if 'type' not in el.attrib:
-            el.set('type', 'Custom')
         if 'mass' not in el.attrib:
             el.set('mass', '0.01')
+        el.attrib['name'] = f"end_effector_{idx+1}"
 
     # Rigid bodies and brackets
     for el in robot.iter('rigid-body', 'bracket'):
@@ -221,17 +219,17 @@ def convert_to_URDF(hrdf_file_name, actuator_names, meshdir, outputdir):
         child_name = el[0].attrib['name']
         el.attrib['child'] = child_name
         el.attrib['name'] = f"{parent_name}_{child_name}"
-        # Append '_body' to actuator names since they are not links
+        # Append '/body' to actuator names since they are not links
         if el[0].tag == 'actuator':
-            el.attrib['child'] += '_body'
+            el.attrib['child'] += '/body'
     
     for el in robot.iter('actuator', 'link'):
         # Set child to actuators and links
         child = list(el.getparent())[el.getparent().index(el)+1]
         el.attrib['child'] = child.attrib['name']
-        # Append '_body' to actuator names since they are not links
+        # Append '/body' to actuator names since they are not links
         if child.tag == 'actuator':
-            el.attrib['child'] += '_body'
+            el.attrib['child'] += '/body'
 
         # Set output to None for links if they end in end_effector
         if el.tag == 'link' and 'output' not in el.attrib and "end_effector" in el.attrib['child']:
@@ -276,7 +274,7 @@ def convert_to_URDF(hrdf_file_name, actuator_names, meshdir, outputdir):
     ET.SubElement(base_joint, 'parent', {'link': '$(arg prefix)base_link'})
     base_joint_child_name = list(robot.iter())[1].attrib['name']
     if list(robot.iter())[1].tag == '{'+NS_XACRO+'}actuator':
-        base_joint_child_name += '_body'
+        base_joint_child_name += '/body'
     ET.SubElement(base_joint, 'child', {'link': base_joint_child_name})
     robot.insert(0, base_joint)
     

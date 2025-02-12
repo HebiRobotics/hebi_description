@@ -118,7 +118,7 @@
       <xacro:property name="friction" value="0.5"/>
     </xacro:if>
 
-    <link name="${name}_body">
+    <link name="${name}/body">
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0" />
         <geometry>
@@ -184,7 +184,7 @@
         </xacro:if>
       </inertial>
     </link>
-    <gazebo reference="${name}_body">
+    <gazebo reference="${name}/body">
       <xacro:if value="${model_name.startswith('X')}">
         <xacro:gazebo_red_material/>
         </xacro:if>
@@ -197,7 +197,7 @@
     </gazebo>
 
     <joint name="${name}" type="${urdf_joint_type}">
-      <parent link="${name}_body"/>
+      <parent link="${name}/body"/>
       <child link="${child}"/>
       <xacro:if value="${model_name.startswith('X5')}">
         <origin xyz="0 0 0.031" rpy="0 0 0"/>
@@ -347,7 +347,7 @@
       <xacro:property name="friction" value="0.5"/>
     </xacro:if>
 
-    <link name="${name}_body">
+    <link name="${name}/body">
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0" />
         <geometry>
@@ -413,7 +413,7 @@
         </xacro:if>
       </inertial>
     </link>
-    <gazebo reference="${name}_body">
+    <gazebo reference="${name}/body">
       <xacro:if value="${model_name.startswith('X')}">
         <xacro:gazebo_red_material/>
         </xacro:if>
@@ -427,7 +427,7 @@
 
     <joint name="${name}" type="${urdf_joint_type}">
       <parent link="${parent}"/>
-      <child link="${name}_body"/>
+      <child link="${name}/body"/>
       <xacro:if value="${model_name.startswith('X5')}">
         <origin xyz="0 0 0.031" rpy="0 ${pi} 0"/>
       </xacro:if>
@@ -457,7 +457,7 @@
       <dynamics damping="${damping}" friction="${friction}"/>
     </joint>
     <joint name="${name}_fixed" type="fixed">
-      <parent link="${name}_body"/>
+      <parent link="${name}/body"/>
       <child link="${child}"/>
       <origin xyz="0 0 0" rpy="0 0 0"/>
     </joint>

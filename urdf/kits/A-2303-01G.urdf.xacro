@@ -7,24 +7,24 @@
   <joint name="$(arg prefix)base_joint" type="fixed">
     <origin xyz="0 0 0" rpy="0 0 0"/>
     <parent link="$(arg prefix)base_link"/>
-    <child link="$(arg prefix)J1_base_body"/>
+    <child link="$(arg prefix)J1_base/body"/>
   </joint>
   <xacro:actuator type="R8_16" name="$(arg prefix)J1_base" child="$(arg prefix)bracket_1"/>
   <xacro:bracket type="R8HeavyLeftOutside" name="$(arg prefix)bracket_1"/>
-  <xacro:output type="R8HeavyLeftOutside" parent="$(arg prefix)bracket_1" child="$(arg prefix)J2A_shoulder1&quot;_body" name="$(arg prefix)bracket_1_J2A_shoulder1&quot;"/>
+  <xacro:output type="R8HeavyLeftOutside" parent="$(arg prefix)bracket_1" child="$(arg prefix)J2A_shoulder1&quot;/body" name="$(arg prefix)bracket_1_J2A_shoulder1&quot;"/>
   <xacro:actuator type="R8_16" name="$(arg prefix)J2A_shoulder1&quot;" child="$(arg prefix)rigid_body_1"/>
   <xacro:rigid-body mass="0.500" com_trans="0.06 0 -0.08855" name="$(arg prefix)rigid_body_1"/>
-  <xacro:output trans="0.122 0 -0.08855" rot="3.1416 -1.5708 0" parent="$(arg prefix)rigid_body_1" child="$(arg prefix)J3_shoulder2_body" name="$(arg prefix)rigid_body_1_J3_shoulder2"/>
+  <xacro:output trans="0.122 0 -0.08855" rot="3.1416 -1.5708 0" parent="$(arg prefix)rigid_body_1" child="$(arg prefix)J3_shoulder2/body" name="$(arg prefix)rigid_body_1_J3_shoulder2"/>
   <xacro:actuator type="R8_9" name="$(arg prefix)J3_shoulder2" child="$(arg prefix)link_1"/>
-  <xacro:link type="R8" input="Inline" extension="0.325" twist="0" name="$(arg prefix)link_1" child="$(arg prefix)J4_elbow1_body"/>
+  <xacro:link type="R8" input="Inline" extension="0.325" twist="0" name="$(arg prefix)link_1" child="$(arg prefix)J4_elbow1/body"/>
   <xacro:actuator type="R8_16" name="$(arg prefix)J4_elbow1" child="$(arg prefix)bracket_2"/>
   <xacro:bracket type="R8LightRight" name="$(arg prefix)bracket_2"/>
-  <xacro:output type="R8LightRight" parent="$(arg prefix)bracket_2" child="$(arg prefix)J5_elbow2_body" name="$(arg prefix)bracket_2_J5_elbow2"/>
+  <xacro:output type="R8LightRight" parent="$(arg prefix)bracket_2" child="$(arg prefix)J5_elbow2/body" name="$(arg prefix)bracket_2_J5_elbow2"/>
   <xacro:actuator type="R8_9" name="$(arg prefix)J5_elbow2" child="$(arg prefix)link_2"/>
-  <xacro:link type="R8" input="Inline" extension="0.325" twist="0" name="$(arg prefix)link_2" child="$(arg prefix)J6_wrist1_body"/>
+  <xacro:link type="R8" input="Inline" extension="0.325" twist="0" name="$(arg prefix)link_2" child="$(arg prefix)J6_wrist1/body"/>
   <xacro:actuator type="R8_3" name="$(arg prefix)J6_wrist1" child="$(arg prefix)bracket_3"/>
   <xacro:bracket type="R8LightRight" name="$(arg prefix)bracket_3"/>
-  <xacro:output type="R8LightRight" parent="$(arg prefix)bracket_3" child="$(arg prefix)J7_wrist2_body" name="$(arg prefix)bracket_3_J7_wrist2"/>
+  <xacro:output type="R8LightRight" parent="$(arg prefix)bracket_3" child="$(arg prefix)J7_wrist2/body" name="$(arg prefix)bracket_3_J7_wrist2"/>
   <xacro:actuator type="R8_3" name="$(arg prefix)J7_wrist2" child="$(arg prefix)end_effector_1"/>
-  <xacro:gripper type="R8Parallel" name="$(arg prefix)end_effector_1" mass="0.01"/>
+  <xacro:gripper type="R8Parallel" mass="0.01" name="$(arg prefix)end_effector_1"/>
 </robot>

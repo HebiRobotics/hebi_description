@@ -21,7 +21,7 @@
   <xacro:bracket type="R8LightRight" name="$(arg prefix)wrist3_bracket" child="$(arg prefix)J6_wrist3"/>
   <xacro:actuator type="R8_3" name="$(arg prefix)J6_wrist3" child="$(arg prefix)end_effector"/>
   <xacro:gripper type="Custom" name="$(arg prefix)end_effector" mass="0.005"
-                               output_trans="0.1 0 0.1" output_rot="0 1.57 0"
-                               mesh_path="file://$(find hebi_description)/meshes/A-2038-02.obj"
-                               mesh_trans="0 0 0.1" mesh_rot="1.57 0 1.57" />
+                               output_trans="0.13 0.005 0.06" output_rot="0 ${pi/2} 0"
+                               mesh_path="file://$(find hebi_description)/meshes/end_effector.obj"
+                               mesh_trans="0 0 0" mesh_rot="0 ${-pi/2} ${pi/2}" />
 </robot>

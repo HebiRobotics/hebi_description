@@ -15,5 +15,5 @@
   <xacro:actuator type="X5_9" name="$(arg prefix)J2_shoulder" child="$(arg prefix)link_1"/>
   <xacro:link type="X5" extension="0.325" twist="${pi}" name="$(arg prefix)link_1" child="$(arg prefix)J3_elbow/body"/>
   <xacro:actuator type="X5_4" name="$(arg prefix)J3_elbow" child="$(arg prefix)end_effector_1"/>
-  <xacro:gripper mass="0.01" name="$(arg prefix)end_effector_1"/>
+  <xacro:gripper name="$(arg prefix)end_effector_1"/>
 </robot>

@@ -166,8 +166,6 @@ def convert_to_URDF(hrdf_file_name, actuator_names, meshdir, outputdir):
     # Name all end effectors
     for idx, el in enumerate(robot.iter('end-effector')):
         el.tag = 'gripper'
-        if 'mass' not in el.attrib:
-            el.set('mass', '0.01')
         el.attrib['name'] = f"end_effector_{idx+1}"
 
     # Rigid bodies and brackets

@@ -20,5 +20,5 @@
   <xacro:bracket type="X5LightRight" name="$(arg prefix)bracket_2"/>
   <xacro:output type="X5LightRight" parent="$(arg prefix)bracket_2" child="$(arg prefix)J5_wrist2/body" name="$(arg prefix)bracket_2_J5_wrist2"/>
   <xacro:actuator type="X5_1" name="$(arg prefix)J5_wrist2" child="$(arg prefix)end_effector_1"/>
-  <xacro:gripper type="X5Parallel" mass="0.01" name="$(arg prefix)end_effector_1"/>
+  <xacro:gripper type="X5Parallel" name="$(arg prefix)end_effector_1"/>
 </robot>

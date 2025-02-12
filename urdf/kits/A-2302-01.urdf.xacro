@@ -17,5 +17,5 @@
   <xacro:actuator type="R8_3" name="$(arg prefix)J3_elbow" child="$(arg prefix)link_2"/>
   <xacro:link type="R8" extension="0.325" twist="0" name="$(arg prefix)link_2" child="$(arg prefix)J4_wrist/body"/>
   <xacro:actuator type="R8_3" name="$(arg prefix)J4_wrist" child="$(arg prefix)end_effector_1"/>
-  <xacro:gripper mass="0.01" name="$(arg prefix)end_effector_1"/>
+  <xacro:gripper name="$(arg prefix)end_effector_1"/>
 </robot>

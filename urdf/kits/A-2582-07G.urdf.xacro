@@ -26,5 +26,5 @@
   <xacro:bracket type="R8LightRight" name="$(arg prefix)bracket_3"/>
   <xacro:output type="R8LightRight" parent="$(arg prefix)bracket_3" child="$(arg prefix)J7_wrist2/body" name="$(arg prefix)bracket_3_J7_wrist2"/>
   <xacro:actuator type="T5_4" name="$(arg prefix)J7_wrist2" child="$(arg prefix)end_effector_1"/>
-  <xacro:gripper type="R8Parallel" mass="0.01" name="$(arg prefix)end_effector_1"/>
+  <xacro:gripper type="R8Parallel" name="$(arg prefix)end_effector_1"/>
 </robot>

@@ -56,13 +56,11 @@ def simplify_rot_expr(expression):
     return euler_str
 
 def read_hrdf(hrdf_file_name):
-    # Update: T-Series not supported yet, so commented out
     # Check the validity of the HRDF file
-    # try:
-    #     robot_model = hebi.robot_model.import_from_hrdf(hrdf_file_name)
-    # except Exception as e:
-    #     print(f"Error reading HRDF file: {e}")
-    #     exit(1)
+    try:
+        _ = hebi.robot_model.import_from_hrdf(hrdf_file_name)
+    except Exception as e:
+        raise ValueError(f"Invalid HRDF file: {hrdf_file_name}")
     parser = ET.XMLParser(remove_blank_text=True, remove_comments=True)
     try:
         return ET.parse(hrdf_file_name, parser).getroot()

@@ -90,7 +90,7 @@ def flatten_etree(tree):
 
     return new_root
 
-def convert_to_URDF(hrdf_file_name, actuator_names, meshdir, outputdir):
+def convert_to_URDF(hrdf_file_name, actuator_names, meshdir, outputdir, ignore_base_link=False):
     model_name = splitext(basename(hrdf_file_name))[0]
     robot = read_hrdf(hrdf_file_name)
 
@@ -263,18 +263,18 @@ def convert_to_URDF(hrdf_file_name, actuator_names, meshdir, outputdir):
     robot.tag = ('robot')
     robot.set('name', model_name)
     
-    base_joint = ET.Element('joint', {'name': '$(arg prefix)base_joint', 'type': 'fixed'})
-    base_xyz = "0 0 0" if 'trans' not in robot.attrib else robot.attrib['trans']
-    base_rpy = "0 0 0" if 'rot' not in robot.attrib else robot.attrib['rot']
-    ET.SubElement(base_joint, 'origin', {'xyz': base_xyz, 'rpy': base_rpy})
-    ET.SubElement(base_joint, 'parent', {'link': '$(arg prefix)base_link'})
-    base_joint_child_name = list(robot.iter())[1].attrib['name']
-    if list(robot.iter())[1].tag == '{'+NS_XACRO+'}actuator':
-        base_joint_child_name += '/body'
-    ET.SubElement(base_joint, 'child', {'link': base_joint_child_name})
-    robot.insert(0, base_joint)
-    
-    robot.insert(0, ET.Element('link', {'name': '$(arg prefix)base_link'}))
+    if not ignore_base_link:
+        base_joint = ET.Element('joint', {'name': '$(arg prefix)base_joint', 'type': 'fixed'})
+        base_xyz = "0 0 0" if 'trans' not in robot.attrib else robot.attrib['trans']
+        base_rpy = "0 0 0" if 'rot' not in robot.attrib else robot.attrib['rot']
+        ET.SubElement(base_joint, 'origin', {'xyz': base_xyz, 'rpy': base_rpy})
+        ET.SubElement(base_joint, 'parent', {'link': '$(arg prefix)base_link'})
+        base_joint_child_name = list(robot.iter())[1].attrib['name']
+        if list(robot.iter())[1].tag == '{'+NS_XACRO+'}actuator':
+            base_joint_child_name += '/body'
+        ET.SubElement(base_joint, 'child', {'link': base_joint_child_name})
+        robot.insert(0, base_joint)
+        robot.insert(0, ET.Element('link', {'name': '$(arg prefix)base_link'}))
 
     robot.insert(0, ET.Element('{'+NS_XACRO+'}include', {'filename': '$(find hebi_description)/urdf/components/hebi.xacro'}))
     robot.insert(0, ET.Comment(' HEBI {} Arm Kit '.format(model_name)))
@@ -305,6 +305,7 @@ if __name__ == '__main__':
     parser.add_argument('--actuators', nargs="+", type=str, default=None)
     parser.add_argument('--meshdir', default='meshes')
     parser.add_argument('--outputdir', default='./')
+    parser.add_argument('--ignore-base-link', action='store_true')
 
     args = parser.parse_args()
     
@@ -331,4 +332,4 @@ if __name__ == '__main__':
     if not isabs(outputdir):
         outputdir = abspath(outputdir)
 
-    convert_to_URDF(hrdf_file_name, actuator_names, meshdir, outputdir)
+    convert_to_URDF(hrdf_file_name, actuator_names, meshdir, outputdir, ignore_base_link=args.ignore_base_link)

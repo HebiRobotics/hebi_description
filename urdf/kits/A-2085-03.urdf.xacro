@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<robot xmlns:xacro="http://wiki.ros.org/xacro" name="A-2084-01">
+<robot xmlns:xacro="http://wiki.ros.org/xacro" name="A-2085-03">
   <xacro:arg name="prefix" default=""/>
-  <!-- HEBI A-2084-01 Arm Kit -->
+  <!-- HEBI A-2085-03 Arm Kit -->
   <xacro:include filename="$(find hebi_description)/urdf/components/hebi.xacro"/>
   <link name="$(arg prefix)base_link"/>
   <joint name="$(arg prefix)base_joint" type="fixed">
@@ -13,9 +13,7 @@
   <xacro:bracket type="X5HeavyRightOutside" name="$(arg prefix)bracket_1"/>
   <xacro:output type="X5HeavyRightOutside" parent="$(arg prefix)bracket_1" child="$(arg prefix)J2_shoulder/body" name="$(arg prefix)bracket_1_J2_shoulder"/>
   <xacro:actuator type="X5_9" name="$(arg prefix)J2_shoulder" child="$(arg prefix)link_1"/>
-  <xacro:link type="X5" extension="0.325" twist="${-pi/2}" name="$(arg prefix)link_1" child="$(arg prefix)J3_elbow/body"/>
-  <xacro:actuator type="X5_4" name="$(arg prefix)J3_elbow" child="$(arg prefix)link_2"/>
-  <xacro:link type="X5" extension="0.325" twist="0" name="$(arg prefix)link_2" child="$(arg prefix)J4_wrist/body"/>
-  <xacro:actuator type="X5_1" name="$(arg prefix)J4_wrist" child="$(arg prefix)end_effector_1"/>
+  <xacro:link type="X5" extension="0.325" twist="${pi}" name="$(arg prefix)link_1" child="$(arg prefix)J3_elbow/body"/>
+  <xacro:actuator type="X5_4" name="$(arg prefix)J3_elbow" child="$(arg prefix)end_effector_1"/>
   <xacro:gripper name="$(arg prefix)end_effector_1"/>
 </robot>

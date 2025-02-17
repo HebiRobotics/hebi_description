@@ -41,7 +41,9 @@ For more details on using Xacro macros, refer to the [ROS Wiki](http://wiki.ros.
 
 ## HEBI Xacro Macros
 
-This repository provides several `xacro` macros for HEBI components that can be used to create robots for simulation or visualization:
+This repository provides several `xacro` macros for HEBI components that can be used to create robots for simulation or visualization.
+
+**Note**: The mesh files in the Xacros are scaled by default to 0.001 in the the HEBI component `xacro` macros.
 
 ### `<xacro:actuator/>`
 
@@ -85,7 +87,7 @@ Represents a HEBI actuator.
 
 ### `<xacro:rigid_body/>`
 
-Same properties as HRDF `<rigid-body>` tag.
+Same properties as HRDF `<rigid-body>` tag, with an additional property `mesh_scale` to set the scaling factor of the mesh. Defaults to `0.001 0.001 0.001`.
 
 ### `<xacro:gripper/>`
 

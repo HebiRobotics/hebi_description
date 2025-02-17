@@ -10,7 +10,7 @@
         <origin xyz="0 0 0" rpy="0 0 0" />
         <geometry>
           <xacro:if value="${input == 'RightAngle'}">
-            <mesh filename="file://$(find hebi_description)/meshes/A-2038-02.stl"/>
+            <mesh filename="file://$(find hebi_description)/meshes/A-2038-02.stl" scale="0.001 0.001 0.001"/>
           </xacro:if>
           <xacro:if value="${input == 'Inline'}">
             <mesh filename="file://$(find hebi_description)/meshes/A-2225-01.stl" scale="0.001 0.001 0.001"/>
@@ -22,7 +22,7 @@
         <origin xyz="0 0 0" rpy="0 0 0" />
         <geometry>
           <xacro:if value="${input == 'RightAngle'}">
-            <mesh filename="file://$(find hebi_description)/meshes/A-2038-02.stl"/>
+            <mesh filename="file://$(find hebi_description)/meshes/A-2038-02.stl" scale="0.001 0.001 0.001"/>
           </xacro:if>
           <xacro:if value="${input == 'Inline'}">
             <mesh filename="file://$(find hebi_description)/meshes/A-2225-01.stl" scale="0.001 0.001 0.001"/>
@@ -72,7 +72,7 @@
           </xacro:if>
           <geometry>
             <xacro:if value="${output == 'RightAngle'}">
-              <mesh filename="file://$(find hebi_description)/meshes/A-2039-02.stl"/>
+              <mesh filename="file://$(find hebi_description)/meshes/A-2039-02.stl" scale="0.001 0.001 0.001"/>
             </xacro:if>
             <xacro:if value="${output == 'Inline'}">
               <mesh filename="file://$(find hebi_description)/meshes/A-2226-01.stl" scale="0.001 0.001 0.001"/>
@@ -95,7 +95,7 @@
           </xacro:if>
           <geometry>
             <xacro:if value="${input == 'RightAngle'}">
-              <mesh filename="file://$(find hebi_description)/meshes/A-2039-02.stl"/>
+              <mesh filename="file://$(find hebi_description)/meshes/A-2039-02.stl" scale="0.001 0.001 0.001"/>
             </xacro:if>
             <xacro:if value="${input == 'Inline'}">
               <mesh filename="file://$(find hebi_description)/meshes/A-2226-01.stl" scale="0.001 0.001 0.001"/>

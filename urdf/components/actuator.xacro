@@ -122,12 +122,7 @@
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0" />
         <geometry>
-          <xacro:if value="${model_name.startswith('T')}">
-            <mesh filename="${mesh_filename}"/>
-          </xacro:if>
-          <xacro:unless value="${model_name.startswith('T')}">
-            <mesh filename="${mesh_filename}" scale="0.001 0.001 0.001"/>
-          </xacro:unless>
+          <mesh filename="${mesh_filename}" scale="0.001 0.001 0.001"/>
         </geometry>
         <xacro:if value="${model_name.startswith('X')}">
           <xacro:red_material/>
@@ -142,12 +137,7 @@
       <collision>
         <origin xyz="0 0 0" rpy="0 0 0" />
         <geometry>
-          <xacro:if value="${model_name.startswith('T')}">
-            <mesh filename="${mesh_filename}"/>
-          </xacro:if>
-          <xacro:unless value="${model_name.startswith('T')}">
-            <mesh filename="${mesh_filename}" scale="0.001 0.001 0.001"/>
-          </xacro:unless>
+          <mesh filename="${mesh_filename}" scale="0.001 0.001 0.001"/>
         </geometry>
       </collision>
       <inertial>
@@ -351,12 +341,7 @@
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0" />
         <geometry>
-          <xacro:if value="${model_name.startswith('T')}">
-            <mesh filename="${mesh_filename}"/>
-          </xacro:if>
-          <xacro:unless value="${model_name.startswith('T')}">
-            <mesh filename="${mesh_filename}" scale="0.001 0.001 0.001"/>
-          </xacro:unless>
+          <mesh filename="${mesh_filename}" scale="0.001 0.001 0.001"/>
         </geometry>
         <xacro:if value="${model_name.startswith('X')}">
           <xacro:red_material/>
@@ -371,12 +356,7 @@
       <collision>
         <origin xyz="0 0 0" rpy="0 0 0" />
         <geometry>
-          <xacro:if value="${model_name.startswith('T')}">
-            <mesh filename="${mesh_filename}"/>
-          </xacro:if>
-          <xacro:unless value="${model_name.startswith('T')}">
-            <mesh filename="${mesh_filename}" scale="0.001 0.001 0.001"/>
-          </xacro:unless>
+          <mesh filename="${mesh_filename}" scale="0.001 0.001 0.001"/>
         </geometry>
       </collision>
       <inertial>

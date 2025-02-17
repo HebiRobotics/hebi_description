@@ -6,7 +6,7 @@ Before proceeding, it is recommended to familiarize yourself with the **HRDF for
 
 ## Limitations
 
-Currently, HEBI `<joint>` tags and the following optional attributes are **not supported** for `actuator`, `link`, `bracket`, and `end-effector`:
+Currently, HEBI `<joint>` tags and the following optional attributes are **not supported** for `actuator`, `link`, `bracket`, and `end-effector` (except of `Custom` type):
 - `mass_offset`
 - `com_trans_offset`
 - `mass`
@@ -20,9 +20,10 @@ A script is provided to convert **HRDF files** into **URDF Xacro** format at `sc
 
 ### Usage
 ```
-python3 scripts/urdf_generator.py [-h] [--actuators ACTUATORS [ACTUATORS ...]] [--meshdir MESHDIR] [--outputdir OUTPUTDIR] filename
+python3 scripts/urdf_generator.py [-h] [--actuators ACTUATORS [ACTUATORS ...]] [--meshdir MESHDIR] [--outputdir OUTPUTDIR] [--ignore-base-link] filename
 ```
 - `filename`: Path to an HRDF file or a HEBI Config file.
+- `ignore-base-link`: Flag to not include base link and joint connecting `base_link` with first element of the robot. Turned on for bases such as Daisy.
 - The script extracts actuator names directly from the config file and processes the HRDF file path.
 
 ### Dependencies

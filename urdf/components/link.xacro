@@ -115,7 +115,7 @@
       <xacro:gazebo_black_material/>
     </gazebo>
 
-    <joint name="${name}_joint" type="fixed">
+    <joint name="${name}/joint" type="fixed">
       <parent link="${name}"/>
       <child link="${child}"/>
       <xacro:if value="${input == 'RightAngle' and output == 'RightAngle'}">

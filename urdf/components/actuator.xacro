@@ -118,16 +118,11 @@
       <xacro:property name="friction" value="0.5"/>
     </xacro:if>
 
-    <link name="${name}/INPUT_INTERFACE">
+    <link name="${name}/body">
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0" />
         <geometry>
-          <xacro:if value="${model_name.startswith('T')}">
-            <mesh filename="${mesh_filename}"/>
-          </xacro:if>
-          <xacro:unless value="${model_name.startswith('T')}">
           <mesh filename="${mesh_filename}" scale="0.001 0.001 0.001"/>
-          </xacro:unless>
         </geometry>
         <xacro:if value="${model_name.startswith('X')}">
           <xacro:red_material/>
@@ -142,12 +137,7 @@
       <collision>
         <origin xyz="0 0 0" rpy="0 0 0" />
         <geometry>
-          <xacro:if value="${model_name.startswith('T')}">
-            <mesh filename="${mesh_filename}"/>
-          </xacro:if>
-          <xacro:unless value="${model_name.startswith('T')}">
           <mesh filename="${mesh_filename}" scale="0.001 0.001 0.001"/>
-          </xacro:unless>
         </geometry>
       </collision>
       <inertial>
@@ -184,7 +174,7 @@
         </xacro:if>
       </inertial>
     </link>
-    <gazebo reference="${name}/INPUT_INTERFACE">
+    <gazebo reference="${name}/body">
       <xacro:if value="${model_name.startswith('X')}">
         <xacro:gazebo_red_material/>
         </xacro:if>
@@ -192,13 +182,13 @@
           <xacro:gazebo_tangerine_material/>
         </xacro:if>
         <xacro:if value="${model_name.startswith('R')}">
-        <xacro:gazebo_black_material/>
-      </xacro:if>
+          <xacro:gazebo_black_material/>
+        </xacro:if>
     </gazebo>
 
     <joint name="${name}" type="${urdf_joint_type}">
-      <parent link="${name}/INPUT_INTERFACE"/>
-      <child link="${child}/INPUT_INTERFACE"/>
+      <parent link="${name}/body"/>
+      <child link="${child}"/>
       <xacro:if value="${model_name.startswith('X5')}">
         <origin xyz="0 0 0.031" rpy="0 0 0"/>
       </xacro:if>
@@ -347,16 +337,11 @@
       <xacro:property name="friction" value="0.5"/>
     </xacro:if>
 
-    <link name="${name}/INPUT_INTERFACE">
+    <link name="${name}/body">
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0" />
         <geometry>
-          <xacro:if value="${model_name.startswith('T')}">
-            <mesh filename="${mesh_filename}"/>
-          </xacro:if>
-          <xacro:unless value="${model_name.startswith('T')}">
           <mesh filename="${mesh_filename}" scale="0.001 0.001 0.001"/>
-          </xacro:unless>
         </geometry>
         <xacro:if value="${model_name.startswith('X')}">
           <xacro:red_material/>
@@ -371,12 +356,7 @@
       <collision>
         <origin xyz="0 0 0" rpy="0 0 0" />
         <geometry>
-          <xacro:if value="${model_name.startswith('T')}">
-            <mesh filename="${mesh_filename}"/>
-          </xacro:if>
-          <xacro:unless value="${model_name.startswith('T')}">
           <mesh filename="${mesh_filename}" scale="0.001 0.001 0.001"/>
-          </xacro:unless>
         </geometry>
       </collision>
       <inertial>
@@ -413,7 +393,7 @@
         </xacro:if>
       </inertial>
     </link>
-    <gazebo reference="${name}/INPUT_INTERFACE">
+    <gazebo reference="${name}/body">
       <xacro:if value="${model_name.startswith('X')}">
         <xacro:gazebo_red_material/>
         </xacro:if>
@@ -426,8 +406,8 @@
     </gazebo>
 
     <joint name="${name}" type="${urdf_joint_type}">
-      <parent link="${parent}/INPUT_INTERFACE"/>
-      <child link="${name}/INPUT_INTERFACE"/>
+      <parent link="${parent}"/>
+      <child link="${name}/body"/>
       <xacro:if value="${model_name.startswith('X5')}">
         <origin xyz="0 0 0.031" rpy="0 ${pi} 0"/>
       </xacro:if>
@@ -457,10 +437,9 @@
       <dynamics damping="${damping}" friction="${friction}"/>
     </joint>
     <joint name="${name}_fixed" type="fixed">
-      <parent link="${name}/INPUT_INTERFACE"/>
-      <child link="${child}/INPUT_INTERFACE"/>
-        <origin xyz="0 0 0" rpy="0 0 0"/>
+      <parent link="${name}/body"/>
+      <child link="${child}"/>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
     </joint>
   </xacro:macro>
 </robot>
-

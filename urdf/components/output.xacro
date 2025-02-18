@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <xacro:macro name="output" params="name parent child type:=None trans:='0 0 0' rot='0 0 0'">
+    <joint name="${name}" type="fixed">
+      <parent link="${parent}" />
+      <child link="${child}" />
+        <xacro:if value="${type.endswith('RightOutside')}">
+          <origin xyz="0 -.0375 .055" rpy="${pi/2} 0 0" />
+        </xacro:if>
+        <xacro:if value="${type.endswith('RightInside')}">
+          <origin xyz="0 .0225 .055" rpy="${pi/2} 0 0" />
+        </xacro:if>
+        <xacro:if value="${type.endswith('LeftOutside')}">
+          <origin xyz="0 .0375 .055" rpy="${-pi/2} 0 0" />
+        </xacro:if>
+        <xacro:if value="${type.endswith('LeftInside')}">
+          <origin xyz="0 -.0225 .055" rpy="${-pi/2} 0 0" />
+        </xacro:if>
+        <xacro:if value="${type.endswith('Left')}">
+          <origin xyz="0 .043 .04" rpy="${-pi/2} 0 0" />
+        </xacro:if>
+        <xacro:if value="${type.endswith('Right')}">
+          <origin xyz="0 -.043 .04" rpy="${pi/2} 0 0" />
+        </xacro:if>
+        <xacro:unless value="${type != 'None'}">
+          <origin xyz="${trans}" rpy="${rot}" />
+        </xacro:unless>
+      </joint>
+  </xacro:macro>
+</robot>

@@ -165,7 +165,7 @@ Visualization Manager:
           Value: true
         wrist3_bracket/INPUT_INTERFACE:
           Value: true
-      Marker Scale: 0.10000000149011612
+      Marker Scale: 0.2
       Name: TF
       Show Arrows: true
       Show Axes: true

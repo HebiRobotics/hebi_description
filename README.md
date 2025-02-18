@@ -1,90 +1,106 @@
 # hebi_description
 
-This repository is a collection of `xacro` macros for creating URDF files for HEBI components and systems.
+This repository contains a collection of **Xacro macros** for generating **URDF files** tailored to HEBI components and systems. These macros enable modular and reusable robot descriptions, including predefined macros for complete systems.
 
-Along with the macros, several macros for full systems are defined.
+Before proceeding, it is recommended to familiarize yourself with the **HRDF format**, which you can find [here](https://github.com/HebiRobotics/hebi-hrdf/blob/main/FORMAT.md).
 
-## Dependencies
+## Limitations
 
-The scripts for converting between hrdf, xacro, and urdf depend on lxml, which can be installed by running `pip3 install --user lxml`
+Currently, HEBI `<joint>` tags and the following optional attributes are **not supported** for `actuator`, `link`, `bracket`, and `end-effector` (except of `Custom` type):
+- `mass_offset`
+- `com_trans_offset`
+- `mass`
+- `com_rot`
+- `com_trans`
+- `ixx`, `iyy`, `izz`, `ixy`, `ixz`, `iyz`
 
-## xacro macros
+## HRDF to URDF Conversion
 
-We provide several `xacro` macros for HEBI components that can be used to create robots for simulation or visualization:
+A script is provided to convert **HRDF files** into **URDF Xacro** format at `scripts/urdf_generator.py`
+
+### Usage
+```
+python3 scripts/urdf_generator.py [-h] [--actuators ACTUATORS [ACTUATORS ...]] [--meshdir MESHDIR] [--outputdir OUTPUTDIR] [--ignore-base-link] filename
+```
+- `filename`: Path to an HRDF file or a HEBI Config file.
+- `ignore-base-link`: Flag to not include base link and joint connecting `base_link` with first element of the robot. Turned on for bases such as Daisy.
+- The script extracts actuator names directly from the config file and processes the HRDF file path.
+
+### Dependencies
+Ensure the following Python libraries are installed:
+- `hebi-py`
+- `numpy`
+- `scipy`
+- `lxml`
+
+Install dependencies via:
+```
+pip3 install --user hebi-py numpy scipy lxml
+```
+
+For more details on using Xacro macros, refer to the [ROS Wiki](http://wiki.ros.org/xacro).
+
+## HEBI Xacro Macros
+
+This repository provides several `xacro` macros for HEBI components that can be used to create robots for simulation or visualization.
+
+**Note**: The mesh files in the Xacros are scaled by default to 0.001 in the the HEBI component `xacro` macros.
 
 ### `<xacro:actuator/>`
 
-This represents a HEBI actuator.  Required attributes are:
+Represents a HEBI actuator.
 
-* `name` The name of this actuator.  This is used to reference this actuator from other HEBI components.  
-* `child` The element that is attached to the output of this actuator. This should be the "name" of the HEBI component; for standard URDF components, this will attempt to connect to `<name>/INPUT_INTERFACE`.
-* `type` The actuator type - `X5_1`, `X5_4`, `X5_9`, `X8_3`, `X8_9`, or `X8_16`.
+**Required attributes:**
+- `name`: Unique identifier for referencing this actuator.
+- `child`: The element attached to the actuator's output (name of the HEBI component).
+- `type`: Actuator type (`X5_1`, `X5_4`, `X5_9`, `X8_3`, `X8_9`, or `X8_16`).
 
-Optional attributes are:
+**Note:** Since the actuator is a **joint**, the `name` is set for the `<joint>` tag and the actuator link name is set as `<name>/body`.
 
-* `limits` The position limits of the actuator.  If not defined, assumes a continuously rotatable revolute joint.  If defined, both must be finite and the lower limit must be below the upper limit.  The format is `${[<low>,<high>]}`, and is in radians.  For example, one full revolution centered at 0 would be `${[-${pi}, ${pi}]}`.
+**Optional attribute:**
+- `limits`: Position limits in radians. Format: `${[<low>,<high>]}`. Example: `${[-${pi}, ${pi}]}` for one full revolution centered at 0. If not defined, assumes a continuously rotatable revolute joint.
 
 ### `<xacro:link/>`
 
-* `name` A unique name that can be used to reference this link from other HEBI and URDF components.
-* `child` The element that is attached to the output of this link. This should be the "name" of the HEBI component; for standard URDF components, this will attempt to connect to `<name>/INPUT_INTERFACE`.
-* `extension` The extension of the link, in meters, per documented convention on docs.hebi.us. For example, a `300` mm tube would have an extension of `0.325`.
-* `twist` The twist of the link input and output frames, in radians, per documented convention on docs.hebi.us.  A `0` radian twist would mean that the input and output z-axis are the same direction.
+**Required attributes:**
+- `name`: Unique identifier for referencing this link.
+- `child`: The element attached to the link's output.
+- `extension`: Link extension in meters, per documented convention on docs.hebi.us.
+- `twist`: Twist between input and output frames in radians, per documented convention on docs.hebi.us.
 
 ### `<xacro:bracket/>`
 
-* `name` A unique name that can be used to reference this bracket from other HEBI and URDF components.
-* `child` The element that is attached to the output of this bracket. This should be the "name" of the HEBI component; for standard URDF components, this will attempt to connect to `<name>/INPUT_INTERFACE`.
-* `type` The bracket type - `X5LightLeft`, `X5LightRight`, `X5HeavyLeftInside`, `X5HeavyLeftOutside`, `X5HeavyRightInside`, or `X5HeavyRightOutside`
+**Required attributes:**
+- `name`: Unique identifier for referencing this bracket.
+- `type`: Bracket type (`X5LightLeft`, `X5LightRight`, `X5HeavyLeftInside`, `X5HeavyLeftOutside`, `X5HeavyRightInside`, or `X5HeavyRightOutside`).
+
+**Note:** Brackets are always followed by `<xacro:output>` tags for connecting to other components.
+
+### `<xacro:output/>`
+
+**Required attributes:**
+- `name`: Unique identifier for referencing this output.
+- `parent`: The parent element of the URDF joint.
+- `child`: The child element of the URDF joint.
+
+**Optional attribute:**
+- `type`: Same as the bracket type if preceded by a bracket. If provided, the properties of the joint will be loaded accordingly.
+
+### `<xacro:rigid_body/>`
+
+Same properties as HRDF `<rigid-body>` tag, with an additional property `mesh_scale` to set the scaling factor of the mesh. Defaults to `0.001 0.001 0.001`.
 
 ### `<xacro:gripper/>`
 
-This represents a HEBI actuator (currently only the parallel jaws style)
+Represents a HEBI gripper (currently only parallel jaws style).
 
-* `name` A unique name that can be used to reference this bracket from other HEBI and URDF components; the base link that will be created is called `<name>/INPUT_INTERFACE`
-* `type` The gripper type; currently `parallel` is the only supported value.
+**Required attributes:**
+- `name`: Unique identifier for referencing this gripper.
+- `type`: Gripper type (currently only `parallel` is supported).
 
 ### `<xacro:null_end_effector/>`
 
-Represents the end of a robot, with no particular other information (this allows the final joint in another `actuator`, `link`, or `bracket` to be completed)
+Represents the end of a robot (allows the final joint in another `actuator`, `link`, or `bracket` to be completed).
 
-* `name` A unique name that can be used to reference this bracket from other HEBI and URDF components; the link that will be created is called `<name>/INPUT_INTERFACE`.
-
-## Conventions
-
-The naming convention we use for elements is that the xacro actuator/link/bracket/etc macros automatically define two specifically named subelements:
-
-* `<element name>/INPUT_INTERFACE` is the input body of a module
-* `<element name>/OUTPUT_INTERFACE` is the output joint of a module
-
-This allows custom components to reference HEBI library components, as seen below.
-
-Here is a segment of a XACRO file which connects a 3-DOF hebi arm to a "base" link in the world, and adds an "end effector" link at the end.  Note -- HEBI xacro components currently must always define a child element for their joint to connect to!
-
-```
-  ...
-
-  <!-- connect to a "base" link in the world -->
-  <link name="base_link" />
-
-  <joint name="base_joint" type="fixed">
-    <origin xyz="0 0 0" rpy="0 0 0"/>
-    <parent link="base_link" />
-    <child link="J1_base/INPUT_INTERFACE"/>
-  </joint>
-
-  <!-- define the HEBI robot -->
-  <xacro:actuator name="J1_base" child="shoulder_bracket" type="X5_4"/>
-  <xacro:bracket name="shoulder_bracket" child="J2_shoulder" type="X5HeavyRightInside"/>
-  <xacro:actuator name="J2_shoulder" child="shoulder_elbow" type="X5_4"/>
-  <xacro:link name="shoulder_elbow" child="J3_elbow" extension="0.33" twist="${PI}"/>
-  <xacro:actuator name="J4_elbow" child="elbow_end" type="X5_4"/>
-  <xacro:link name="elbow_end" child="end_effector" extension="0.325" twist="${PI}"/>
-
-  <!-- end link; necessary to provide output for HEBI components to attach to. -->
-  <link name="end_effector/INPUT_INTERFACE">
-  </link>
-
-  ...
-```
-
+**Required attribute:**
+- `name`: Unique identifier for referencing this end effector.

@@ -208,7 +208,7 @@
   </xacro:macro>
 
   <xacro:macro name="gripper" params="name type:=Custom mass:=0.0 com_trans:='0 0 0' output_trans:='0 0 0'">
-    <xacro:property name="com_trans_list" value="${map(float, com_trans.split(' '))}" />
+    <xacro:property name="com_trans_list" value="${list(map(float, com_trans.split(' ')))}" />
     <xacro:if value="${ com_trans_list[0] + com_trans_list[1] + com_trans_list[2] >= 0.01 }">
       <xacro:property name="gripper_len" value="${sqrt( pow(com_trans_list[0], 2) + pow(com_trans_list[1], 2) + pow(com_trans_list[2], 2) )}" />
     </xacro:if>

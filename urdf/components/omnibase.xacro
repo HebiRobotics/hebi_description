@@ -44,23 +44,23 @@
     <joint name="wheel_1_joint" type="fixed">
       <origin xyz="0.0788 -0.1364 0" rpy="0 ${pi/2} ${-pi/3}" />
       <parent link="omni_base" />
-      <child link="wheel_1/INPUT_INTERFACE"/>
+      <child link="wheel_1"/>
     </joint>
 
     <joint name="wheel_2_joint" type="fixed">
       <origin xyz="0.0788 0.1364 0" rpy="0 ${pi/2} ${pi/3}" />
       <parent link="omni_base" />
-      <child link="wheel_2/INPUT_INTERFACE"/>
+      <child link="wheel_2"/>
     </joint>
 
     <joint name="wheel_3_joint" type="fixed">
       <origin xyz="-0.1575 0 0" rpy="0 ${pi/2} ${pi}" />
       <parent link="omni_base" />
-      <child link="wheel_3/INPUT_INTERFACE"/>
+      <child link="wheel_3"/>
     </joint>
 
     <xacro:actuator type="X5_4" name="wheel_1" child="wheel_1_end"/>
-    <link name="wheel_1_end/INPUT_INTERFACE">
+    <link name="wheel_1_end">
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0" />
         <geometry>
@@ -83,7 +83,7 @@
     </link>  
 
     <xacro:actuator type="X5_4" name="wheel_2" child="wheel_2_end"/>
-    <link name="wheel_2_end/INPUT_INTERFACE">
+    <link name="wheel_2_end">
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0" />
         <geometry>
@@ -106,7 +106,7 @@
     </link>  
 
     <xacro:actuator type="X5_4" name="wheel_3" child="wheel_3_end"/>
-    <link name="wheel_3_end/INPUT_INTERFACE">
+    <link name="wheel_3_end">
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0" />
         <geometry>

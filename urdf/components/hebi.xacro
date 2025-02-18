@@ -63,6 +63,8 @@
   <xacro:include filename="./link.xacro"/>
   <xacro:include filename="./bracket.xacro"/>
   <xacro:include filename="./end_effector.xacro"/>
+  <xacro:include filename="./rigid_body.xacro"/>
+  <xacro:include filename="./output.xacro"/>
   <xacro:include filename="./omnibase.xacro"/>
 
 </robot>

@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
-  <xacro:macro name="bracket" params="name child type">
+  <xacro:macro name="bracket" params="name type">
   <xacro:property name="bracket_type" value="${type}"/>
-  <link name="${name}/INPUT_INTERFACE">
+  <link name="${name}">
 
     <!-- Light bracket -->
     <xacro:if value="${bracket_type.startswith('X5Light')}">
@@ -259,7 +259,7 @@
       </inertial>
     </xacro:if>
   </link>
-  <gazebo reference="${name}/INPUT_INTERFACE">
+  <gazebo reference="${name}">
     <xacro:if value="${bracket_type.startswith('X5Light')}">
       <xacro:gazebo_beige_material/>
     </xacro:if>
@@ -267,28 +267,5 @@
       <xacro:gazebo_black_material/>
     </xacro:if>
   </gazebo>
-
-  <joint name="${name}/OUTPUT_INTERFACE" type="fixed">
-    <parent link="${name}/INPUT_INTERFACE"/>
-    <child link="${child}/INPUT_INTERFACE"/>
-      <xacro:if value="${bracket_type.endswith('RightOutside')}">
-        <origin xyz="0 -.0375 .055" rpy="${pi/2} 0 0"/>
-      </xacro:if>
-      <xacro:if value="${bracket_type.endswith('RightInside')}">
-        <origin xyz="0 .0225 .055" rpy="${pi/2} 0 0"/>
-      </xacro:if>
-      <xacro:if value="${bracket_type.endswith('LeftOutside')}">
-        <origin xyz="0 .0375 .055" rpy="${-pi/2} 0 0"/>
-      </xacro:if>
-      <xacro:if value="${bracket_type.endswith('LeftInside')}">
-        <origin xyz="0 -.0225 .055" rpy="${-pi/2} 0 0"/>
-      </xacro:if>
-      <xacro:if value="${bracket_type.endswith('Left')}">
-        <origin xyz="0 .043 .04" rpy="${-pi/2} 0 0"/>
-      </xacro:if>
-      <xacro:if value="${bracket_type.endswith('Right')}">
-        <origin xyz="0 -.043 .04" rpy="${pi/2} 0 0"/>
-      </xacro:if>
-    </joint>
   </xacro:macro>
 </robot>

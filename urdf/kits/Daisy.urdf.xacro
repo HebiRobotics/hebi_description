@@ -1,0 +1,83 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<robot xmlns:xacro="http://wiki.ros.org/xacro" description="Daisy" name="Daisy">
+  <xacro:arg name="prefix" default=""/>
+  <!-- HEBI Daisy Arm Kit -->
+  <link name="$(arg prefix)base_link"/>
+  <joint name="$(arg prefix)base_joint" type="fixed">
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <parent link="$(arg prefix)base_link"/>
+    <child link="$(arg prefix)rigid_body_1"/>
+  </joint>
+  <xacro:include filename="$(find hebi_description)/urdf/components/hebi.xacro"/>
+  <xacro:rigid-body mass="0.01" name="$(arg prefix)rigid_body_1"/>
+  <xacro:output rot="0 0 0.5236" parent="$(arg prefix)rigid_body_1" child="$(arg prefix)rigid_body_2" name="$(arg prefix)rigid_body_1_rigid_body_2"/>
+  <xacro:rigid-body mass="0.01" name="$(arg prefix)rigid_body_2"/>
+  <xacro:output trans="0.2375 0 0" parent="$(arg prefix)rigid_body_2" child="$(arg prefix)J1/body" name="$(arg prefix)rigid_body_2_J1"/>
+  <xacro:actuator type="X8_9" name="$(arg prefix)J1" child="$(arg prefix)bracket_1"/>
+  <xacro:bracket type="X5HeavyLeftInside" name="$(arg prefix)bracket_1"/>
+  <xacro:output type="X5HeavyLeftInside" parent="$(arg prefix)bracket_1" child="$(arg prefix)J2/body" name="$(arg prefix)bracket_1_J2"/>
+  <xacro:actuator type="X8_16" name="$(arg prefix)J2" child="$(arg prefix)link_1"/>
+  <xacro:link type="X5" extension="0.325" twist="${pi}" name="$(arg prefix)link_1" child="$(arg prefix)J3/body"/>
+  <xacro:actuator type="X8_9" name="$(arg prefix)J3" child="$(arg prefix)link_2"/>
+  <xacro:link type="X5" extension="0.325" twist="0" name="$(arg prefix)link_2" child="$(arg prefix)end_effector_1" output="None"/>
+  <xacro:gripper type="Custom" mass="0.060" name="$(arg prefix)end_effector_1"/>
+  <xacro:output rot="0 0 -0.5236" parent="$(arg prefix)rigid_body_1" child="$(arg prefix)rigid_body_3" name="$(arg prefix)rigid_body_1_rigid_body_3"/>
+  <xacro:rigid-body mass="0.01" name="$(arg prefix)rigid_body_3"/>
+  <xacro:output trans="0.2375 0 0" parent="$(arg prefix)rigid_body_3" child="$(arg prefix)J4/body" name="$(arg prefix)rigid_body_3_J4"/>
+  <xacro:actuator type="X8_9" name="$(arg prefix)J4" child="$(arg prefix)bracket_2"/>
+  <xacro:bracket type="X5HeavyRightInside" name="$(arg prefix)bracket_2"/>
+  <xacro:output type="X5HeavyRightInside" parent="$(arg prefix)bracket_2" child="$(arg prefix)J5/body" name="$(arg prefix)bracket_2_J5"/>
+  <xacro:actuator type="X8_16" name="$(arg prefix)J5" child="$(arg prefix)link_3"/>
+  <xacro:link type="X5" extension="0.325" twist="${pi}" name="$(arg prefix)link_3" child="$(arg prefix)J6/body"/>
+  <xacro:actuator type="X8_9" name="$(arg prefix)J6" child="$(arg prefix)link_4"/>
+  <xacro:link type="X5" extension="0.325" twist="0" name="$(arg prefix)link_4" child="$(arg prefix)end_effector_2" output="None"/>
+  <xacro:gripper type="Custom" mass="0.060" name="$(arg prefix)end_effector_2"/>
+  <xacro:output rot="0 0 1.5708" parent="$(arg prefix)rigid_body_1" child="$(arg prefix)rigid_body_4" name="$(arg prefix)rigid_body_1_rigid_body_4"/>
+  <xacro:rigid-body mass="0.01" name="$(arg prefix)rigid_body_4"/>
+  <xacro:output trans="0.1875 0 0" parent="$(arg prefix)rigid_body_4" child="$(arg prefix)J7/body" name="$(arg prefix)rigid_body_4_J7"/>
+  <xacro:actuator type="X8_9" name="$(arg prefix)J7" child="$(arg prefix)bracket_3"/>
+  <xacro:bracket type="X5HeavyLeftInside" name="$(arg prefix)bracket_3"/>
+  <xacro:output type="X5HeavyLeftInside" parent="$(arg prefix)bracket_3" child="$(arg prefix)J8/body" name="$(arg prefix)bracket_3_J8"/>
+  <xacro:actuator type="X8_16" name="$(arg prefix)J8" child="$(arg prefix)link_5"/>
+  <xacro:link type="X5" extension="0.325" twist="${pi}" name="$(arg prefix)link_5" child="$(arg prefix)J9/body"/>
+  <xacro:actuator type="X8_9" name="$(arg prefix)J9" child="$(arg prefix)link_6"/>
+  <xacro:link type="X5" extension="0.325" twist="0" name="$(arg prefix)link_6" child="$(arg prefix)end_effector_3" output="None"/>
+  <xacro:gripper type="Custom" mass="0.060" name="$(arg prefix)end_effector_3"/>
+  <xacro:output rot="0 0 -1.5708" parent="$(arg prefix)rigid_body_1" child="$(arg prefix)rigid_body_5" name="$(arg prefix)rigid_body_1_rigid_body_5"/>
+  <xacro:rigid-body mass="0.01" name="$(arg prefix)rigid_body_5"/>
+  <xacro:output trans="0.1875 0 0" parent="$(arg prefix)rigid_body_5" child="$(arg prefix)J10/body" name="$(arg prefix)rigid_body_5_J10"/>
+  <xacro:actuator type="X8_9" name="$(arg prefix)J10" child="$(arg prefix)bracket_4"/>
+  <xacro:bracket type="X5HeavyRightInside" name="$(arg prefix)bracket_4"/>
+  <xacro:output type="X5HeavyRightInside" parent="$(arg prefix)bracket_4" child="$(arg prefix)J11/body" name="$(arg prefix)bracket_4_J11"/>
+  <xacro:actuator type="X8_16" name="$(arg prefix)J11" child="$(arg prefix)link_7"/>
+  <xacro:link type="X5" extension="0.325" twist="${pi}" name="$(arg prefix)link_7" child="$(arg prefix)J12/body"/>
+  <xacro:actuator type="X8_9" name="$(arg prefix)J12" child="$(arg prefix)link_8"/>
+  <xacro:link type="X5" extension="0.325" twist="0" name="$(arg prefix)link_8" child="$(arg prefix)end_effector_4" output="None"/>
+  <xacro:gripper type="Custom" mass="0.060" name="$(arg prefix)end_effector_4"/>
+  <xacro:output rot="0 0 2.618" parent="$(arg prefix)rigid_body_1" child="$(arg prefix)rigid_body_6" name="$(arg prefix)rigid_body_1_rigid_body_6"/>
+  <xacro:rigid-body mass="0.01" name="$(arg prefix)rigid_body_6"/>
+  <xacro:output trans="0.2375 0 0" parent="$(arg prefix)rigid_body_6" child="$(arg prefix)J13/body" name="$(arg prefix)rigid_body_6_J13"/>
+  <xacro:actuator type="X8_9" name="$(arg prefix)J13" child="$(arg prefix)bracket_5"/>
+  <xacro:bracket type="X5HeavyLeftInside" name="$(arg prefix)bracket_5"/>
+  <xacro:output type="X5HeavyLeftInside" parent="$(arg prefix)bracket_5" child="$(arg prefix)J14/body" name="$(arg prefix)bracket_5_J14"/>
+  <xacro:actuator type="X8_16" name="$(arg prefix)J14" child="$(arg prefix)link_9"/>
+  <xacro:link type="X5" extension="0.325" twist="${pi}" name="$(arg prefix)link_9" child="$(arg prefix)J15/body"/>
+  <xacro:actuator type="X8_9" name="$(arg prefix)J15" child="$(arg prefix)link_10"/>
+  <xacro:link type="X5" extension="0.325" twist="0" name="$(arg prefix)link_10" child="$(arg prefix)end_effector_5" output="None"/>
+  <xacro:gripper type="Custom" mass="0.060" name="$(arg prefix)end_effector_5"/>
+  <xacro:output rot="0 0 -2.618" parent="$(arg prefix)rigid_body_1" child="$(arg prefix)rigid_body_7" name="$(arg prefix)rigid_body_1_rigid_body_7"/>
+  <xacro:rigid-body mass="0.01" name="$(arg prefix)rigid_body_7"/>
+  <xacro:output trans="0.2375 0 0" parent="$(arg prefix)rigid_body_7" child="$(arg prefix)J16/body" name="$(arg prefix)rigid_body_7_J16"/>
+  <xacro:actuator type="X8_9" name="$(arg prefix)J16" child="$(arg prefix)bracket_6"/>
+  <xacro:bracket type="X5HeavyRightInside" name="$(arg prefix)bracket_6"/>
+  <xacro:output type="X5HeavyRightInside" parent="$(arg prefix)bracket_6" child="$(arg prefix)J17/body" name="$(arg prefix)bracket_6_J17"/>
+  <xacro:actuator type="X8_16" name="$(arg prefix)J17" child="$(arg prefix)link_11"/>
+  <xacro:link type="X5" extension="0.325" twist="${pi}" name="$(arg prefix)link_11" child="$(arg prefix)J18/body"/>
+  <xacro:actuator type="X8_9" name="$(arg prefix)J18" child="$(arg prefix)link_12"/>
+  <xacro:link type="X5" extension="0.325" twist="0" name="$(arg prefix)link_12" child="$(arg prefix)end_effector_6" output="None"/>
+  <xacro:gripper type="Custom" mass="0.060" name="$(arg prefix)end_effector_6"/>
+  <xacro:output parent="$(arg prefix)rigid_body_1" child="$(arg prefix)rigid_body_8" name="$(arg prefix)rigid_body_1_rigid_body_8"/>
+  <xacro:rigid-body mass="5.00" com_trans="0.050 0.000 0.075" mesh_path="file://$(find hebi_description)/meshes/A-2051-01.stl" mesh_trans="0 0 -0.019" name="$(arg prefix)rigid_body_8" mesh_scale="1 1 1"/>
+  <xacro:output trans="0.000 0.000 0.075" parent="$(arg prefix)rigid_body_8" child="$(arg prefix)end_effector_7" name="$(arg prefix)rigid_body_8_end_effector_7"/>
+  <xacro:gripper name="$(arg prefix)end_effector_7"/>
+</robot>

@@ -7,16 +7,18 @@
   <joint name="$(arg prefix)base_joint" type="fixed">
     <origin xyz="0 0 0" rpy="0 0 0"/>
     <parent link="$(arg prefix)base_link"/>
-    <child link="$(arg prefix)J1_base/INPUT_INTERFACE"/>
+    <child link="$(arg prefix)J1_base/body"/>
   </joint>
-  <xacro:actuator type="X8_9" name="$(arg prefix)J1_base" child="$(arg prefix)shoulder_bracket"/>
-  <xacro:bracket type="X5HeavyRightOutside" name="$(arg prefix)shoulder_bracket" child="$(arg prefix)J2_shoulder"/>
-  <xacro:actuator type="X8_16" name="$(arg prefix)J2_shoulder" child="$(arg prefix)shoulder_elbow"/>
-  <xacro:link type="X5" extension="0.325" twist="${pi}" name="$(arg prefix)shoulder_elbow" child="$(arg prefix)J3_elbow"/>
-  <xacro:actuator type="X8_9" name="$(arg prefix)J3_elbow" child="$(arg prefix)elbow_wrist1"/>
-  <xacro:link type="X5" extension="0.325" twist="${pi}" name="$(arg prefix)elbow_wrist1" child="$(arg prefix)J4_wrist1"/>
-  <xacro:actuator type="X5_1" name="$(arg prefix)J4_wrist1" child="$(arg prefix)wrist2_bracket"/>
-  <xacro:bracket type="X5LightRight" name="$(arg prefix)wrist2_bracket" child="$(arg prefix)J5_wrist2"/>
-  <xacro:actuator type="X5_1" name="$(arg prefix)J5_wrist2" child="$(arg prefix)end_effector"/>
-  <xacro:gripper type="Custom" name="$(arg prefix)end_effector" mass="0.005"/>
+  <xacro:actuator type="X8_9" name="$(arg prefix)J1_base" child="$(arg prefix)bracket_1"/>
+  <xacro:bracket type="X5HeavyRightOutside" name="$(arg prefix)bracket_1"/>
+  <xacro:output type="X5HeavyRightOutside" parent="$(arg prefix)bracket_1" child="$(arg prefix)J2_shoulder/body" name="$(arg prefix)bracket_1_J2_shoulder"/>
+  <xacro:actuator type="X8_16" name="$(arg prefix)J2_shoulder" child="$(arg prefix)link_1"/>
+  <xacro:link type="X5" extension="0.325" twist="${pi}" name="$(arg prefix)link_1" child="$(arg prefix)J3_elbow/body"/>
+  <xacro:actuator type="X8_9" name="$(arg prefix)J3_elbow" child="$(arg prefix)link_2"/>
+  <xacro:link type="X5" extension="0.325" twist="${pi}" name="$(arg prefix)link_2" child="$(arg prefix)J4_wrist1/body"/>
+  <xacro:actuator type="X5_1" name="$(arg prefix)J4_wrist1" child="$(arg prefix)bracket_2"/>
+  <xacro:bracket type="X5LightRight" name="$(arg prefix)bracket_2"/>
+  <xacro:output type="X5LightRight" parent="$(arg prefix)bracket_2" child="$(arg prefix)J5_wrist2/body" name="$(arg prefix)bracket_2_J5_wrist2"/>
+  <xacro:actuator type="X5_1" name="$(arg prefix)J5_wrist2" child="$(arg prefix)end_effector_1"/>
+  <xacro:gripper name="$(arg prefix)end_effector_1"/>
 </robot>

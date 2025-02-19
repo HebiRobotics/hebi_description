@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <xacro:macro name="rigid-body" params="name mass com_rot='0 0 0' com_trans='0 0 0' ixx=0.001 iyy=0.001 izz=0.001 ixy=0 ixz=0 iyz=0 mesh_path='' mesh_rot='0 0 0' mesh_trans='0 0 0' mesh_scale='0.001 0.001 0.001'">
+    <link name="${name}">
+      <xacro:if value="${mesh_path != ''}">
+        <visual>
+          <origin xyz="${mesh_trans}" rpy="${mesh_rot}"/>
+          <geometry>
+            <mesh filename="${mesh_path}" scale="${mesh_scale}"/>
+          </geometry>
+          <xacro:black_material/>
+        </visual>
+        <collision>
+          <origin xyz="${mesh_trans}" rpy="${mesh_rot}"/>
+          <geometry>
+            <mesh filename="${mesh_path}" scale="${mesh_scale}"/>
+          </geometry>
+        </collision>
+      </xacro:if>
+      <inertial>
+        <origin xyz="${com_trans}" rpy="${com_rot}"/>
+        <mass value="${mass}"/>
+        <inertia ixx="${ixx}" iyy="${iyy}" izz="${izz}" ixy="${ixy}" ixz="${ixz}" iyz="${iyz}"/>
+      </inertial>
+    </link>
+  </xacro:macro>
+</robot>

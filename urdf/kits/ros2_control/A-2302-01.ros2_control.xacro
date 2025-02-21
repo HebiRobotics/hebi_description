@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <robot xmlns:xacro="http://wiki.ros.org/xacro">
 
-  <xacro:macro name="A-2240-06_ros2_control" params="
+  <xacro:macro name="A-2302-01_ros2_control" params="
                 name
                 prefix
                 use_mock_hardware:=^|false
@@ -10,7 +10,7 @@
                 sim_gazebo:=^|false
                 config_pkg
                 config_file"
-               >
+  >
 
     <ros2_control name="${name}" type="system">
       <hardware>
@@ -22,7 +22,7 @@
           <plugin>gazebo_ros2_control/GazeboSystem</plugin>
         </xacro:if>
         <xacro:if value="${sim_gazebo}">
-          <plugin>gz_ros2_control/GazeboSimSystem</plugin>
+          <plugin>ign_ros2_control/IgnitionSystem</plugin>
         </xacro:if>
         <xacro:unless value="${use_mock_hardware or sim_gazebo_classic or sim_gazebo}">
           <param name="config_pkg">${config_pkg}</param>
@@ -60,7 +60,7 @@
           <param name="initial_value">0.0</param>
         </state_interface>
       </joint>
-      <joint name="${prefix}J4_wrist1">
+      <joint name="${prefix}J4_wrist">
         <command_interface name="position" />
         <command_interface name="velocity" />
         <state_interface name="position">
@@ -70,33 +70,14 @@
           <param name="initial_value">0.0</param>
         </state_interface>
       </joint>
-      <joint name="${prefix}J5_wrist2">
-        <command_interface name="position" />
-        <command_interface name="velocity" />
-        <state_interface name="position">
-          <param name="initial_value">0.0</param>
-        </state_interface>
-        <state_interface name="velocity">
-          <param name="initial_value">0.0</param>
-        </state_interface>
-      </joint>
-      <joint name="${prefix}J6_wrist3">
-        <command_interface name="position" />
-        <command_interface name="velocity" />
-        <state_interface name="position">
-          <param name="initial_value">0.0</param>
-        </state_interface>
-        <state_interface name="velocity">
-          <param name="initial_value">0.0</param>
-        </state_interface>
-      </joint>
+
     </ros2_control>
 
     <!-- Gazebo Classic plugins -->
     <xacro:if value="${sim_gazebo_classic}">
       <gazebo>
         <plugin filename="libgazebo_ros2_control.so" name="gazebo_ros2_control">
-          <parameters>$(find hebi_bringup)/config/A-2240-06_controllers.yaml</parameters>
+          <parameters>$(find hebi_bringup)/config/A-2302-01_controllers.yaml</parameters>
         </plugin>
       </gazebo>
     </xacro:if>
@@ -105,7 +86,7 @@
     <xacro:if value="${sim_gazebo}">
       <gazebo>
         <plugin filename="gz_ros2_control-system" name="gz_ros2_control::GazeboSimROS2ControlPlugin">
-          <parameters>$(find hebi_bringup)/config/A-2240-06_controllers.yaml</parameters>
+          <parameters>$(find hebi_bringup)/config/A-2302-01_controllers.yaml</parameters>
         </plugin>
       </gazebo>
     </xacro:if>

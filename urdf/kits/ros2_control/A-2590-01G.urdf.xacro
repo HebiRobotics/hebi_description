@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<robot xmlns:xacro="http://wiki.ros.org/xacro" name="A-2085-06">
+<robot xmlns:xacro="http://wiki.ros.org/xacro" name="A-2590-01G">
 
   <xacro:arg name="config_pkg" default="" />
   <xacro:arg name="config_file" default="" />
@@ -9,7 +9,7 @@
   <xacro:arg name="mock_sensor_commands" default="false" />
   <xacro:arg name="sim_gazebo" default="false" />
 
-  <xacro:include filename="$(find hebi_description)/urdf/kits/ros2_control/A-2085-06.ros2_control.xacro" />
+  <xacro:include filename="$(find hebi_description)/urdf/kits/ros2_control/A-2590-01G.ros2_control.xacro" />
 
   <!-- create link fixed to the "world" -->
   <link name="world" />
@@ -20,10 +20,10 @@
     <child link="base_link" />
   </joint>
 
-  <xacro:include filename="$(find hebi_description)/urdf/kits/A-2085-06.urdf.xacro" />
+  <xacro:include filename="$(find hebi_description)/urdf/kits/A-2590-01G.urdf.xacro" />
 
-  <xacro:A-2085-06_ros2_control
-    name="A-2085-06"
+  <xacro:A-2590-01G_ros2_control
+    name="A-2590-01G"
     use_mock_hardware="$(arg use_mock_hardware)"
     mock_sensor_commands="$(arg mock_sensor_commands)"
     sim_gazebo="$(arg sim_gazebo)"

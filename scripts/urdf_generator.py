@@ -2,6 +2,7 @@
 
 import argparse
 import hebi
+from os import makedirs
 from os.path import basename, splitext, join, dirname, isabs, abspath, exists
 import subprocess
 import re
@@ -293,7 +294,8 @@ def convert_to_URDF(hrdf_file_name, actuator_names, meshdir, outputdir, ignore_b
     )
 
     outfile = join(outputdir, '{}.urdf.xacro'.format(model_name))
-    print('Writing to {}'.format(outfile))
+    print('URDF saved to {}'.format(outfile))
+    makedirs(outputdir, exist_ok=True)
     with open(outfile, 'wb') as f:
         f.write(xmlstr)
         

@@ -91,7 +91,7 @@ def flatten_etree(tree):
 
     return new_root
 
-def convert_to_URDF(hrdf_file_name, actuator_names, meshdir, outputdir, ignore_base_link=False):
+def convert_to_URDF(hrdf_file_name, actuator_names, meshdir, outputdir, output_file_name=None, ignore_base_link=False):
     model_name = splitext(basename(hrdf_file_name))[0]
     robot = read_hrdf(hrdf_file_name)
 
@@ -293,7 +293,8 @@ def convert_to_URDF(hrdf_file_name, actuator_names, meshdir, outputdir, ignore_b
         encoding='UTF-8'
     )
 
-    outfile = join(outputdir, '{}.urdf.xacro'.format(model_name))
+    output_file_name = output_file_name if output_file_name is not None else f"{model_name}.urdf.xacro"
+    outfile = join(outputdir, output_file_name)
     print('URDF saved to {}'.format(outfile))
     makedirs(outputdir, exist_ok=True)
     with open(outfile, 'wb') as f:
@@ -307,6 +308,7 @@ if __name__ == '__main__':
     parser.add_argument('--actuators', nargs="+", type=str, default=None)
     parser.add_argument('--meshdir', default='meshes')
     parser.add_argument('--outputdir', default='./')
+    parser.add_argument('--output-file-name', default=None)
     parser.add_argument('--ignore-base-link', action='store_true')
 
     args = parser.parse_args()
@@ -334,4 +336,4 @@ if __name__ == '__main__':
     if not isabs(outputdir):
         outputdir = abspath(outputdir)
 
-    convert_to_URDF(hrdf_file_name, actuator_names, meshdir, outputdir, ignore_base_link=args.ignore_base_link)
+    convert_to_URDF(hrdf_file_name, actuator_names, meshdir, outputdir, args.output_file_name, ignore_base_link=args.ignore_base_link)

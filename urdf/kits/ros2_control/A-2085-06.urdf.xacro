@@ -10,19 +10,19 @@
   <xacro:arg name="sim_gazebo_classic" default="false" />
   <xacro:arg name="sim_gazebo" default="false" />
 
-  <xacro:include filename="$(find hebi_description)/urdf/kits/ros2_control/A-2085-06_macro.ros2_control.xacro"/>
+  <xacro:include filename="$(find hebi_description)/urdf/kits/ros2_control/A-2085-06.ros2_control.xacro" />
 
   <!-- create link fixed to the "world" -->
   <link name="world" />
 
   <joint name="world_to_base_joint" type="fixed">
-    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <origin xyz="0 0 0" rpy="0 0 0" />
     <parent link="world" />
-    <child link="base_link"/>
+    <child link="base_link" />
   </joint>
 
-  <xacro:include filename="$(find hebi_description)/urdf/kits/A-2085-06.urdf.xacro"/>
-  
+  <xacro:include filename="$(find hebi_description)/urdf/kits/A-2085-06.urdf.xacro" />
+
   <xacro:A-2085-06_ros2_control
     name="A-2085-06"
     use_mock_hardware="$(arg use_mock_hardware)"

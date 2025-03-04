@@ -18,14 +18,6 @@ Currently, HEBI `<joint>` tags and the following optional attributes are **not s
 
 A script is provided to convert **HRDF files** into **URDF Xacro** format at `scripts/urdf_generator.py`
 
-### Usage
-```
-python3 scripts/urdf_generator.py [-h] [--actuators ACTUATORS [ACTUATORS ...]] [--meshdir MESHDIR] [--outputdir OUTPUTDIR] [--ignore-base-link] filename
-```
-- `filename`: Path to an HRDF file or a HEBI Config file.
-- `ignore-base-link`: Flag to not include base link and joint connecting `base_link` with first element of the robot. Turned on for bases such as Daisy.
-- The script extracts actuator names directly from the config file and processes the HRDF file path.
-
 ### Dependencies
 Ensure the following Python libraries are installed:
 - `hebi-py`
@@ -39,6 +31,29 @@ pip3 install --user hebi-py numpy scipy lxml
 ```
 
 For more details on using Xacro macros, refer to the [ROS Wiki](http://wiki.ros.org/xacro).
+
+### Usage
+```
+python3 scripts/urdf_generator.py [-h] [--actuators ACTUATORS [ACTUATORS ...]] [--meshdir MESHDIR] [--outputdir OUTPUTDIR] [--ignore-base-link] filename
+```
+- `filename`: Path to an HRDF file or a HEBI Config file.
+- `ignore-base-link`: Flag to not include base link and joint connecting `base_link` with first element of the robot. Turned on for bases such as Daisy.
+- The script extracts actuator names directly from the config file and processes the HRDF file path.
+
+To ensure compatibility with other packages of the HEBI ROS 2 APIs, save the URDF as `<robot_name>.urdf.xacro` in the `urdf/kits` folder.
+
+### Visualization
+
+After generation, visualize the URDF using RViz with the following command:
+
+```
+ros2 launch hebi_description view_arm.launch.py hebi_arm:=<your_robot_name>
+```
+**NOTE:** Remember to build your workspace and source your setup before running the above command.
+
+A successful launch will display a RViz window showing the arm and a GUI to control the arm's joints, similar to this image:
+
+![RViz Visualization](docs/rviz.png)
 
 ## HEBI Xacro Macros
 

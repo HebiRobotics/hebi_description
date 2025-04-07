@@ -1,30 +1,28 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
-  <xacro:macro name="null_end_effector" params="name output_trans:='0 0 0' output_rot:='0 0 0'">
+  <xacro:macro name="null_end_effector" params="name">
     <link name="${name}">
-        <visual>
-          <origin xyz="0 0 0.0005" rpy="0 0 0"/>
+      <collision>
+        <origin xyz="0 0 0.0005" rpy="0 0 0"/>
           <geometry>
             <box size="0.001 0.001 0.001" rpy="0 0 0"/>
           </geometry>
-        </visual>
-        <inertial>
-          <origin xyz="0 0 0.0005" rpy="0 0 0"/>
+      </collision>
+      <visual>
+        <origin xyz="0 0 0.0005" rpy="0 0 0"/>
+          <geometry>
+            <box size="0.001 0.001 0.001" rpy="0 0 0"/>
+          </geometry>
+      </visual>
+      <inertial>
+        <origin xyz="0 0 0.0005" rpy="0 0 0"/>
           <mass value="0.001"/>
-          <inertia
-            ixx="0.001" ixy="0.0" ixz="0.0"
-            iyy="0.001" iyz="0.0"
-            izz="0.001"/>
-          </inertial>
-      </link>
-
-      <link name="${name}/output"/>
-
-      <joint name="${name}/output_joint" type="fixed">
-        <origin xyz="${output_trans}" rpy="${output_rot}" />
-        <parent link="${name}"/>
-        <child link="${name}/output"/>
-      </joint>
+        <inertia
+          ixx="0.001" ixy="0.0" ixz="0.0"
+          iyy="0.001" iyz="0.0"
+          izz="0.001"/>
+      </inertial>
+    </link>
   </xacro:macro>
 
   <xacro:macro name="parallel_gripper_outer_subassembly" params="name prefix">

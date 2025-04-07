@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
-  <xacro:macro name="null_end_effector" params="name">
+  <xacro:macro name="null_end_effector" params="name output_trans:='0 0 0' output_rot:='0 0 0'">
     <link name="${name}">
       <collision>
         <origin xyz="0 0 0.0005" rpy="0 0 0"/>
@@ -23,6 +23,14 @@
           izz="0.001"/>
       </inertial>
     </link>
+
+    <link name="${name}/output"/>
+
+    <joint name="${name}/output_joint" type="fixed">
+      <origin xyz="${output_trans}" rpy="${output_rot}" />
+      <parent link="${name}"/>
+      <child link="${name}/output"/>
+    </joint>
   </xacro:macro>
 
   <xacro:macro name="parallel_gripper_outer_subassembly" params="name prefix">

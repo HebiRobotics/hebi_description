@@ -1,6 +1,6 @@
 # R-Series 6-DoF Arm
 version: 1.0
-families: ["Arm"]
+families: ["Compass"]
 names: ["J1_base", "J2_shoulder", "J3_elbow", "J4_wrist1", "J5_wrist2", "J6_wrist3"]
 hrdf: "hrdf/A-2240-06.hrdf"
 
@@ -9,7 +9,8 @@ gains:
 
 user_data:
   # Default seed positions for doing inverse kinematics
-  ik_seed_pos: [0.01, 1.0, 2.5, 1.5, -1.5, 0.01]
+  ik_seed_pos: [0.0, 1.2, 1.8, 0.6, 1.5708, 0.0]
+  home_position: [0.0, 1.2, 1.8, 0.6, 1.5708, 0.0]
 
 plugins:
   - type: GravityCompensationEffort
@@ -27,6 +28,6 @@ plugins:
   # for your specific setup.
   - name: 'gasSpringCompensation'
     type: EffortOffset
-    enabled: false
+    enabled: true
     ramp_time: 5
     offset: [0, -7, 0, 0, 0, 0]

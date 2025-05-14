@@ -18,7 +18,7 @@
   
   <!-- Mesh path relative to HRDF -->
   <rigid-body mass="1.068" mesh_path="../../../meshes/end_effector.obj"
-              mesh_rot="Rx(pi/2)" />
+              mesh_rot="Rx(pi/2)" com_trans="0 0 0.12"/>
 
   <!-- For custom end-effector parameters and formatting please visit: -->
   <!-- https://github.com/HebiRobotics/hebi-hrdf/blob/master/FORMAT.md#end-effector -->

@@ -5,12 +5,12 @@
   <control_strategy>4 4 4 4 4 4</control_strategy>
   
   <position>
-    <kp>75 100 50 20 10 10</kp>
-    <ki>0 0 0 0 0 0</ki>
+    <kp>50 100 50 20 10 10</kp>
+    <ki>100 100 100 100 100 100</ki>
     <kd>0 0 0 0 0 0</kd>
     <feed_forward>0 0 0 0 0 0</feed_forward>
     <dead_zone>0 0 0 0 0 0</dead_zone>
-    <i_clamp>1 1 1 1 1 1</i_clamp>
+    <i_clamp>5 5 5 5 5 5</i_clamp>
     <punch>0 0 0 0 0 0</punch>
     <min_target>-inf -inf -inf -inf -inf -inf</min_target>
     <max_target>inf inf inf inf inf inf</max_target>
@@ -22,7 +22,7 @@
   </position>
   
   <velocity>
-    <kp>0.1 0.2 0.1 0.1 0.05 0.05</kp>
+    <kp>0.2 0.2 0.1 0.1 0.05 0.05</kp>
     <ki>0 0 0 0 0 0</ki>
     <kd>0 0 0 0 0 0</kd>
     <feed_forward>1 1 1 1 1 1</feed_forward>

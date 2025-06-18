@@ -1,23 +1,21 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="rosie">
 
-  <xacro:include filename="$(find hebi_description)/urdf/components/hebi.xacro" />
+  <!-- HEBI Omnidirectional Mobile Base -->
+  <xacro:include filename="$(find hebi_description)/urdf/kits/omnibase.urdf.xacro" />
 
-  <xacro:arg name="prefix" default="" />
-  <xacro:arg name="hebi_arm" default="A-2085-06" />
+  <!-- Arguments for HEBI Arm -->
+  <xacro:arg name="prefix" default="arm/" />
+  <xacro:arg name="hebi_arm" default="A-2580-06" />
+
+  <!-- Base-Arm Joint -->
+  <joint name="base_arm_joint" type="fixed">
+    <origin xyz="0 0 0.135" rpy="0 0 0"/>
+    <parent link="omni_base" />
+    <child link="$(arg prefix)base_link"/>
+  </joint>
   
   <!-- HEBI Arm Kit -->
   <xacro:include filename="$(find hebi_description)/urdf/kits/$(arg hebi_arm).urdf.xacro" />
-
-  <xacro:omnibase child="$(arg prefix)base_link" />
-
-  <!-- Robot Footprint -->
-  <link name="base_footprint"/>
-
-  <joint name="base_joint" type="fixed">
-    <parent link="base_footprint"/>
-    <child link="base_link"/>
-    <origin xyz="0.0 0.0 0.075" rpy="0 0 0"/>
-  </joint>
 
 </robot>

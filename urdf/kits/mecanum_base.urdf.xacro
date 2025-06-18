@@ -53,13 +53,13 @@
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="file://$(find hebi_description)/meshes/mecanum_wheel.stl"/>
+        <mesh filename="file://$(find hebi_description)/meshes/mecanum_wheel_right.obj"/>
       </geometry>
     </visual>
     <collision>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="file://$(find hebi_description)/meshes/mecanum_wheel.stl"/>
+        <mesh filename="file://$(find hebi_description)/meshes/mecanum_wheel_right.obj"/>
       </geometry>
     </collision>
     <inertial>
@@ -82,13 +82,13 @@
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="file://$(find hebi_description)/meshes/mecanum_wheel.stl"/>
+        <mesh filename="file://$(find hebi_description)/meshes/mecanum_wheel_left.obj"/>
       </geometry>
     </visual>
     <collision>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="file://$(find hebi_description)/meshes/mecanum_wheel.stl"/>
+        <mesh filename="file://$(find hebi_description)/meshes/mecanum_wheel_left.obj"/>
       </geometry>
     </collision>
     <inertial>
@@ -111,13 +111,13 @@
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="file://$(find hebi_description)/meshes/mecanum_wheel.stl"/>
+        <mesh filename="file://$(find hebi_description)/meshes/mecanum_wheel_left.obj"/>
       </geometry>
     </visual>
     <collision>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="file://$(find hebi_description)/meshes/mecanum_wheel.stl"/>
+        <mesh filename="file://$(find hebi_description)/meshes/mecanum_wheel_left.obj"/>
       </geometry>
     </collision>
     <inertial>
@@ -140,13 +140,13 @@
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="file://$(find hebi_description)/meshes/mecanum_wheel.stl"/>
+        <mesh filename="file://$(find hebi_description)/meshes/mecanum_wheel_right.obj"/>
       </geometry>
     </visual>
     <collision>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="file://$(find hebi_description)/meshes/mecanum_wheel.stl"/>
+        <mesh filename="file://$(find hebi_description)/meshes/mecanum_wheel_right.obj"/>
       </geometry>
     </collision>
     <inertial>

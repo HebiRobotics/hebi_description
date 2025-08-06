@@ -23,6 +23,7 @@
         <xacro:unless value="${use_mock_hardware or sim_gazebo}">
           <param name="config_pkg">${config_pkg}</param>
           <param name="config_file">${config_file}</param>
+          <param name="gripper_joint_name">end_effector_1/input_l_finger</param>
           <plugin>hebi_hardware/HEBIHardwareInterface</plugin>
         </xacro:unless>
       </hardware>

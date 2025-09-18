@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
-  <xacro:macro name="bracket" params="name type">
+  <xacro:macro name="bracket" params="name type mass_offset:=0.0">
   <xacro:property name="bracket_type" value="${type}"/>
   <link name="${name}">
 
@@ -45,7 +45,7 @@
         <xacro:if value="${bracket_type.endswith('Right')}">
           <origin xyz="0 -.0215 .02" rpy="0 0 0" />
         </xacro:if>
-        <mass value="0.1"/>
+        <mass value="${0.1 + mass_offset}"/>
         <inertia ixx="${0.4 * 0.1 * 0.06 * 0.06}" ixy="0.0" ixz="0.0" iyy="${0.4 * 0.1 * 0.06 * 0.06}" iyz="0.0" izz="${0.4 * 0.1 * 0.06 * 0.06}"/>
       </inertial>
     </xacro:if>
@@ -83,7 +83,7 @@
         <xacro:if value="${bracket_type.endswith('Right')}">
           <origin xyz="0 -.0215 .02" rpy="0 0 0" />
         </xacro:if>
-        <mass value="0.1"/>
+        <mass value="${0.1 + mass_offset}"/>
         <inertia ixx="${0.4 * 0.1 * 0.06 * 0.06}" ixy="0.0" ixz="0.0" iyy="${0.4 * 0.1 * 0.06 * 0.06}" iyz="0.0" izz="${0.4 * 0.1 * 0.06 * 0.06}"/>
       </inertial>
     </xacro:if>
@@ -187,7 +187,7 @@
         <xacro:if value="${bracket_type.endswith('LeftInside')}">
           <origin xyz="0 ${0.5 * -.0225} .0275" rpy="0 0 0" />
         </xacro:if>
-        <mass value="0.215"/>
+        <mass value="${0.215 + mass_offset}"/>
         <inertia ixx="${0.4 * 0.215 * 0.06 * 0.06}" ixy="0.0" ixz="0.0" iyy="${0.4 * 0.215 * 0.06 * 0.06}" iyz="0.0" izz="${0.4 * 0.215 * 0.06 * 0.06}"/>
       </inertial>
     </xacro:if>
@@ -254,7 +254,7 @@
         <xacro:if value="${bracket_type.endswith('LeftInside')}">
           <origin xyz="0 ${0.5 * -.0225} .0275" rpy="0 0 0" />
         </xacro:if>
-        <mass value="0.215"/>
+        <mass value="${0.215 + mass_offset}"/>
         <inertia ixx="${0.4 * 0.215 * 0.06 * 0.06}" ixy="0.0" ixz="0.0" iyy="${0.4 * 0.215 * 0.06 * 0.06}" iyz="0.0" izz="${0.4 * 0.215 * 0.06 * 0.06}"/>
       </inertial>
     </xacro:if>

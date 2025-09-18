@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
   <!-- NOTE: joint must match the name of the module -->
-  <xacro:macro name="actuator" params="name child:='' type limits:=${[]}">
+  <xacro:macro name="actuator" params="name child:='' type limits:=${[]} mass_offset:=0.0">
    
     <xacro:property name="model_name" value="${type}"/>
 
@@ -141,7 +141,7 @@
         </geometry>
       </collision>
       <inertial>
-        <mass value="${actuator_mass}"/>
+        <mass value="${actuator_mass + mass_offset}"/>
         <xacro:if value="${model_name.startswith('X5')}">
           <origin xyz="-0.0142 -0.0031 0.0165" rpy="0 0 0" />
           <inertia ixx="0.00015"  ixy="0.0000341"  ixz="0.0000118"
@@ -220,7 +220,7 @@
   </xacro:macro>
 
   <!-- This macro is used when an actuator is "flipped" so parent feeds into input-->
-  <xacro:macro name="reverse_actuator" params="name parent:='' child:='' type limits:=${[]}">
+  <xacro:macro name="reverse_actuator" params="name parent:='' child:='' type limits:=${[]} mass_offset:=0.0">
    
     <xacro:property name="model_name" value="${type}"/>
 
@@ -360,7 +360,7 @@
         </geometry>
       </collision>
       <inertial>
-        <mass value="${actuator_mass}"/>
+        <mass value="${actuator_mass + mass_offset}"/>
         <xacro:if value="${model_name.startswith('X5')}">
           <origin xyz="-0.0142 -0.0031 0.0165" rpy="0 0 0" />
           <inertia ixx="0.00015"  ixy="0.0000341"  ixz="0.0000118"

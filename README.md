@@ -7,7 +7,6 @@ Before proceeding, it is recommended to familiarize yourself with the **HRDF for
 ## Limitations
 
 Currently, HEBI `<joint>` tags and the following optional attributes are **not supported** for `actuator`, `link`, `bracket`, and `end-effector` (except of `Custom` type):
-- `mass_offset`
 - `com_trans_offset`
 - `mass`
 - `com_rot`
@@ -69,6 +68,7 @@ Represents a HEBI actuator.
 - `name`: Unique identifier for referencing this actuator.
 - `child`: The element attached to the actuator's output (name of the HEBI component).
 - `type`: Actuator type (`X5_1`, `X5_4`, `X5_9`, `X8_3`, `X8_9`, or `X8_16`).
+- `mass_offset`: Mass offset in kilograms. Defaults to `0.0` if not specified.
 
 **Note:** Since the actuator is a **joint**, the `name` is set for the `<joint>` tag and the actuator link name is set as `<name>/body`.
 
@@ -82,12 +82,14 @@ Represents a HEBI actuator.
 - `child`: The element attached to the link's output.
 - `extension`: Link extension in meters, per documented convention on docs.hebi.us.
 - `twist`: Twist between input and output frames in radians, per documented convention on docs.hebi.us.
+- `mass_offset`: Mass offset in kilograms. Defaults to `0.0` if not specified.
 
 ### `<xacro:bracket/>`
 
 **Required attributes:**
 - `name`: Unique identifier for referencing this bracket.
 - `type`: Bracket type (`X5LightLeft`, `X5LightRight`, `X5HeavyLeftInside`, `X5HeavyLeftOutside`, `X5HeavyRightInside`, or `X5HeavyRightOutside`).
+- `mass_offset`: Mass offset in kilograms. Defaults to `0.0` if not specified.
 
 **Note:** Brackets are always followed by `<xacro:output>` tags for connecting to other components.
 
@@ -112,6 +114,7 @@ Represents a HEBI gripper (currently only parallel jaws style).
 **Required attributes:**
 - `name`: Unique identifier for referencing this gripper.
 - `type`: Gripper type (currently only `parallel` is supported).
+- `mass_offset`: Mass offset in kilograms. Defaults to `0.0` if not specified.
 
 ### `<xacro:null_end_effector/>`
 
@@ -119,3 +122,4 @@ Represents the end of a robot (allows the final joint in another `actuator`, `li
 
 **Required attribute:**
 - `name`: Unique identifier for referencing this end effector.
+- `mass`: Mass in kilograms.

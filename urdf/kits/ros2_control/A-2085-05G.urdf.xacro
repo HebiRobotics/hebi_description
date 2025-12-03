@@ -23,7 +23,7 @@
   <xacro:include filename="$(find hebi_description)/urdf/kits/A-2085-05G.urdf.xacro" />
 
   <xacro:A-2085-05G_ros2_control
-    name="A-2085-05G"
+    name="A_2085_05G"
     use_mock_hardware="$(arg use_mock_hardware)"
     mock_sensor_commands="$(arg mock_sensor_commands)"
     sim_gazebo="$(arg sim_gazebo)"

@@ -4,6 +4,21 @@ This repository contains a collection of **Xacro macros** for generating **URDF 
 
 Before proceeding, it is recommended to familiarize yourself with the **HRDF format**, which you can find [here](https://github.com/HebiRobotics/hebi-hrdf/blob/main/FORMAT.md).
 
+## Important Note for ROS 2 Jazzy Users
+
+**⚠️ ROS 2 Jazzy Compatibility Fix**
+
+In ROS 2 Jazzy, node names are strictly validated and must contain only alphanumeric characters and underscores. The URDF files in `urdf/kits/ros2_control/` have been updated to use underscores instead of hyphens in hardware names (e.g., `A_2085_06` instead of `A-2085-06`) to comply with this requirement.
+
+This issue is specific to **ROS 2 Jazzy** and does not affect **ROS 2 Humble or Iron**. If you encounter an error like:
+
+```
+Exception of type: N6rclcpp10exceptions20InvalidNodeNameErrorE occurred while initializing hardware 'A-2085-06': 
+Invalid node name: node name must not contain characters other than alphanumerics or '_'
+```
+
+This indicates you're running ROS 2 Jazzy with an older version of the URDF files. Please ensure you have the latest version of this package.
+
 ## Limitations
 
 Currently, HEBI `<joint>` tags and the following optional attributes are **not supported** for `actuator`, `link`, `bracket`, and `end-effector` (except of `Custom` type):

@@ -2,18 +2,18 @@
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
   <xacro:macro name="null_end_effector" params="name mass:=0.001 mass_offset:=0.0">
     <link name="${name}">
-      <collision>
-        <origin xyz="0 0 0.0005" rpy="0 0 0"/>
-          <geometry>
-            <box size="0.001 0.001 0.001" rpy="0 0 0"/>
-          </geometry>
-      </collision>
       <visual>
         <origin xyz="0 0 0.0005" rpy="0 0 0"/>
           <geometry>
             <box size="0.001 0.001 0.001" rpy="0 0 0"/>
           </geometry>
       </visual>
+      <collision>
+        <origin xyz="0 0 0.0005" rpy="0 0 0"/>
+          <geometry>
+            <box size="0.001 0.001 0.001" rpy="0 0 0"/>
+          </geometry>
+      </collision>
       <inertial>
         <origin xyz="0 0 0.0005" rpy="0 0 0"/>
           <mass value="${mass + mass_offset}"/>
@@ -63,6 +63,13 @@
         </geometry>
         <xacro:black_material/>
       </visual>
+      <collision>
+        <origin xyz="-0.0115 0.029 -0.004" rpy="${pi/2} 0 0" />
+        <geometry>
+          <mesh filename="file://$(find hebi_description)/meshes/PM-2358-02.stl" scale="0.001 0.001 0.001"/>
+        </geometry>
+        <xacro:black_material/>
+      </collision>
       <inertial>
         <origin xyz="0 0.015 0.007" rpy="0 0 0"/>
         <mass value="0.010"/>
@@ -112,6 +119,13 @@
         </geometry>
         <xacro:silver_material/>
       </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 ${0.5*pi} 0"/>
+        <geometry>
+          <cylinder length="0.02" radius=".002" />
+        </geometry>
+        <xacro:silver_material/>
+      </collision>
       <inertial>
         <origin xyz="0 0 0" rpy="0 ${0.5*pi} 0"/>
         <mass value="0.001"/>
@@ -180,6 +194,13 @@
         </geometry>
         <xacro:black_material/>
       </visual>
+      <collision>
+        <origin xyz="-0.0115 -0.004 -0.004" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="file://$(find hebi_description)/meshes/PM-2359-02.stl" scale="0.001 0.001 0.001"/>
+        </geometry>
+        <xacro:black_material/>
+      </collision>
       <inertial>
         <origin xyz="0 0 0.0215" rpy="${pi/2} 0 0"/>
         <mass value="0.010"/>
@@ -245,6 +266,12 @@
             <box size="0.001 0.001 0.001" />
           </geometry>
         </visual>
+        <collision>
+          <origin xyz="0 0 0.0005" rpy="0 0 0" />
+          <geometry>
+            <box size="0.001 0.001 0.001" />
+          </geometry>
+        </collision>
         <inertial>
           <origin xyz="${com_trans}" rpy="${com_rot}" />
           <mass value="${mass + mass_offset}" />
@@ -274,6 +301,13 @@
           </geometry>
           <xacro:black_material/>
         </visual>
+        <collision>
+          <origin xyz="0 0 0.00375" />
+            <geometry>
+            <cylinder length="0.0075" radius=".0225" />
+          </geometry>
+          <xacro:black_material/>
+        </collision>
         <inertial>
           <origin xyz="0 0 0" rpy="0 0 0"/>
           <mass value="${0.072 + mass_offset}"/>
@@ -297,6 +331,13 @@
           </geometry>
           <xacro:black_material/>
         </visual>
+        <collision>
+          <origin xyz="-0.0225 0.0225 0" rpy="${pi/2} 0 0" />
+          <geometry>
+            <mesh filename="file://$(find hebi_description)/meshes/PM-2357-02.stl" scale="0.001 0.001 0.001"/>
+          </geometry>
+          <xacro:black_material/>
+        </collision>
         <inertial>
           <origin xyz="0 0 0" rpy="0 0 0"/>
           <mass value="${0.010 + mass_offset}"/>

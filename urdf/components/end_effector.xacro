@@ -3,24 +3,24 @@
   <xacro:macro name="null_end_effector" params="name mass:=0.001 mass_offset:=0.0">
     <link name="${name}">
       <visual>
-        <origin xyz="0 0 0.0005" rpy="0 0 0"/>
-          <geometry>
-            <box size="0.001 0.001 0.001" rpy="0 0 0"/>
-          </geometry>
+        <origin xyz="0 0 0.0005" rpy="0 0 0" />
+        <geometry>
+          <box size="0.001 0.001 0.001" rpy="0 0 0" />
+        </geometry>
       </visual>
       <collision>
-        <origin xyz="0 0 0.0005" rpy="0 0 0"/>
-          <geometry>
-            <box size="0.001 0.001 0.001" rpy="0 0 0"/>
-          </geometry>
+        <origin xyz="0 0 0.0005" rpy="0 0 0" />
+        <geometry>
+          <box size="0.001 0.001 0.001" rpy="0 0 0" />
+        </geometry>
       </collision>
       <inertial>
-        <origin xyz="0 0 0.0005" rpy="0 0 0"/>
-          <mass value="${mass + mass_offset}"/>
+        <origin xyz="0 0 0.0005" rpy="0 0 0" />
+        <mass value="${mass + mass_offset}" />
         <inertia
           ixx="0.001" ixy="0.0" ixz="0.0"
           iyy="0.001" iyz="0.0"
-          izz="0.001"/>
+          izz="0.001" />
       </inertial>
     </link>
   </xacro:macro>
@@ -30,119 +30,124 @@
       <visual>
         <origin xyz="-0.006 -0.0055 -0.0045" rpy="${pi/2} 0 ${pi/2}" />
         <geometry>
-          <mesh filename="file://$(find hebi_description)/meshes/PM-2221-01.stl" scale="0.001 0.001 0.001"/>
+          <mesh filename="file://$(find hebi_description)/meshes/PM-2221-01.stl"
+            scale="0.001 0.001 0.001" />
         </geometry>
-        <xacro:silver_material/>
+        <xacro:silver_material />
       </visual>
       <collision>
         <origin xyz="-0.006 -0.0055 -0.0045" rpy="${pi/2} 0 ${pi/2}" />
         <geometry>
-          <mesh filename="file://$(find hebi_description)/meshes/PM-2221-01.stl" scale="0.001 0.001 0.001"/>
+          <mesh filename="file://$(find hebi_description)/meshes/PM-2221-01.stl"
+            scale="0.001 0.001 0.001" />
         </geometry>
       </collision>
       <inertial>
-        <origin xyz="0 0.015 0" rpy="${0.5*pi} 0 ${0.0*pi}"/>
-        <mass value="0.022"/>
+        <origin xyz="0 0.015 0" rpy="${0.5*pi} 0 ${0.0*pi}" />
+        <mass value="0.022" />
         <!-- h = 0.007 w = 0.011 d = 0.03 -->
         <inertia
           ixx="${1/12 * 0.022 * (0.007*0.007 + 0.03*0.03)}" ixy="0.0" ixz="0.0"
           iyy="${1/12 * 0.022 * (0.011*0.011 + 0.03*0.03)}" iyz="0.0"
-          izz="${1/12 * 0.022 * (0.011*0.011 + 0.007*0.007)}"/>
+          izz="${1/12 * 0.022 * (0.011*0.011 + 0.007*0.007)}" />
       </inertial>
       <self_collide>true</self_collide>
     </link>
     <gazebo reference="${name}/${prefix}_finger">
-      <xacro:gazebo_silver_material/>
+      <xacro:gazebo_silver_material />
     </gazebo>
 
     <link name="${name}/${prefix}_outer_linkage">
       <visual>
         <origin xyz="-0.0115 0.029 -0.004" rpy="${pi/2} 0 0" />
         <geometry>
-          <mesh filename="file://$(find hebi_description)/meshes/PM-2358-02.stl" scale="0.001 0.001 0.001"/>
+          <mesh filename="file://$(find hebi_description)/meshes/PM-2358-02.stl"
+            scale="0.001 0.001 0.001" />
         </geometry>
-        <xacro:black_material/>
+        <xacro:black_material />
       </visual>
       <collision>
         <origin xyz="-0.0115 0.029 -0.004" rpy="${pi/2} 0 0" />
         <geometry>
-          <mesh filename="file://$(find hebi_description)/meshes/PM-2358-02.stl" scale="0.001 0.001 0.001"/>
+          <mesh filename="file://$(find hebi_description)/meshes/PM-2358-02.stl"
+            scale="0.001 0.001 0.001" />
         </geometry>
       </collision>
       <inertial>
-        <origin xyz="0 0.015 0.007" rpy="0 0 0"/>
-        <mass value="0.010"/>
+        <origin xyz="0 0.015 0.007" rpy="0 0 0" />
+        <mass value="0.010" />
         <!-- h = 0.03 w = 0.025 d = 0.03 -->
         <inertia
           ixx="${1/12 * 0.010 * (0.03*0.03 + 0.03*0.03)}" ixy="0.0" ixz="0.0"
           iyy="${1/12 * 0.010 * (0.023*0.023 + 0.03*0.03)}" iyz="0.0"
-          izz="${1/12 * 0.010 * (0.023*0.023 + 0.03*0.03)}"/>
+          izz="${1/12 * 0.010 * (0.023*0.023 + 0.03*0.03)}" />
       </inertial>
     </link>
     <gazebo reference="${name}/${prefix}_outer_linkage">
-      <xacro:gazebo_black_material/>
+      <xacro:gazebo_black_material />
     </gazebo>
 
     <link name="${name}/${prefix}_gripper">
       <visual>
         <origin xyz="-0.006 -0.0115 -0.0036" rpy="${0.5*pi} ${0.0*pi} ${0.5*pi}" />
         <geometry>
-          <mesh filename="file://$(find hebi_description)/meshes/PM-2360-02.stl" scale="0.001 0.001 0.001"/>
+          <mesh filename="file://$(find hebi_description)/meshes/PM-2360-02.stl"
+            scale="0.001 0.001 0.001" />
         </geometry>
-        <xacro:black_material/>
+        <xacro:black_material />
       </visual>
       <collision>
         <origin xyz="-0.006 -0.0115 -0.0036" rpy="${0.5*pi} ${0.0*pi} ${0.5*pi}" />
         <geometry>
-          <mesh filename="file://$(find hebi_description)/meshes/PM-2360-02.stl" scale="0.001 0.001 0.001"/>
+          <mesh filename="file://$(find hebi_description)/meshes/PM-2360-02.stl"
+            scale="0.001 0.001 0.001" />
         </geometry>
       </collision>
       <inertial>
-        <origin xyz="0 -0.005 0.02" rpy="0 0 0"/>
-        <mass value="0.014"/>
+        <origin xyz="0 -0.005 0.02" rpy="0 0 0" />
+        <mass value="0.014" />
         <inertia
           ixx="${1/12 * 0.014 * ( 0.01*0.01 + 0.05*0.05 )}" ixy="0.0" ixz="0.0"
           iyy="${1/12 * 0.014 * ( 0.01*0.01 + 0.05*0.05 )}" iyz="0.0"
-          izz="${1/12 * 0.014 * ( 0.01*0.01 + 0.01*0.01 )}"/>
+          izz="${1/12 * 0.014 * ( 0.01*0.01 + 0.01*0.01 )}" />
       </inertial>
     </link>
     <gazebo reference="${name}/${prefix}_gripper">
-      <xacro:gazebo_black_material/>
+      <xacro:gazebo_black_material />
     </gazebo>
 
     <link name="${name}/${prefix}_gripper_bend">
       <visual>
-        <origin xyz="0 0 0" rpy="0 ${0.5*pi} 0"/>
+        <origin xyz="0 0 0" rpy="0 ${0.5*pi} 0" />
         <geometry>
           <cylinder length="0.02" radius=".002" />
         </geometry>
-        <xacro:silver_material/>
+        <xacro:silver_material />
       </visual>
       <collision>
-        <origin xyz="0 0 0" rpy="0 ${0.5*pi} 0"/>
+        <origin xyz="0 0 0" rpy="0 ${0.5*pi} 0" />
         <geometry>
           <cylinder length="0.02" radius=".002" />
         </geometry>
-        <xacro:silver_material/>
       </collision>
       <inertial>
-        <origin xyz="0 0 0" rpy="0 ${0.5*pi} 0"/>
-        <mass value="0.001"/>
+        <origin xyz="0 0 0" rpy="0 ${0.5*pi} 0" />
+        <mass value="0.001" />
         <!-- Approximated as slender rod -->
         <inertia
           ixx="${1/12 * 0.001 * (3*pow(0.002, 2) + 0.02*0.02)}" ixy="0.0" ixz="0.0"
           iyy="${1/12 * 0.001 * (3*pow(0.002, 2) + 0.02*0.02)}" iyz="0.0"
-          izz="${1/2  * 0.001 * pow(0.002, 2)}"/>
+          izz="${1/2  * 0.001 * pow(0.002, 2)}" />
       </inertial>
     </link>
     <gazebo reference="${name}/${prefix}_gripper_bend">
-      <xacro:gazebo_silver_material/>
+      <xacro:gazebo_silver_material />
     </gazebo>
 
     <joint name="${name}/${prefix}_gripper_finger_${prefix}_gripper_bend" type="fixed">
       <origin xyz="0.0 -0.0075 0.0165" rpy="0 0 0" />
-      <parent link="${name}/${prefix}_gripper"/>
-      <child link="${name}/${prefix}_gripper_bend"/>
+      <parent link="${name}/${prefix}_gripper" />
+      <child link="${name}/${prefix}_gripper_bend" />
     </joint>
     <gazebo reference="${name}/${prefix}_gripper_finger_${prefix}_gripper_bend">
       <disableFixedJointLumping>true</disableFixedJointLumping>
@@ -157,9 +162,9 @@
         <origin xyz="0 -0.01265 .0115" rpy="0 0 ${pi}" />
         <mimic joint="${name}/input_l_finger" multiplier="1.0" offset="0" />
       </xacro:if>
-      <parent link="${name}"/>
-      <child link="${name}/${prefix}_finger"/>
-      <limit effort="1000.0" velocity="1000.0" lower="0" upper="${0.37*pi}"/>
+      <parent link="${name}" />
+      <child link="${name}/${prefix}_finger" />
+      <limit effort="1000.0" velocity="1000.0" lower="0" upper="${0.37*pi}" />
     </joint>
     <gazebo reference="${name}/input_${prefix}_finger">
       <physics>
@@ -171,16 +176,16 @@
 
     <joint name="${name}/${prefix}_finger_${prefix}_outer_linkage" type="fixed">
       <origin xyz="0 0.015 0" rpy="0 0 0" />
-      <parent link="${name}/${prefix}_finger"/>
-      <child link="${name}/${prefix}_outer_linkage"/>
+      <parent link="${name}/${prefix}_finger" />
+      <child link="${name}/${prefix}_outer_linkage" />
     </joint>
 
     <joint name="${name}/${prefix}_outer_linkage_${prefix}_gripper" type="revolute">
       <origin xyz="0 0.025 0.018" rpy="0 0 0" />
-      <parent link="${name}/${prefix}_outer_linkage"/>
-      <child link="${name}/${prefix}_gripper"/>
+      <parent link="${name}/${prefix}_outer_linkage" />
+      <child link="${name}/${prefix}_gripper" />
       <mimic joint="${name}/input_l_finger" multiplier="-1.0" />
-      <limit effort="1000.0" velocity="1000.0" lower="${-pi/2}" upper="0"/>
+      <limit effort="1000.0" velocity="1000.0" lower="${-pi/2}" upper="0" />
     </joint>
   </xacro:macro>
 
@@ -189,25 +194,26 @@
       <visual>
         <origin xyz="-0.0115 -0.004 -0.004" rpy="0 0 0" />
         <geometry>
-          <mesh filename="file://$(find hebi_description)/meshes/PM-2359-02.stl" scale="0.001 0.001 0.001"/>
+          <mesh filename="file://$(find hebi_description)/meshes/PM-2359-02.stl"
+            scale="0.001 0.001 0.001" />
         </geometry>
-        <xacro:black_material/>
+        <xacro:black_material />
       </visual>
       <collision>
         <origin xyz="-0.0115 -0.004 -0.004" rpy="0 0 0" />
         <geometry>
-          <mesh filename="file://$(find hebi_description)/meshes/PM-2359-02.stl" scale="0.001 0.001 0.001"/>
+          <mesh filename="file://$(find hebi_description)/meshes/PM-2359-02.stl"
+            scale="0.001 0.001 0.001" />
         </geometry>
-        <xacro:black_material/>
       </collision>
       <inertial>
-        <origin xyz="0 0 0.0215" rpy="${pi/2} 0 0"/>
-        <mass value="0.010"/>
+        <origin xyz="0 0 0.0215" rpy="${pi/2} 0 0" />
+        <mass value="0.010" />
         <!-- h = 0.05, w = 0.02 d = 0.005 -->
         <inertia
           ixx="${1/12 * 0.010 * (0.05*0.05 + 0.005*0.005)}" ixy="0.0" ixz="0.0"
           iyy="${1/12 * 0.010 * (0.02*0.02 + 0.005*0.005)}" iyz="0.0"
-          izz="${1/12 * 0.010 * (0.02*0.02 + 0.05*0.05)}"/>
+          izz="${1/12 * 0.010 * (0.02*0.02 + 0.05*0.05)}" />
       </inertial>
     </link>
     <gazebo reference="${name}/${prefix}_inner_linkage">
@@ -227,10 +233,12 @@
     </joint>
   </xacro:macro>
 
-  <xacro:macro name="gripper" params="name type:=Custom mass:=0.001 mass_offset:=0.0 output_trans:='0 0 0' output_rot:='0 0 0' com_trans:='0 0 0' com_rot:='0 0 0' ixx='None' iyy='None' izz='None' ixy=0 ixz=0 iyz=0">
+  <xacro:macro name="gripper"
+    params="name type:=Custom mass:=0.001 mass_offset:=0.0 output_trans:='0 0 0' output_rot:='0 0 0' com_trans:='0 0 0' com_rot:='0 0 0' ixx='None' iyy='None' izz='None' ixy=0 ixz=0 iyz=0">
     <xacro:property name="com_trans_list" value="${list(map(float, com_trans.split(' ')))}" />
     <xacro:if value="${ com_trans_list[0] + com_trans_list[1] + com_trans_list[2] >= 0.01 }">
-      <xacro:property name="gripper_len" value="${sqrt( pow(com_trans_list[0], 2) + pow(com_trans_list[1], 2) + pow(com_trans_list[2], 2) )}" />
+      <xacro:property name="gripper_len"
+        value="${sqrt( pow(com_trans_list[0], 2) + pow(com_trans_list[1], 2) + pow(com_trans_list[2], 2) )}" />
     </xacro:if>
     <xacro:unless value="${ com_trans_list[0] + com_trans_list[1] + com_trans_list[2] >= 0.01 }">
       <xacro:property name="gripper_len" value="0.1" />
@@ -277,16 +285,16 @@
           <inertia
             ixx="${_ixx}" ixy="${ixy}" ixz="${ixz}"
             iyy="${_iyy}" iyz="${iyz}"
-            izz="${_izz}"/>
+            izz="${_izz}" />
         </inertial>
       </link>
 
-      <link name="${name}/output"/>
+      <link name="${name}/output" />
 
       <joint name="${name}/output_joint" type="fixed">
         <origin xyz="${output_trans}" rpy="${output_rot}" />
-        <parent link="${name}"/>
-        <child link="${name}/output"/>
+        <parent link="${name}" />
+        <child link="${name}/output" />
       </joint>
     </xacro:if>
 
@@ -295,30 +303,29 @@
       <link name="${name}">
         <visual>
           <origin xyz="0 0 0.00375" />
-            <geometry>
+          <geometry>
             <cylinder length="0.0075" radius=".0225" />
           </geometry>
-          <xacro:black_material/>
+          <xacro:black_material />
         </visual>
         <collision>
           <origin xyz="0 0 0.00375" />
-            <geometry>
+          <geometry>
             <cylinder length="0.0075" radius=".0225" />
           </geometry>
-          <xacro:black_material/>
         </collision>
         <inertial>
-          <origin xyz="0 0 0" rpy="0 0 0"/>
-          <mass value="${0.072 + mass_offset}"/>
+          <origin xyz="0 0 0" rpy="0 0 0" />
+          <mass value="${0.072 + mass_offset}" />
           <!-- Approximated as solid cylinder -->
           <inertia
             ixx="${1.0/12.0 * 0.072 * (3*pow(0.0225, 2) + pow(0.0075, 2))}" ixy="0.0" ixz="0.0"
             iyy="${1.0/12.0 * 0.072 * (3*pow(0.0225, 2) + pow(0.0075, 2))}" iyz="0.0"
-            izz="${1.0/2.0  * 0.072 * pow(0.0225, 2)}"/>
+            izz="${1.0/2.0  * 0.072 * pow(0.0225, 2)}" />
         </inertial>
       </link>
       <gazebo reference="${name}">
-        <xacro:gazebo_black_material/>
+        <xacro:gazebo_black_material />
       </gazebo>
 
       <!-- Tree branch for center hub -->
@@ -326,72 +333,75 @@
         <visual>
           <origin xyz="-0.0225 0.0225 0" rpy="${pi/2} 0 0" />
           <geometry>
-            <mesh filename="file://$(find hebi_description)/meshes/PM-2357-02.stl" scale="0.001 0.001 0.001"/>
+            <mesh filename="file://$(find hebi_description)/meshes/PM-2357-02.stl"
+              scale="0.001 0.001 0.001" />
           </geometry>
-          <xacro:black_material/>
+          <xacro:black_material />
         </visual>
         <collision>
           <origin xyz="-0.0225 0.0225 0" rpy="${pi/2} 0 0" />
           <geometry>
-            <mesh filename="file://$(find hebi_description)/meshes/PM-2357-02.stl" scale="0.001 0.001 0.001"/>
+            <mesh filename="file://$(find hebi_description)/meshes/PM-2357-02.stl"
+              scale="0.001 0.001 0.001" />
           </geometry>
-          <xacro:black_material/>
         </collision>
         <inertial>
-          <origin xyz="0 0 0" rpy="0 0 0"/>
-          <mass value="${0.010 + mass_offset}"/>
+          <origin xyz="0 0 0" rpy="0 0 0" />
+          <mass value="${0.010 + mass_offset}" />
           <!-- Approximated as hollow sphere -->
           <inertia
             ixx="${0.66*0.010*pow(0.0225, 2)}" ixy="0.0" ixz="0.0"
             iyy="${0.66*0.010*pow(0.0225, 2)}" iyz="0.0"
-            izz="${0.66*0.010*pow(0.0225, 2)}"/>
+            izz="${0.66*0.010*pow(0.0225, 2)}" />
         </inertial>
       </link>
       <gazebo reference="${name}/center_hub">
-        <xacro:gazebo_black_material/>
+        <xacro:gazebo_black_material />
       </gazebo>
 
       <joint name="${name}/input_center_hub" type="fixed">
         <origin xyz="0 0 0.0045" rpy="0 0 0" />
-        <parent link="${name}"/>
-        <child link="${name}/center_hub"/>
+        <parent link="${name}" />
+        <child link="${name}/center_hub" />
       </joint>
 
       <link name="${name}/center_pinion">
         <visual>
           <origin xyz="-0.0145 -0.008 0.0038" rpy="${0.5*pi} ${0.0*pi} ${0.5*pi}" />
           <geometry>
-            <mesh filename="file://$(find hebi_description)/meshes/PM-2291-01.stl" scale="0.001 0.001 0.001"/>
+            <mesh filename="file://$(find hebi_description)/meshes/PM-2291-01.stl"
+              scale="0.001 0.001 0.001" />
           </geometry>
-          <xacro:silver_material/>
+          <xacro:silver_material />
         </visual>
         <collision>
-          <origin xyz="-0.0145 -0.008 0.004" rpy="${0.5*pi} ${0.0*pi} ${0.5*pi}" />
+          <origin xyz="-0.0145 -0.008 0.0038" rpy="${0.5*pi} ${0.0*pi} ${0.5*pi}" />
           <geometry>
-            <mesh filename="file://$(find hebi_description)/meshes/PM-2291-01.stl" scale="0.001 0.001 0.001"/>
+            <mesh filename="file://$(find hebi_description)/meshes/PM-2291-01.stl"
+              scale="0.001 0.001 0.001" />
           </geometry>
         </collision>
         <inertial>
-          <origin xyz="0 0 0" rpy="0 0 0"/>
-          <mass value="${0.010 + mass_offset}"/>
+          <origin xyz="0 0 0" rpy="0 0 0" />
+          <mass value="${0.010 + mass_offset}" />
           <!-- Approximated as hollow sphere -->
           <inertia
             ixx="${0.66*0.010*pow(0.0225, 2)}" ixy="0.0" ixz="0.0"
             iyy="${0.66*0.010*pow(0.0225, 2)}" iyz="0.0"
-            izz="${0.66*0.010*pow(0.0225, 2)}"/>
+            izz="${0.66*0.010*pow(0.0225, 2)}" />
         </inertial>
       </link>
       <gazebo reference="${name}/center_pinion">
         <self_collide>true</self_collide>
-        <xacro:gazebo_silver_material/>
+        <xacro:gazebo_silver_material />
       </gazebo>
 
       <joint name="${name}/center_hub_pinion" type="prismatic">
-        <parent link="${name}/center_hub"/>
-        <child link="${name}/center_pinion"/>
+        <parent link="${name}/center_hub" />
+        <child link="${name}/center_pinion" />
         <origin xyz="0 0 0" rpy="0 0 0" />
         <axis xyz="0 0 1" />
-        <limit effort="1000.0" velocity="1000.0" lower="-1.0" upper="1.0"/>
+        <limit effort="1000.0" velocity="1000.0" lower="-1.0" upper="1.0" />
         <!-- Don't actually want the pinion to move (only needed fore gazebo)
              so set multiplier very small -->
         <mimic joint="${name}/input_l_finger" multiplier="0.00001" offset="0" />
@@ -407,12 +417,12 @@
       </gazebo>
 
       <!-- Tree branches for fingers, outer linkages, and grippers -->
-      <xacro:parallel_gripper_outer_subassembly name="${name}" prefix="l"/>
-      <xacro:parallel_gripper_outer_subassembly name="${name}" prefix="r"/>
+      <xacro:parallel_gripper_outer_subassembly name="${name}" prefix="l" />
+      <xacro:parallel_gripper_outer_subassembly name="${name}" prefix="r" />
 
       <!-- Tree branches for inner linkages -->
-      <xacro:parallel_gripper_inner_subassembly name="${name}" prefix="l"/>
-      <xacro:parallel_gripper_inner_subassembly name="${name}" prefix="r"/>
+      <xacro:parallel_gripper_inner_subassembly name="${name}" prefix="l" />
+      <xacro:parallel_gripper_inner_subassembly name="${name}" prefix="r" />
       <gazebo>
         <joint name="${name}/l_inner_outer_pin" type="revolute">
           <pose>0 0 0.0439 0 0 0</pose>
@@ -458,12 +468,12 @@
         </joint>
       </gazebo>
 
-      <link name="${name}/output"/>
+      <link name="${name}/output" />
 
       <joint name="${name}/output_joint" type="fixed">
         <origin xyz="0 0 0.05" rpy="0 0 0" />
-        <parent link="${name}"/>
-        <child link="${name}/output"/>
+        <parent link="${name}" />
+        <child link="${name}/output" />
       </joint>
     </xacro:if>
 

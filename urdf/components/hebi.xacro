@@ -6,7 +6,7 @@
 
   <xacro:macro name="red_material">
     <material name="red">
-      <color rgba=".82 0.06 0.06 1"/>
+      <color rgba=".82 0.06 0.06 1" />
     </material>
   </xacro:macro>
   <xacro:macro name="gazebo_red_material">
@@ -15,7 +15,7 @@
 
   <xacro:macro name="silver_material">
     <material name="silver">
-      <color rgba="0.6 0.6 0.6 1"/>
+      <color rgba="0.6 0.6 0.6 1" />
     </material>
   </xacro:macro>
   <xacro:macro name="gazebo_silver_material">
@@ -24,7 +24,7 @@
 
   <xacro:macro name="black_material">
     <material name="black">
-      <color rgba="0.1 0.1 0.1 1"/>
+      <color rgba="0.1 0.1 0.1 1" />
     </material>
   </xacro:macro>
   <xacro:macro name="gazebo_black_material">
@@ -33,37 +33,37 @@
 
   <xacro:macro name="tangerine_material">
     <material name="tangerine">
-      <color rgba="0.91 0.43 0.218 1"/>
+      <color rgba="0.91 0.43 0.218 1" />
     </material>
   </xacro:macro>
   <xacro:macro name="gazebo_tangerine_material">
     <visual>
       <material>
-          <ambient>0.91 0.43 0.218 1</ambient>
-          <diffuse>0.91 0.43 0.218 1</diffuse>
+        <ambient>0.91 0.43 0.218 1</ambient>
+        <diffuse>0.91 0.43 0.218 1</diffuse>
       </material>
     </visual>
   </xacro:macro>
 
   <xacro:macro name="beige_material">
     <material name="beige">
-      <color rgba="0.96 0.945 0.871 1"/>
+      <color rgba="0.96 0.945 0.871 1" />
     </material>
   </xacro:macro>
   <xacro:macro name="gazebo_beige_material">
     <visual>
       <material>
-          <ambient>0.96 0.945 0.871 1</ambient>
-          <diffuse>0.96 0.945 0.871 1</diffuse>
+        <ambient>0.96 0.945 0.871 1</ambient>
+        <diffuse>0.96 0.945 0.871 1</diffuse>
       </material>
     </visual>
   </xacro:macro>
 
-  <xacro:include filename="./actuator.xacro"/>
-  <xacro:include filename="./link.xacro"/>
-  <xacro:include filename="./bracket.xacro"/>
-  <xacro:include filename="./end_effector.xacro"/>
-  <xacro:include filename="./rigid_body.xacro"/>
-  <xacro:include filename="./output.xacro"/>
+  <xacro:include filename="./actuator.xacro" />
+  <xacro:include filename="./link.xacro" />
+  <xacro:include filename="./bracket.xacro" />
+  <xacro:include filename="./end_effector.xacro" />
+  <xacro:include filename="./rigid_body.xacro" />
+  <xacro:include filename="./output.xacro" />
 
 </robot>

@@ -68,7 +68,6 @@
         <geometry>
           <mesh filename="file://$(find hebi_description)/meshes/PM-2358-02.stl" scale="0.001 0.001 0.001"/>
         </geometry>
-        <xacro:black_material/>
       </collision>
       <inertial>
         <origin xyz="0 0.015 0.007" rpy="0 0 0"/>

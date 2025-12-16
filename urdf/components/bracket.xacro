@@ -65,10 +65,10 @@
       </visual>
       <collision>
         <xacro:if value="${bracket_type.endswith('Left')}">
-          <origin xyz="0 0 0" rpy="${pi/2} 0 ${pi/2}"/>
+          <origin xyz="0 0 0" rpy="0 0 ${pi}"/>
         </xacro:if>
         <xacro:if value="${bracket_type.endswith('Right')}">
-          <origin xyz="0 0 0" rpy="${pi/2} 0 ${-pi/2}"/>
+          <origin xyz="0 0 0" rpy="0 0 0"/>
         </xacro:if>
         <geometry>
           <mesh filename="file://$(find hebi_description)/meshes/A-2220-01.stl" scale="0.001 0.001 0.001"/>
@@ -218,16 +218,16 @@
       </visual>
       <collision>
         <xacro:if value="${bracket_type.endswith('RightOutside')}">
-          <origin xyz="0 0 0.005" rpy="${pi/2} 0 ${pi/2}"/>
+          <origin xyz="0 0 0" rpy="0 0 0"/>
         </xacro:if>
         <xacro:if value="${bracket_type.endswith('RightInside')}">
-          <origin xyz="0 0 0.005" rpy="${pi/2} 0 ${-pi/2}"/>
+          <origin xyz="0 0 0" rpy="0 0 ${pi}"/>
         </xacro:if>
         <xacro:if value="${bracket_type.endswith('LeftOutside')}">
-          <origin xyz="0 0 0.005" rpy="${pi/2} 0 ${-pi/2}"/>
+          <origin xyz="0 0 0" rpy="0 0 ${pi}"/>
         </xacro:if>
         <xacro:if value="${bracket_type.endswith('LeftInside')}">
-          <origin xyz="0 0 0.005" rpy="${pi/2} 0 ${pi/2}"/>
+          <origin xyz="0 0 0" rpy="0 0 0"/>
         </xacro:if>
         <geometry>
           <xacro:if value="${bracket_type.endswith('Outside')}">

@@ -10,7 +10,7 @@
   <xacro:output parent="$(arg prefix)rigid_body_2" child="$(arg prefix)T1_J1_interface" name="$(arg prefix)rigid_body_2_T1_J1_flipper"/>
   <xacro:rigid-body mass="0.01" name="$(arg prefix)T1_J1_interface"/>
   <xacro:actuator type="R8_16" reverse="true" name="$(arg prefix)T1_J1_flipper" parent="$(arg prefix)T1_J1_interface" child="$(arg prefix)rigid_body_3"/>
-  <xacro:rigid-body mass="1.5" mesh_path="file:://$(find hebi_description)/meshes/A-2364-01.obj" mesh_trans="-0.136 0 -0.023" mesh_rot="3.1416 0 0" name="$(arg prefix)rigid_body_3"/>
+  <xacro:rigid-body mass="1.5" mesh_path="file://$(find hebi_description)/meshes/A-2364-01.stl" mesh_trans="-0.136 0 -0.023" mesh_rot="3.1416 0 0" name="$(arg prefix)rigid_body_3"/>
   <xacro:output trans="-0.275 0 0.037" rot="3.1416 0 3.1416" parent="$(arg prefix)rigid_body_3" child="$(arg prefix)T1_J2_track/body" name="$(arg prefix)rigid_body_3_T1_J2_track"/>
   <xacro:actuator type="R8_9" name="$(arg prefix)T1_J2_track" child="$(arg prefix)rigid_body_4"/>
   <xacro:rigid-body mass="0.1" mesh_path="file://$(find hebi_description)/meshes/tready_drive_sprocket.obj" name="$(arg prefix)rigid_body_4"/>
@@ -22,7 +22,7 @@
   <xacro:output parent="$(arg prefix)rigid_body_5" child="$(arg prefix)T2_J1_interface" name="$(arg prefix)rigid_body_5_T2_J1_flipper"/>
   <xacro:rigid-body mass="0.01" name="$(arg prefix)T2_J1_interface"/>
   <xacro:actuator type="R8_16" reverse="true" name="$(arg prefix)T2_J1_flipper" parent="$(arg prefix)T2_J1_interface" child="$(arg prefix)rigid_body_6"/>
-  <xacro:rigid-body mass="1.5" mesh_path="file:://$(find hebi_description)/meshes/A-2364-01.obj" mesh_trans="-0.136 0 -0.023" mesh_rot="3.1416 0 0" name="$(arg prefix)rigid_body_6"/>
+  <xacro:rigid-body mass="1.5" mesh_path="file://$(find hebi_description)/meshes/A-2364-01.stl" mesh_trans="-0.136 0 -0.023" mesh_rot="3.1416 0 0" name="$(arg prefix)rigid_body_6"/>
   <xacro:output trans="-0.275 0 0.037" rot="3.1416 0 3.1416" parent="$(arg prefix)rigid_body_6" child="$(arg prefix)T2_J2_track/body" name="$(arg prefix)rigid_body_6_T2_J2_track"/>
   <xacro:actuator type="R8_9" name="$(arg prefix)T2_J2_track" child="$(arg prefix)rigid_body_7"/>
   <xacro:rigid-body mass="0.1" mesh_path="file://$(find hebi_description)/meshes/tready_drive_sprocket.obj" name="$(arg prefix)rigid_body_7"/>
@@ -34,7 +34,7 @@
   <xacro:output parent="$(arg prefix)rigid_body_8" child="$(arg prefix)T3_J1_interface" name="$(arg prefix)rigid_body_8_T3_J1_flipper"/>
   <xacro:rigid-body mass="0.01" name="$(arg prefix)T3_J1_interface"/>
   <xacro:actuator type="R8_16" reverse="true" name="$(arg prefix)T3_J1_flipper" parent="$(arg prefix)T3_J1_interface" child="$(arg prefix)rigid_body_9"/>
-  <xacro:rigid-body mass="1.5" mesh_path="file:://$(find hebi_description)/meshes/A-2364-01.obj" mesh_trans="-0.136 0 -0.023" mesh_rot="3.1416 0 0" name="$(arg prefix)rigid_body_9"/>
+  <xacro:rigid-body mass="1.5" mesh_path="file://$(find hebi_description)/meshes/A-2364-01.stl" mesh_trans="-0.136 0 -0.023" mesh_rot="3.1416 0 0" name="$(arg prefix)rigid_body_9"/>
   <xacro:output trans="-0.275 0 0.037" rot="3.1416 0 3.1416" parent="$(arg prefix)rigid_body_9" child="$(arg prefix)T3_J2_track/body" name="$(arg prefix)rigid_body_9_T3_J2_track"/>
   <xacro:actuator type="R8_9" name="$(arg prefix)T3_J2_track" child="$(arg prefix)rigid_body_10"/>
   <xacro:rigid-body mass="0.1" mesh_path="file://$(find hebi_description)/meshes/tready_drive_sprocket.obj" name="$(arg prefix)rigid_body_10"/>
@@ -46,7 +46,7 @@
   <xacro:output parent="$(arg prefix)rigid_body_11" child="$(arg prefix)T4_J1_interface" name="$(arg prefix)rigid_body_11_T4_J1_flipper"/>
   <xacro:rigid-body mass="0.01" name="$(arg prefix)T4_J1_interface"/>
   <xacro:actuator type="R8_16" reverse="true" name="$(arg prefix)T4_J1_flipper" parent="$(arg prefix)T4_J1_interface" child="$(arg prefix)rigid_body_12"/>
-  <xacro:rigid-body mass="1.5" mesh_path="file:://$(find hebi_description)/meshes/A-2364-01.obj" mesh_trans="-0.136 0 -0.023" mesh_rot="3.1416 0 0" name="$(arg prefix)rigid_body_12"/>
+  <xacro:rigid-body mass="1.5" mesh_path="file://$(find hebi_description)/meshes/A-2364-01.stl" mesh_trans="-0.136 0 -0.023" mesh_rot="3.1416 0 0" name="$(arg prefix)rigid_body_12"/>
   <xacro:output trans="-0.275 0 0.037" rot="3.1416 0 3.1416" parent="$(arg prefix)rigid_body_12" child="$(arg prefix)T4_J2_track/body" name="$(arg prefix)rigid_body_12_T4_J2_track"/>
   <xacro:actuator type="R8_9" name="$(arg prefix)T4_J2_track" child="$(arg prefix)rigid_body_13"/>
   <xacro:rigid-body mass="0.1" mesh_path="file://$(find hebi_description)/meshes/tready_drive_sprocket.obj" name="$(arg prefix)rigid_body_13"/>

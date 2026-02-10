@@ -67,7 +67,7 @@ Represents a HEBI actuator.
 **Required attributes:**
 - `name`: Unique identifier for referencing this actuator.
 - `child`: The element attached to the actuator's output (name of the HEBI component).
-- `type`: Actuator type (`X5_1`, `X5_4`, `X5_9`, `X8_3`, `X8_9`, or `X8_16`).
+- `type`: Actuator type (`X5_1`, `X5_4`, `X5_9`, `X8_3`, `X8_9`, `X8_16`, `R8_3`, `R8_9`, `R8_16`, `R25_8`, `R25_20`, `R25_40`, `T5_1`, `T5_4`, `T5_9`, `T8_3`, `T8_9`, `T8_16`, `T25_8`, `T25_20`, or `T25_40`).
 - `mass_offset`: Mass offset in kilograms. Defaults to `0.0` if not specified.
 
 **Note:** Since the actuator is a **joint**, the `name` is set for the `<joint>` tag and the actuator link name is set as `<name>/body`.

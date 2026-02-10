@@ -1,7 +1,7 @@
 # Free SolidWorks .OBJ Exporter v2.0
 # num_vertices: 9308 
 
-mtllib tready-chassis-print.mtl
+mtllib A-2362-01.mtl
 
 v 0.191 -0.100710678118655 -0.205710678118654
 v 0.191 -7.07106781186552E-02 -0.205710678118654

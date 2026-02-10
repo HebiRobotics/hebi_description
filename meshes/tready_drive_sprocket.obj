@@ -1,7 +1,7 @@
 # Free SolidWorks .OBJ Exporter v2.0
 # num_vertices: 7812 
 
-mtllib Drive-Sprocket_Export.mtl
+mtllib tready_drive-sprocket.mtl
 
 v -1.61678918189475E-02 -6.69696006638906E-03 -0.0055
 v -1.80670732786932E-02 -6.75272549437232E-03 -0.0055

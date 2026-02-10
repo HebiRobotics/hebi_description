@@ -290,7 +290,7 @@
       <joint name="${name}" type="${urdf_joint_type}">
         <parent link="${parent}" />
         <child link="${name}/body" />
-        <origin xyz="0 0 ${joint_offset}" rpy="0 ${pi} 0" />
+        <origin xyz="0 0 ${joint_offset}" rpy="${pi} 0 0" />
         <axis xyz="0 0 -1" />
 
         <!-- Continuous joints (no position limits) -->

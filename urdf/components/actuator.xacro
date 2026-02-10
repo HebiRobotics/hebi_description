@@ -33,33 +33,48 @@
     </xacro:if>
     <xacro:if value="${model_name == 'X8_3'}">
       <xacro:property name="actuator_mass" value="0.460" />
-      <xacro:property name="effort_limit" value="7" />
-      <xacro:property name="velocity_limit" value="8.796" />
+      <xacro:property name="effort_limit" value="8" />
+      <xacro:property name="velocity_limit" value="11.520" />
     </xacro:if>
     <xacro:if value="${model_name == 'X8_9'}">
       <xacro:property name="actuator_mass" value="0.480" />
-      <xacro:property name="effort_limit" value="20" />
-      <xacro:property name="velocity_limit" value="3.142" />
+      <xacro:property name="effort_limit" value="23" />
+      <xacro:property name="velocity_limit" value="4.084" />
     </xacro:if>
     <xacro:if value="${model_name == 'X8_16'}">
       <xacro:property name="actuator_mass" value="0.500" />
-      <xacro:property name="effort_limit" value="38" />
-      <xacro:property name="velocity_limit" value="1.571" />
+      <xacro:property name="effort_limit" value="44" />
+      <xacro:property name="velocity_limit" value="2.094" />
     </xacro:if>
     <xacro:if value="${model_name == 'R8_3'}">
       <xacro:property name="actuator_mass" value="0.670" />
-      <xacro:property name="effort_limit" value="7" />
-      <xacro:property name="velocity_limit" value="8.796" />
+      <xacro:property name="effort_limit" value="8" />
+      <xacro:property name="velocity_limit" value="11.5120" />
     </xacro:if>
     <xacro:if value="${model_name == 'R8_9'}">
       <xacro:property name="actuator_mass" value="0.685" />
-      <xacro:property name="effort_limit" value="20" />
-      <xacro:property name="velocity_limit" value="3.142" />
+      <xacro:property name="effort_limit" value="23" />
+      <xacro:property name="velocity_limit" value="4.084" />
     </xacro:if>
     <xacro:if value="${model_name == 'R8_16'}">
       <xacro:property name="actuator_mass" value="0.715" />
-      <xacro:property name="effort_limit" value="38" />
-      <xacro:property name="velocity_limit" value="1.571" />
+      <xacro:property name="effort_limit" value="44" />
+      <xacro:property name="velocity_limit" value="2.094" />
+    </xacro:if>
+    <xacro:if value="${model_name == 'R25_8'}">
+      <xacro:property name="actuator_mass" value="1.9" />
+      <xacro:property name="effort_limit" value="16.0" />
+      <xacro:property name="velocity_limit" value="12.357" />
+    </xacro:if>
+    <xacro:if value="${model_name == 'R25_20'}">
+      <xacro:property name="actuator_mass" value="1.9" />
+      <xacro:property name="effort_limit" value="40.0" />
+      <xacro:property name="velocity_limit" value="4.922" />
+    </xacro:if>
+    <xacro:if value="${model_name == 'R25_40'}">
+      <xacro:property name="actuator_mass" value="1.9" />
+      <xacro:property name="effort_limit" value="80.0" />
+      <xacro:property name="velocity_limit" value="2.409" />
     </xacro:if>
     <xacro:if value="${model_name == 'T5_1'}">
       <xacro:property name="actuator_mass" value="0.450" />
@@ -91,6 +106,21 @@
       <xacro:property name="effort_limit" value="44.0" />
       <xacro:property name="velocity_limit" value="2.094" />
     </xacro:if>
+    <xacro:if value="${model_name == 'T25_8'}">
+      <xacro:property name="actuator_mass" value="1.5" />
+      <xacro:property name="effort_limit" value="16.0" />
+      <xacro:property name="velocity_limit" value="12.357" />
+    </xacro:if>
+    <xacro:if value="${model_name == 'T25_20'}">
+      <xacro:property name="actuator_mass" value="1.5" />
+      <xacro:property name="effort_limit" value="40.0" />
+      <xacro:property name="velocity_limit" value="4.922" />
+    </xacro:if>
+    <xacro:if value="${model_name == 'T25_40'}">
+      <xacro:property name="actuator_mass" value="1.5" />
+      <xacro:property name="effort_limit" value="80.0" />
+      <xacro:property name="velocity_limit" value="2.409" />
+    </xacro:if>
 
     <!-- Note: the frction/damping probably need to be tuned more for accurate simulation -->
     <xacro:if value="${model_name.startswith('X5')}">
@@ -108,6 +138,11 @@
       <xacro:property name="damping" value="0.5" />
       <xacro:property name="friction" value="0.5" />
     </xacro:if>
+    <xacro:if value="${model_name.startswith('R25')}">
+      <xacro:property name="mesh_filename" value="file://$(find hebi_description)/meshes/R25.stl" />
+      <xacro:property name="damping" value="0.5" />
+      <xacro:property name="friction" value="0.5" />
+    </xacro:if>
     <xacro:if value="${model_name.startswith('T5')}">
       <xacro:property name="mesh_filename" value="file://$(find hebi_description)/meshes/T5.stl" />
       <xacro:property name="damping" value="0.1" />
@@ -115,6 +150,11 @@
     </xacro:if>
     <xacro:if value="${model_name.startswith('T8')}">
       <xacro:property name="mesh_filename" value="file://$(find hebi_description)/meshes/T8.stl" />
+      <xacro:property name="damping" value="0.5" />
+      <xacro:property name="friction" value="0.5" />
+    </xacro:if>
+    <xacro:if value="${model_name.startswith('T25')}">
+      <xacro:property name="mesh_filename" value="file://$(find hebi_description)/meshes/T25.stl" />
       <xacro:property name="damping" value="0.5" />
       <xacro:property name="friction" value="0.5" />
     </xacro:if>
@@ -129,11 +169,17 @@
     <xacro:if value="${model_name.startswith('R8')}">
       <xacro:property name="joint_offset" value="0.051" />
     </xacro:if>
+    <xacro:if value="${model_name.startswith('R25')}">
+      <xacro:property name="joint_offset" value="0.069" />
+    </xacro:if>
     <xacro:if value="${model_name.startswith('T5')}">
       <xacro:property name="joint_offset" value="0.034" />
     </xacro:if>
     <xacro:if value="${model_name.startswith('T8')}">
       <xacro:property name="joint_offset" value="0.0475" />
+    </xacro:if>
+    <xacro:if value="${model_name.startswith('T25')}">
+      <xacro:property name="joint_offset" value="0.067" />
     </xacro:if>
 
     <!-- Link definition -->
@@ -179,6 +225,12 @@
             iyy="0.001009" iyz="0.00000494"
             izz="0.001186" />
         </xacro:if>
+        <xacro:if value="${model_name.startswith('R25')}">
+          <origin xyz="-0.0268 -0.000357 0.0349" rpy="0 0 0" />
+          <inertia ixx="0.0026" ixy="-0.0002" ixz="0.0001"
+            iyy="0.0044" iyz="0.000"
+            izz="0.0054" />
+        </xacro:if>
         <xacro:if value="${model_name.startswith('T5')}">
           <origin xyz="-0.0240 -0.00161 0.0165" rpy="0 0 0" />
           <inertia ixx="0.00015" ixy="0.0000341" ixz="0.0000118"
@@ -190,6 +242,12 @@
           <inertia ixx="0.000246" ixy="0.0000444" ixz="0.0000266"
             iyy="0.000380" iyz="0.00000422"
             izz="0.000463" />
+        </xacro:if>
+        <xacro:if value="${model_name.startswith('T25')}">
+          <origin xyz="-0.0241 -0.0001 0.0338" rpy="0 0 0" />
+          <inertia ixx="0.0019" ixy="-0.0002" ixz="0.0001"
+            iyy="0.0031" iyz="0.000"
+            izz="0.0038" />
         </xacro:if>
       </inertial>
     </link>
@@ -232,7 +290,7 @@
       <joint name="${name}" type="${urdf_joint_type}">
         <parent link="${parent}" />
         <child link="${name}/body" />
-        <origin xyz="0 0 ${joint_offset}" rpy="0 ${pi} 0" />
+        <origin xyz="0 0 ${joint_offset}" rpy="${pi} 0 0" />
         <axis xyz="0 0 -1" />
 
         <!-- Continuous joints (no position limits) -->

@@ -10,7 +10,7 @@
   <xacro:output parent="$(arg prefix)T1_mount" child="$(arg prefix)T1_J1_interface" name="$(arg prefix)T1_mount_T1_J1_flipper"/>
   <xacro:rigid-body mass="0.01" name="$(arg prefix)T1_J1_interface"/>
   <xacro:actuator type="R25_40" reverse="true" name="$(arg prefix)T1_J1_flipper" parent="$(arg prefix)T1_J1_interface" child="$(arg prefix)T1_track_frame"/>
-  <xacro:rigid-body mass="2.0" mesh_path="file://$(find hebi_description)/meshes/A-2684-01.stl" mesh_trans="-0.1964 0 -0.024" mesh_rot="3.1416 0 0" name="$(arg prefix)T1_track_frame"/>
+  <xacro:rigid-body mass="2.0" mesh_path="file://$(find hebi_description)/meshes/A-2684-01.stl" mesh_trans="-0.2 0 0.025" mesh_rot="3.1416 0 0" name="$(arg prefix)T1_track_frame"/>
   <xacro:output trans="-0.4039 0 0.052" rot="3.1416 0 3.1416" parent="$(arg prefix)T1_track_frame" child="$(arg prefix)T1_J2_track/body" name="$(arg prefix)T1_track_frame_T1_J2_track"/>
   <xacro:actuator type="R25_20" name="$(arg prefix)T1_J2_track" child="$(arg prefix)T1_sprocket"/>
   <xacro:rigid-body mass="0.2" mesh_path="file://$(find hebi_description)/meshes/PM-3346-01.stl" name="$(arg prefix)T1_sprocket"/>
@@ -22,7 +22,7 @@
   <xacro:output parent="$(arg prefix)T2_mount" child="$(arg prefix)T2_J1_interface" name="$(arg prefix)T2_mount_T2_J1_flipper"/>
   <xacro:rigid-body mass="0.01" name="$(arg prefix)T2_J1_interface"/>
   <xacro:actuator type="R25_40" reverse="true" name="$(arg prefix)T2_J1_flipper" parent="$(arg prefix)T2_J1_interface" child="$(arg prefix)T2_track_frame"/>
-  <xacro:rigid-body mass="2.0" mesh_path="file://$(find hebi_description)/meshes/A-2684-01.stl" mesh_trans="-0.1964 0 -0.024" mesh_rot="3.1416 0 0" name="$(arg prefix)T2_track_frame"/>
+  <xacro:rigid-body mass="2.0" mesh_path="file://$(find hebi_description)/meshes/A-2684-01.stl" mesh_trans="-0.2 0 0.025" mesh_rot="3.1416 0 0" name="$(arg prefix)T2_track_frame"/>
   <xacro:output trans="-0.4039 0 0.052" rot="3.1416 0 3.1416" parent="$(arg prefix)T2_track_frame" child="$(arg prefix)T2_J2_track/body" name="$(arg prefix)T2_track_frame_T2_J2_track"/>
   <xacro:actuator type="R25_20" name="$(arg prefix)T2_J2_track" child="$(arg prefix)T2_sprocket"/>
   <xacro:rigid-body mass="0.2" mesh_path="file://$(find hebi_description)/meshes/PM-3346-01.stl" name="$(arg prefix)T2_sprocket"/>
@@ -34,7 +34,7 @@
   <xacro:output parent="$(arg prefix)T3_mount" child="$(arg prefix)T3_J1_interface" name="$(arg prefix)T3_mount_T3_J1_flipper"/>
   <xacro:rigid-body mass="0.01" name="$(arg prefix)T3_J1_interface"/>
   <xacro:actuator type="R25_40" reverse="true" name="$(arg prefix)T3_J1_flipper" parent="$(arg prefix)T3_J1_interface" child="$(arg prefix)T3_track_frame"/>
-  <xacro:rigid-body mass="2.0" mesh_path="file://$(find hebi_description)/meshes/A-2684-01.stl" mesh_trans="-0.1964 0 -0.024" mesh_rot="3.1416 0 0" name="$(arg prefix)T3_track_frame"/>
+  <xacro:rigid-body mass="2.0" mesh_path="file://$(find hebi_description)/meshes/A-2684-01.stl" mesh_trans="-0.2 0 0.025" mesh_rot="3.1416 0 0" name="$(arg prefix)T3_track_frame"/>
   <xacro:output trans="-0.4039 0 0.052" rot="3.1416 0 3.1416" parent="$(arg prefix)T3_track_frame" child="$(arg prefix)T3_J2_track/body" name="$(arg prefix)T3_track_frame_T3_J2_track"/>
   <xacro:actuator type="R25_20" name="$(arg prefix)T3_J2_track" child="$(arg prefix)T3_sprocket"/>
   <xacro:rigid-body mass="0.2" mesh_path="file://$(find hebi_description)/meshes/PM-3346-01.stl" name="$(arg prefix)T3_sprocket"/>
@@ -46,7 +46,7 @@
   <xacro:output parent="$(arg prefix)T4_mount" child="$(arg prefix)T4_J1_interface" name="$(arg prefix)T4_mount_T4_J1_flipper"/>
   <xacro:rigid-body mass="0.01" name="$(arg prefix)T4_J1_interface"/>
   <xacro:actuator type="R25_40" reverse="true" name="$(arg prefix)T4_J1_flipper" parent="$(arg prefix)T4_J1_interface" child="$(arg prefix)T4_track_frame"/>
-  <xacro:rigid-body mass="2.0" mesh_path="file://$(find hebi_description)/meshes/A-2684-01.stl" mesh_trans="-0.1964 0 -0.024" mesh_rot="3.1416 0 0" name="$(arg prefix)T4_track_frame"/>
+  <xacro:rigid-body mass="2.0" mesh_path="file://$(find hebi_description)/meshes/A-2684-01.stl" mesh_trans="-0.2 0 0.025" mesh_rot="3.1416 0 0" name="$(arg prefix)T4_track_frame"/>
   <xacro:output trans="-0.4039 0 0.052" rot="3.1416 0 3.1416" parent="$(arg prefix)T4_track_frame" child="$(arg prefix)T4_J2_track/body" name="$(arg prefix)T4_track_frame_T4_J2_track"/>
   <xacro:actuator type="R25_20" name="$(arg prefix)T4_J2_track" child="$(arg prefix)T4_sprocket"/>
   <xacro:rigid-body mass="0.2" mesh_path="file://$(find hebi_description)/meshes/PM-3346-01.stl" name="$(arg prefix)T4_sprocket"/>

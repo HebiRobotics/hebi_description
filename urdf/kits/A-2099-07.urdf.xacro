@@ -11,8 +11,8 @@
   </joint>
   <xacro:actuator type="X8_9" name="$(arg prefix)J1_base" child="$(arg prefix)bracket_1"/>
   <xacro:bracket type="X5HeavyLeftOutside" name="$(arg prefix)bracket_1"/>
-  <xacro:output type="X5HeavyLeftOutside" parent="$(arg prefix)bracket_1" child="$(arg prefix)J2A_shoulder1&quot;/body" name="$(arg prefix)bracket_1_J2A_shoulder1&quot;"/>
-  <xacro:actuator type="X8_16" name="$(arg prefix)J2A_shoulder1&quot;" child="$(arg prefix)rigid_body_1"/>
+  <xacro:output type="X5HeavyLeftOutside" parent="$(arg prefix)bracket_1" child="$(arg prefix)J2A_shoulder1/body" name="$(arg prefix)bracket_1_J2A_shoulder1"/>
+  <xacro:actuator type="X8_16" name="$(arg prefix)J2A_shoulder1" child="$(arg prefix)rigid_body_1"/>
   <xacro:rigid-body mass="0.500" com_trans="0.06 0 -0.08855" name="$(arg prefix)rigid_body_1"/>
   <xacro:output trans="0.122 0 -0.08855" rot="3.1416 -1.5708 0" parent="$(arg prefix)rigid_body_1" child="$(arg prefix)J3_shoulder2/body" name="$(arg prefix)rigid_body_1_J3_shoulder2"/>
   <xacro:actuator type="X8_9" name="$(arg prefix)J3_shoulder2" child="$(arg prefix)link_1"/>

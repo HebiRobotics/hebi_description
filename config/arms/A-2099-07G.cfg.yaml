@@ -8,7 +8,7 @@ names: ["J1_base", "J2A_shoulder1", "J3_shoulder2", "J4_elbow1", "J5_elbow2", "J
 hrdf: "hrdf/A-2099-07G.hrdf"
 
 gains:
-  default: "gains/A-2099-01-7.xml"
+  default: "gains/A-2099-07.xml"
   gripper: "gains/A-2080-01.xml"
 
 feedback_frequency: 100 # [Hz]
